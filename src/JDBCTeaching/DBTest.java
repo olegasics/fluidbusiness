@@ -27,11 +27,11 @@ public class DBTest {
         else System.out.println("Не удалось подключиться к БД");
 
 
-        //try (PreparedStatement statement = connect.prepareStatement("SELECT * FROM forwarders WHERE id = (?)")) {
-        try {
-            Statement statement = connect.createStatement();
+        try (PreparedStatement statement = connect.prepareStatement("SELECT * FROM users  WHERE id = (?)")) {
+        //try {
+            statement.setInt(1,1);
 
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM users");
+            ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
                String name =  resultSet.getString("user_name");
