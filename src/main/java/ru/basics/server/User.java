@@ -1,16 +1,20 @@
 package main.java.ru.basics.server;
 
-import net.bytebuddy.build.ToStringPlugin;
-
 public class User {
-@ToStringPlugin.Exclude
+
+    private int id;
     private String login;
-    private String first_name;
-    private String lats_name;
+    private String name;
     private String phone_number;
     private String password;
     private String city;
 
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
     public String getLogin() {
         return login;
     }
@@ -19,20 +23,12 @@ public class User {
         this.login = login;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getName() {
+        return name;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
-    }
-
-    public String getLats_name() {
-        return lats_name;
-    }
-
-    public void setLats_name(String lats_name) {
-        this.lats_name = lats_name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPhone_number() {
