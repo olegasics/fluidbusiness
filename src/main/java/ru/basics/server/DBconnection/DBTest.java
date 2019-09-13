@@ -1,4 +1,4 @@
-package JDBCTeaching;
+package main.java.ru.basics.server.DBconnection;
 import java.sql.*;
 
 public class DBTest {
@@ -34,8 +34,14 @@ public class DBTest {
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
+                int id = resultSet.getInt("id");
                String name =  resultSet.getString("user_name");
-                System.out.println(name);
+               String login = resultSet.getString("user_login");
+               String psw = resultSet.getString("user_password");
+               String phone = resultSet.getString("user_phone");
+               String city = resultSet.getString("user_city ");
+                System.out.println("id " + "|" + " user_name " + "|" + " user_login " + "|" + " user_password " + "|" + " user_phone " + "|" + " user_city ");
+                System.out.println(id  + " | " + name + " | "  + login+ " | " + psw + " | " + phone+ " | " + city   );
                 //System.out.println("dsd");
             } else {
                 System.out.println("Не зашло в иф");
