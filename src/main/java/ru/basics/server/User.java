@@ -1,4 +1,4 @@
-package main.java.ru.basics.server;
+package ru.basics.server;
 
 public class User {
 
