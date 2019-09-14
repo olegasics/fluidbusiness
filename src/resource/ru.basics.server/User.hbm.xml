@@ -3,7 +3,9 @@
         "-//Hibernate/Hibernate Mapping DTD//EN"
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
-<hibernate-mapping xmlns="http://www.hibernate.org/xsd/hibernate-mapping">
+<hibernate-mapping xmlns="http://www.hibernate.org/xsd/hibernate-mapping"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.hibernate.org/xsd/hibernate-mapping ">
 
     <class name="ru.basics.server.User" table="users">
         <id name="login" column="user_login"/>
