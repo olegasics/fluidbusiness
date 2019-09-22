@@ -2,11 +2,16 @@ package ru.basics.server;
 
 import com.sun.istack.NotNull;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class User {
 
     @NotNull
 
     private int id;
+    @Id
     private String login;
     private String name;
     private String phone_number;

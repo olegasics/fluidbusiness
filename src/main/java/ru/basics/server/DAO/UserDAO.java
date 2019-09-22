@@ -34,6 +34,10 @@ public class UserDAO implements DAO<User, String> {
 
     @Override
     public User read(String s) {
+        try (final Session session = sessionFactory.openSession()) {
+
+
+        }
         return null;
     }
 
