@@ -10,7 +10,7 @@ public class Registration {
 
         SessionFactory sessionFactory = null;
 
-        private void newAddUser(String firstName, int id, String lastName, String login, String psw, String phone, String city) {
+        public void newAddUser(String firstName, int id, String lastName, String login, String psw, String phone, String city) {
 
         try {
             sessionFactory = new Configuration().configure().buildSessionFactory();

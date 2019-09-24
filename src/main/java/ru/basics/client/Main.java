@@ -1,4 +1,4 @@
-package main.java.ru.basics.client;
+package ru.basics.client;
 
 public class Main {
     public static void main(String[] args) {
