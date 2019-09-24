@@ -33,12 +33,12 @@ public class UserDAO implements DAO<User, String> {
     }
 
     @Override
-    public User read(String s) {
+    public User read(@NotNull final String key) {
         try (final Session session = sessionFactory.openSession()) {
-
+            final User user = session.get(User.class, key);
+            return user != null ? user : new User();
 
         }
-        return null;
     }
 
 

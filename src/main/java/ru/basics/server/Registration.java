@@ -8,8 +8,6 @@ import ru.basics.server.DAO.UserDAO;
 
 public class Registration {
 
-
-
         SessionFactory sessionFactory = null;
 
         private void newAddUser(String firstName, int id, String lastName, String login, String psw, String phone, String city) {

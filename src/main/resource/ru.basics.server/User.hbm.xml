@@ -13,6 +13,6 @@
         <property name="name" column="user_name"/>
         <property name="password" column="user_password"/>
         <property name="city" column="user_city"/>
-        <property name="number_phone" column="user_phone"/>
+        <property name="phone_number" column="user_phone"/>
     </class>
 </hibernate-mapping>
