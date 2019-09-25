@@ -9,14 +9,16 @@ import ru.basics.server.DAO.UserDAO;
 public class Auth {
 
     SessionFactory sessionFactory = null;
+     User resultUser = null;
 
-    public boolean Authy(String key) {
+    public User Authy(String key) {
         boolean isExistUser = false;
   try {
       sessionFactory = new Configuration().configure().buildSessionFactory();
     DAO<User, String> userDAO = new UserDAO(sessionFactory);
 
-            final User resultUser = userDAO.read(key);
+
+             resultUser = userDAO.read(key);
       System.out.println(resultUser);
                 if(resultUser != null) {
                     isExistUser = true;
@@ -27,8 +29,12 @@ public class Auth {
   } catch (NullPointerException e) {
       System.out.println("Такого пользователя нет");
   }
+    return resultUser;
+    }
 
-    return isExistUser;
+    @Override
+    public String toString() {
+        return "id_user: " + resultUser.getId() + "login_user: " + resultUser.getLogin();
     }
 
 

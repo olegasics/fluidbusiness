@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
+
 public class User {
 
     @NotNull
@@ -67,5 +68,9 @@ public class User {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String toString() {
+            return "id_user: " + getId() + "login_user: " + getLogin();
     }
 }
