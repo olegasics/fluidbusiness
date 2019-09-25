@@ -8,10 +8,10 @@ public class TestServer {
      Registration reg = new Registration();
 
 //        reg.newAddUser("Олег", 1, "Масло", "omaslo", "edcvfr12!", "89038456869", "Москва");
-        reg.newAddUser("Test", "test", "12!", "123", "Москва");
+        //reg.newAddUser("Test", "test", "12!", "123", "Москва");
         Auth auth = new Auth();
        //auth.Authy("omaslo");
-//        System.out.println(auth.Authy("omaslo"));
+      System.out.println(auth.Authy("omaslo", "edcvfr"));
 //        System.out.println(auth.Authy("ealekseeva"));
 
 

@@ -6,7 +6,7 @@ import org.hibernate.cfg.Configuration;
 import ru.basics.server.DAO.DAO;
 import ru.basics.server.DAO.UserDAO;
 
-public class Registration {
+public class Registration extends CheckUserValid {
 
         SessionFactory sessionFactory = null;
 
@@ -15,13 +15,9 @@ public class Registration {
         try {
             sessionFactory = new Configuration().configure().buildSessionFactory();
             DAO<User, String> userDAO = new UserDAO(sessionFactory);
+            User newUser = new User();
 
-
-            User newUser = null;
-            newUser = userDAO.read(login);
-            System.out.println(newUser);
-
-            if(newUser.getLogin() != null) {
+            if(checkUserForRegistration(login, newUser, userDAO)) {
                 System.out.println("Такой пользователь уже существует");
             } else {
                 newUser.setLogin(login);

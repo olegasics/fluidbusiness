@@ -6,21 +6,22 @@ import org.hibernate.cfg.Configuration;
 import ru.basics.server.DAO.DAO;
 import ru.basics.server.DAO.UserDAO;
 
-public class Auth {
+public class Auth extends CheckUserValid {
 
     SessionFactory sessionFactory = null;
      User resultUser = null;
 
-    public User Authy(String key) {
-        boolean isExistUser = false;
+    public User Authy(String key, String password) {
+
   try {
       sessionFactory = new Configuration().configure().buildSessionFactory();
-    DAO<User, String> userDAO = new UserDAO(sessionFactory);
-             resultUser = userDAO.read(key);
+   DAO<User, String> userDAO = new UserDAO(sessionFactory);
+             //resultUser = userDAO.read(key);
 
-                if(resultUser != null) {
-                    isExistUser = true;
-                } else isExistUser = false;
+                if(checkUserForAuth(key, password, resultUser, userDAO)) {
+                    System.out.println(resultUser);
+                    //реализовать логику, если пользователь ввел верный логин пароль
+                } else System.out.println("чет не то");
         } catch (HibernateException e) {
       System.out.println("Ошибка с бд " + e);
 
