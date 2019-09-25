@@ -16,12 +16,14 @@ public class Auth extends CheckUserValid {
   try {
       sessionFactory = new Configuration().configure().buildSessionFactory();
    DAO<User, String> userDAO = new UserDAO(sessionFactory);
-             //resultUser = userDAO.read(key);
+             resultUser = userDAO.read(key);
 
                 if(checkUserForAuth(key, password, resultUser, userDAO)) {
                     System.out.println(resultUser);
                     //реализовать логику, если пользователь ввел верный логин пароль
-                } else System.out.println("чет не то");
+                } else if(resultUser.getLogin() != null) {
+                    System.out.println("Введен не верный пароль");
+                } else System.out.println("Введен не верный логин");
         } catch (HibernateException e) {
       System.out.println("Ошибка с бд " + e);
 

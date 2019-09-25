@@ -6,7 +6,7 @@ import ru.basics.server.DAO.DAO;
 import ru.basics.server.DAO.UserDAO;
 
 public class CheckUserValid  {
-    SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+    //SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
     //DAO<User, String> userDAO = new UserDAO(sessionFactory);
     Boolean checkValid;
     Boolean checkIsExist;
@@ -14,8 +14,8 @@ public class CheckUserValid  {
     public boolean checkUserForRegistration(String login, User user, DAO<User,String> userDAO) {
          user = userDAO.read(login);
             if(user.getLogin() != null) {
-                 checkIsExist = false;
-            } else checkIsExist = true;
+                 checkIsExist = true;
+            } else checkIsExist = false;
 
             return checkIsExist;
     }
