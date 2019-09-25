@@ -8,7 +8,7 @@
     <class name="ru.basics.server.User" table="users">
         <id name="login" column="user_login"/>
         <property name="id" column="id_user"/>
-        <property name="name" column="user_name"/>
+        <property name="getFirst_name" column="user_name"/>
         <property name="password" column="user_password"/>
         <property name="city" column="user_city"/>
         <property name="phone_number" column="user_phone"/>
