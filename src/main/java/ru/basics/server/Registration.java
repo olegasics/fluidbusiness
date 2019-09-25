@@ -10,22 +10,27 @@ public class Registration {
 
         SessionFactory sessionFactory = null;
 
-        public void newAddUser(String name, int id, String login, String psw, String phone, String city) {
+        public void newAddUser(String name, String login, String psw, String phone, String city) {
 
         try {
             sessionFactory = new Configuration().configure().buildSessionFactory();
             DAO<User, String> userDAO = new UserDAO(sessionFactory);
 
-            User newUser = new User();
 
-            newUser.setLogin(login);
-            newUser.setName(name);
-            newUser.setId(id);
-            newUser.setPassword(psw);
-            newUser.setCity(city);
-            newUser.setPhone_number(phone);
-            userDAO.create(newUser);
+            User newUser = null;
+            newUser = userDAO.read(login);
+            System.out.println(newUser);
 
+            if(newUser.getLogin() != null) {
+                System.out.println("Такой пользователь уже существует");
+            } else {
+                newUser.setLogin(login);
+                newUser.setName(name);
+                newUser.setPassword(psw);
+                newUser.setCity(city);
+                newUser.setPhone_number(phone);
+                userDAO.create(newUser);
+            }
         } catch (HibernateException e) {
             e.printStackTrace();
         }

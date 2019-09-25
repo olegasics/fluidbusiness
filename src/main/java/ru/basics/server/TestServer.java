@@ -1,15 +1,20 @@
 package ru.basics.server;
 
+import ru.basics.server.DAO.UserDAO;
+
 public class TestServer {
 
     public static void main(String[] args) {
      Registration reg = new Registration();
+
 //        reg.newAddUser("Олег", 1, "Масло", "omaslo", "edcvfr12!", "89038456869", "Москва");
-        reg.newAddUser("Елена", 2, "ealekseeva", "edcvfr12!", "89855661313", "Москва");
+        reg.newAddUser("Test", "test", "12!", "123", "Москва");
         Auth auth = new Auth();
        //auth.Authy("omaslo");
-        System.out.println(auth.Authy("omaslo"));
-        System.out.println(auth.Authy("ealekseeva"));
+//        System.out.println(auth.Authy("omaslo"));
+//        System.out.println(auth.Authy("ealekseeva"));
+
+
 
     }
 }

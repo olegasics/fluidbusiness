@@ -16,10 +16,8 @@ public class Auth {
   try {
       sessionFactory = new Configuration().configure().buildSessionFactory();
     DAO<User, String> userDAO = new UserDAO(sessionFactory);
-
-
              resultUser = userDAO.read(key);
-      System.out.println(resultUser);
+
                 if(resultUser != null) {
                     isExistUser = true;
                 } else isExistUser = false;
