@@ -1,6 +1,7 @@
 package ru.basics.server;
 
 import com.sun.istack.NotNull;
+import org.hibernate.annotations.Generated;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -70,6 +71,7 @@ public class User {
         this.city = city;
     }
 
+    @Override
     public String toString() {
             return "id_user: " + getId() + "login_user: " + getLogin();
     }

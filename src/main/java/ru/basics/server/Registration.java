@@ -13,11 +13,11 @@ public class Registration extends CheckUserValid {
         public void newAddUser(String name, String login, String psw, String phone, String city) {
 
         try {
-            sessionFactory = new Configuration().configure().buildSessionFactory();
+            sessionFactory = new Configuration().configure("main/resources/hibernate.cfg.xml").buildSessionFactory();
             DAO<User, String> userDAO = new UserDAO(sessionFactory);
             User newUser = new User();
 
-            if(checkUserForRegistration(login, newUser, userDAO)) {
+            if(checkUserForRegistration(login, newUser, userDAO) == 1) {
                 System.out.println("Такой пользователь уже существует");
             } else {
                 newUser.setLogin(login);
