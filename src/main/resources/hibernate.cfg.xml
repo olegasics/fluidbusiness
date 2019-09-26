@@ -9,7 +9,7 @@
         <property name="dialect">org.hibernate.dialect.PostgreSQL94Dialect</property>
         <property name="show_sql">true</property>
 
-        <mapping class="ru.basics.server.User"/>
+        <mapping class="ru.basics.server.user.User"/>
         <mapping resource="ru/basics/server/User.hbm.xml"/>
 
 

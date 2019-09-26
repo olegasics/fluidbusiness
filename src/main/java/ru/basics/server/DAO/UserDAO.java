@@ -1,9 +1,8 @@
 package ru.basics.server.DAO;
 import com.sun.istack.NotNull;
 import org.hibernate.Session;
-import ru.basics.server.User;
+import ru.basics.server.user.User;
 
-import org.hibernate.cfg.Configuration;
 import org.hibernate.SessionFactory;
 
 public class UserDAO implements DAO<User, String> {

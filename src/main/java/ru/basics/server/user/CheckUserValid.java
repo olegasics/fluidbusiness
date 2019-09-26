@@ -1,9 +1,6 @@
-package ru.basics.server;
+package ru.basics.server.user;
 
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 import ru.basics.server.DAO.DAO;
-import ru.basics.server.DAO.UserDAO;
 
 public class CheckUserValid  {
     //SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();

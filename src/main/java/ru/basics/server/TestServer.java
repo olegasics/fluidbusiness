@@ -1,6 +1,7 @@
 package ru.basics.server;
 
-import ru.basics.server.DAO.UserDAO;
+import ru.basics.server.user.Auth;
+import ru.basics.server.user.Registration;
 
 public class TestServer {
 

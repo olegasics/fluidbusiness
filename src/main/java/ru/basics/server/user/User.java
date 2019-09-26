@@ -1,23 +1,29 @@
-package ru.basics.server;
+package ru.basics.server.user;
 
 import com.sun.istack.NotNull;
+import jdk.nashorn.internal.objects.annotations.Getter;
 import org.hibernate.annotations.Generated;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-
+@Table(name ="users")
 public class User {
 
     @NotNull
-
+    @GeneratedValue
+    @Column(name = "id_user")
     private int id;
     @Id
+    @Column(name = "user_login")
     private String login;
+    @Column(name = "user_name")
     private String name;
+    @Column(name = "user_phone")
     private String phone_number;
+    @Column(name = "user_password")
     private String password;
+    @Column(name = "user_city")
     private String city;
 
     public User() {

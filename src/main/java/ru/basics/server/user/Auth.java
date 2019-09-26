@@ -1,4 +1,4 @@
-package ru.basics.server;
+package ru.basics.server.user;
 
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
@@ -10,6 +10,7 @@ public class Auth extends CheckUserValid {
 
     SessionFactory sessionFactory = null;
      User resultUser = null;
+
 
     public User Authy(String key, String password) {
 
