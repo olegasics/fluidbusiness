@@ -1,7 +1,6 @@
-package ru.basics.server.user;
+package ru.basics.server.entity.user;
 
 import com.sun.istack.NotNull;
-import jdk.nashorn.internal.objects.annotations.Getter;
 import org.hibernate.annotations.Generated;
 
 import javax.persistence.*;
@@ -10,27 +9,30 @@ import javax.persistence.*;
 @Table(name ="users")
 public class User {
 
-    @NotNull
-    @GeneratedValue
-    @Column(name = "id_user")
-    private int id;
+
+
+    @Column()
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
     @Id
-    @Column(name = "user_login")
+    @Column()
+    @NotNull
     private String login;
-    @Column(name = "user_name")
+    @Column()
     private String name;
-    @Column(name = "user_phone")
+    @Column(unique = true)
     private String phone_number;
-    @Column(name = "user_password")
+    @Column()
+    @NotNull
     private String password;
-    @Column(name = "user_city")
+    @Column()
     private String city;
 
     public User() {
 
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
     public void setId(int id) {

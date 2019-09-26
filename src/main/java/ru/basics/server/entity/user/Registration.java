@@ -1,4 +1,4 @@
-package ru.basics.server.user;
+package ru.basics.server.entity.user;
 
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
@@ -13,7 +13,7 @@ public class Registration extends CheckUserValid {
         public void newAddUser(String name, String login, String psw, String phone, String city) {
 
         try {
-            sessionFactory = new Configuration().configure("main/resources/hibernate.cfg.xml").buildSessionFactory();
+            sessionFactory = new Configuration().configure().buildSessionFactory();
             DAO<User, String> userDAO = new UserDAO(sessionFactory);
             User newUser = new User();
 

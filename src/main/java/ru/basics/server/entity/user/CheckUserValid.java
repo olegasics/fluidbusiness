@@ -1,4 +1,4 @@
-package ru.basics.server.user;
+package ru.basics.server.entity.user;
 
 import ru.basics.server.DAO.DAO;
 

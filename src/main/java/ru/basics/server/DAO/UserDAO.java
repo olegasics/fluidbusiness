@@ -1,7 +1,7 @@
 package ru.basics.server.DAO;
 import com.sun.istack.NotNull;
 import org.hibernate.Session;
-import ru.basics.server.user.User;
+import ru.basics.server.entity.user.User;
 
 import org.hibernate.SessionFactory;
 
