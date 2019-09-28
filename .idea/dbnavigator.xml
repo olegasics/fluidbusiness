@@ -2,7 +2,7 @@
 <project version="4">
   <component name="DBNavigator.Project.DataEditorManager">
     <record-view-column-sorting-type value="BY_INDEX" />
-    <value-preview-text-wrapping value="true" />
+    <value-preview-text-wrapping value="false" />
     <value-preview-pinned value="false" />
   </component>
   <component name="DBNavigator.Project.DataExportManager">
@@ -25,15 +25,14 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="ea6c4251-24e1-4559-b70c-d1339f95ddcb">
-        <schema name="information_schema" object-types="function, table, view, sequence" />
-        <schema name="pg_catalog" object-types="function, table, view" />
-        <schema name="public" object-types="function, table, view" />
+        <schema name="pg_catalog" object-types="table, view, function" />
+        <schema name="public" object-types="table, view, function" />
       </connection>
     </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="ea6c4251-24e1-4559-b70c-d1339f95ddcb">
-      <console name="Connection" type="STANDARD" schema="" session="Main"><![CDATA[select * from users;]]></console>
+      <console name="Connection" type="STANDARD" schema="" session="Main"><![CDATA[select * from cargo_move;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">

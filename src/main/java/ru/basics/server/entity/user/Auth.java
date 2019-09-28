@@ -34,7 +34,7 @@ public class Auth extends CheckUserValid {
 
     @Override
     public String toString() {
-        return "id_user: " + resultUser.getId() + "login_user: " + resultUser.getLogin();
+        return "login_user: " + resultUser.getLogin();
     }
 
 

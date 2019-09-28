@@ -1,21 +1,15 @@
 package ru.basics.server.entity.user;
-
 import com.sun.istack.NotNull;
-import org.hibernate.annotations.Generated;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name ="users")
 public class User {
 
-
-
-    @Column()
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
     @Id
-    @Column()
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    @Column(unique = true)
     @NotNull
     private String login;
     @Column()
@@ -32,10 +26,10 @@ public class User {
 
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -81,6 +75,6 @@ public class User {
 
     @Override
     public String toString() {
-            return "id_user: " + getId() + "login_user: " + getLogin();
+            return "login_user: " + getLogin();
     }
 }

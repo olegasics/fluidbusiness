@@ -25,7 +25,7 @@ public class UserDAO implements DAO<User, String> {
             session.beginTransaction();
             //save object in DB
             session.save(user);
-            //commit change wint object in DBn
+            //commit change object in DBn
             session.getTransaction().commit();
         }
 
