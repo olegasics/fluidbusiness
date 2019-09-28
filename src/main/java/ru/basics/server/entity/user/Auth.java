@@ -1,10 +1,12 @@
 package ru.basics.server.entity.user;
 
+
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import ru.basics.server.DAO.DAO;
 import ru.basics.server.DAO.UserDAO;
+import ru.basics.server.connection.SessionFactoryUtil;
 
 public class Auth extends CheckUserValid {
 
@@ -15,7 +17,7 @@ public class Auth extends CheckUserValid {
     public User Authy(String key, String password) {
 
   try {
-      sessionFactory = new Configuration().configure().buildSessionFactory();
+      sessionFactory = SessionFactoryUtil.getInstance();
    DAO<User, String> userDAO = new UserDAO(sessionFactory);
              resultUser = userDAO.read(key);
 

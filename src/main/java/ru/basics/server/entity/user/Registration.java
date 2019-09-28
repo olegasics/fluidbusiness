@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import ru.basics.server.DAO.DAO;
 import ru.basics.server.DAO.UserDAO;
+import ru.basics.server.connection.SessionFactoryUtil;
 
 public class Registration extends CheckUserValid {
 
@@ -13,7 +14,7 @@ public class Registration extends CheckUserValid {
         public void newAddUser(String name, String login, String psw, String phone, String city) {
 
         try {
-            sessionFactory = new Configuration().configure().buildSessionFactory();
+            sessionFactory = SessionFactoryUtil.getInstance();
             DAO<User, String> userDAO = new UserDAO(sessionFactory);
             User newUser = new User();
 
