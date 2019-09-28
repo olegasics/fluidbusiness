@@ -17,6 +17,18 @@ public class CargoMove {
     @Column()
     private String statusMove;
 
+    public String getNumberProject() {
+        return numberProject;
+    }
+
+    public void setNumberProject(String numberProject) {
+        this.numberProject = numberProject;
+    }
+
+    @Column
+    @OneToOne
+    private String numberProject;
+
     @Column
     private String RP;
 
@@ -176,5 +188,11 @@ public class CargoMove {
 
     public void setUpd(boolean upd) {
         this.upd = upd;
+    }
+    @Override
+    public String toString() {
+        return "Number project: " + numberProject
+                + "Место погрузки: " + placeLoading
+                + "Место разгрузки: " + placeUnloading;
     }
 }

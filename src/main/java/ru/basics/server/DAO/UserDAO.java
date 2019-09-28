@@ -17,7 +17,6 @@ public class UserDAO implements DAO<User, String> {
         this.sessionFactory = sessionFactory;
     }
 
-
     @Override
     public void create(@NotNull final User user) {
         try (final Session session = sessionFactory.openSession()) {
@@ -28,7 +27,6 @@ public class UserDAO implements DAO<User, String> {
             //commit change object in DBn
             session.getTransaction().commit();
         }
-
     }
 
     @Override
@@ -39,7 +37,6 @@ public class UserDAO implements DAO<User, String> {
 
         }
     }
-
 
     @Override
     public void delete(User user) {
