@@ -14,7 +14,7 @@ public class SearchCargo {
     CargoMove cargoMove = null;
     List<CargoMove> cargoMovesResult = new ArrayList<>();
 
-    public CargoMove search(String numberProject) {
+    public List<CargoMove> search(String numberProject) {
         try {
             sessionFactory = SessionFactoryUtil.getInstance();
 
@@ -29,6 +29,9 @@ public class SearchCargo {
             }
         } catch (HibernateException e ) {
             System.out.println("Ошибка при поиске записи по номеру проекта в движении груза" + e);
+        } finally {
+            sessionFactory.close();
         }
+        return cargoMovesResult;
     }
 }
