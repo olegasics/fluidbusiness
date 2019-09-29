@@ -33,7 +33,8 @@ public class CargoMove {
     private String RP;
 
     @Column
-    private String endCustomer;
+    @OneToOne
+    private Contractor endCustomer;
 
     @Column
     private String nameCargo;
@@ -94,11 +95,11 @@ public class CargoMove {
         this.RP = RP;
     }
 
-    public String getEndCustomer() {
+    public Contractor getEndCustomer() {
         return endCustomer;
     }
 
-    public void setEndCustomer(String endCustomer) {
+    public void setEndCustomer(Contractor endCustomer) {
         this.endCustomer = endCustomer;
     }
 
