@@ -21,10 +21,7 @@ public class Auth extends CheckUserValid {
      public User AuthyByLogin (String login, String password) {
          try {
              DAO<User, String> userDAO = new UserDAO(sessionFactory);
-             Session session = sessionFactory.openSession();
-             Criteria criteria = session.createCriteria(User.class);
-             criteria.add(Restrictions.eq("login", login));
-             resultUser = (User) criteria.uniqueResult();
+             resultUser = userDAO.read(login);
              if(checkUserForAuth(login, password, resultUser, userDAO, sessionFactory) == 1) {
                  System.out.println(resultUser);
              }

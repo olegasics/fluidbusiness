@@ -10,6 +10,7 @@ import java.util.Date;
 @Table(name = "cargo_move")
 public class CargoMove {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -26,14 +27,12 @@ public class CargoMove {
     }
 
     @Column
-    @OneToOne
     private String numberProject;
 
     @Column
     private String RP;
 
     @Column
-    @OneToOne
     private Contractor endCustomer;
 
     @Column
@@ -46,17 +45,15 @@ public class CargoMove {
     private String placeUnloading;
 
     @Column
-    private Date dateSend;
+    private String dateSend;
 
     @Column
-    private Date dateDelivery;
+    private String dateDelivery;
 
     @Column
-    @OneToOne
     private Forwarders forwarder;
 
     @Column
-    @OneToOne
     private Contractor contractor;
 
     @Column
@@ -70,6 +67,10 @@ public class CargoMove {
 
     @Column
     private boolean upd;
+
+    public CargoMove() {
+
+    }
 
     public Long getId() {
         return id;
@@ -127,19 +128,19 @@ public class CargoMove {
         this.placeUnloading = placeUnloading;
     }
 
-    public Date getDateSend() {
+    public String getDateSend() {
         return dateSend;
     }
 
-    public void setDateSend(Date dateSend) {
+    public void setDateSend(String dateSend) {
         this.dateSend = dateSend;
     }
 
-    public Date getDateDelivery() {
+    public String getDateDelivery() {
         return dateDelivery;
     }
 
-    public void setDateDelivery(Date dateDelivery) {
+    public void setDateDelivery(String dateDelivery) {
         this.dateDelivery = dateDelivery;
     }
 

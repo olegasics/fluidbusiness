@@ -1,5 +1,6 @@
 package ru.basics.server.DAO.cargoMove;
 
+import com.sun.istack.NotNull;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import ru.basics.server.DAO.DAO;
@@ -14,7 +15,7 @@ public class CargoMoveDAO implements DAO<CargoMove, String> {
     }
 
     @Override
-    public void create(CargoMove cargoMove) {
+    public void create(@NotNull CargoMove cargoMove) {
         try(Session session = sessionFactory.openSession()) {
             session.getTransaction();
             session.save(cargoMove);

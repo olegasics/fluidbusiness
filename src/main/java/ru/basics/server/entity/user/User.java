@@ -6,11 +6,10 @@ import javax.persistence.*;
 @Table(name ="users")
 public class User {
 
-
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column
     private Long id;
-    @Id
     @Column(unique = true)
     @NotNull
     private String login;

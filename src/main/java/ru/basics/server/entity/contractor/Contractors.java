@@ -5,15 +5,5 @@ import javax.persistence.Id;
 
 public interface Contractors {
 
- //   Long id;
-
-
-   // String name;
-
-
-    //String phone;
-
-
-    //String city;
 
 }

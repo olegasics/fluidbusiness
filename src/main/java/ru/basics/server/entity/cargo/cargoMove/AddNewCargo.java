@@ -14,7 +14,7 @@ public class AddNewCargo {
     SessionFactory sessionFactory = null;
 
     public void add(String status, String RP, String numberProject, Contractor endCustomer, String nameCargo,
-                    String placeLoading, String placeUnloading, Date dateSend, Date dateDelivery,
+                    String placeLoading, String placeUnloading, String dateSend, String dateDelivery,
                     Forwarders forwarder, Contractor payerForCargo, String invoce, String trackNumber,
                     int TTNNumber, boolean upd ) {
 

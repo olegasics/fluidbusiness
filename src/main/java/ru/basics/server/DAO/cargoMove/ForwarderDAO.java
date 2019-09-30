@@ -28,7 +28,7 @@ public class ForwarderDAO implements DAO<Forwarders, String> {
     public Forwarders read(@NotNull final String key) {
         try(@NotNull Session session = sessionFactory.openSession()) {
             final Forwarders forwarder = session.get(Forwarders.class, key);
-            return  forwarder != null ? forwarder : new Forwarders();
+            return  forwarder != null ? forwarder : null;
         }
     }
 
