@@ -1,6 +1,6 @@
 package ru.basics.server.entity.cargo.cargoMove;
 
-import ru.basics.server.entity.cargo.forwarders.Forwarders;
+import ru.basics.server.entity.contractor.forwarders.Forwarders;
 import ru.basics.server.entity.contractor.Contractor;
 
 import javax.persistence.*;

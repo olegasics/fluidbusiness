@@ -4,7 +4,7 @@ import com.sun.istack.NotNull;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import ru.basics.server.DAO.DAO;
-import ru.basics.server.entity.cargo.forwarders.Forwarders;
+import ru.basics.server.entity.contractor.forwarders.Forwarders;
 
 public class ForwarderDAO implements DAO<Forwarders, String> {
 

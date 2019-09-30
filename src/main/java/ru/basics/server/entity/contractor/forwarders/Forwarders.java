@@ -1,4 +1,4 @@
-package ru.basics.server.entity.cargo.forwarders;
+package ru.basics.server.entity.contractor.forwarders;
 
 import javax.persistence.Column;
 import javax.persistence.Id;

@@ -1,12 +1,11 @@
 package ru.basics.server.entity.cargo.cargoMove;
 
-import com.sun.istack.NotNull;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import ru.basics.server.DAO.DAO;
 import ru.basics.server.DAO.cargoMove.CargoMoveDAO;
 import ru.basics.server.connection.SessionFactoryUtil;
-import ru.basics.server.entity.cargo.forwarders.Forwarders;
+import ru.basics.server.entity.contractor.forwarders.Forwarders;
 import ru.basics.server.entity.contractor.Contractor;
 
 import java.util.Date;
