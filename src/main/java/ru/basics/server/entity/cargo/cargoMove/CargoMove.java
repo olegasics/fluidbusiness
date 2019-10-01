@@ -33,7 +33,7 @@ public class CargoMove {
     private String RP;
 
     @Column
-    private Contractor endCustomer;
+    private String endCustomer;
 
     @Column
     private String nameCargo;
@@ -51,10 +51,10 @@ public class CargoMove {
     private String dateDelivery;
 
     @Column
-    private Forwarders forwarder;
+    private String forwarder;
 
     @Column
-    private Contractor contractor;
+    private String contractor;
 
     @Column
     private String invoce;
@@ -96,11 +96,11 @@ public class CargoMove {
         this.RP = RP;
     }
 
-    public Contractor getEndCustomer() {
+    public String getEndCustomer() {
         return endCustomer;
     }
 
-    public void setEndCustomer(Contractor endCustomer) {
+    public void setEndCustomer(String endCustomer) {
         this.endCustomer = endCustomer;
     }
 
@@ -144,19 +144,19 @@ public class CargoMove {
         this.dateDelivery = dateDelivery;
     }
 
-    public Forwarders getForwarder() {
+    public String getForwarder() {
         return forwarder;
     }
 
-    public void setForwarder(Forwarders forwarder) {
+    public void setForwarder(String forwarder) {
         this.forwarder = forwarder;
     }
 
-    public Contractor getContractor() {
+    public String getContractor() {
         return contractor;
     }
 
-    public void setContractor(Contractor contractor) {
+    public void setContractor(String contractor) {
         this.contractor = contractor;
     }
 

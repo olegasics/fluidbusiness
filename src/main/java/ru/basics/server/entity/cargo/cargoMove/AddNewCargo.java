@@ -12,10 +12,10 @@ import java.util.Date;
 
 public class AddNewCargo {
     SessionFactory sessionFactory = null;
-
-    public void add(String status, String RP, String numberProject, Contractor endCustomer, String nameCargo,
+    //change type on true: dateSend, dateDelivery forwarder payerForCargo
+    public void add(String status, String RP, String numberProject, String endCustomer, String nameCargo,
                     String placeLoading, String placeUnloading, String dateSend, String dateDelivery,
-                    Forwarders forwarder, Contractor payerForCargo, String invoce, String trackNumber,
+                    String forwarder, String payerForCargo, String invoce, String trackNumber,
                     int TTNNumber, boolean upd ) {
 
         try {

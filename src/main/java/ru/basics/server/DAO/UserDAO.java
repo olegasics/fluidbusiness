@@ -36,11 +36,11 @@ public class UserDAO implements DAO<User, String> {
     }
 
     @Override
-    public User read(@NotNull final String key) {
+    public User read(@NotNull String key) {
         try (final Session session = sessionFactory.openSession()) {
             Criteria criteria = session.createCriteria(User.class);
             criteria.add(Restrictions.eq("login", key));
-            final User user = (User) criteria.uniqueResult();
+             User user = (User) criteria.uniqueResult();
 
 //            final User user = session.get(User.class, key);
         return user != null ? user : new User();
