@@ -3,6 +3,7 @@ import com.sun.istack.NotNull;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Component;
 import ru.basics.server.entity.user.User;
 
 import org.hibernate.SessionFactory;

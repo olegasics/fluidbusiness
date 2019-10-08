@@ -1,5 +1,6 @@
 package ru.basics.server.entity.contractor.forwarders;
 
+import org.springframework.stereotype.Component;
 import ru.basics.server.entity.contractor.Contractor;
 import ru.basics.server.entity.contractor.Contractors;
 
@@ -10,7 +11,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "forwarders")
-public class Forwarders {
+
+public class Forwarders extends Contractors {
 
     @Id
     @Column
@@ -60,6 +62,11 @@ public class Forwarders {
         this.phone = phone;
         this.city = city;
         this.email = email;
+    }
+
+    @Override
+    public void addNewContactor(Contractors contractors) {
+        super.addNewContactor(contractors);
     }
 
     @Override

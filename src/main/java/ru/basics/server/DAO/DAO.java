@@ -2,6 +2,8 @@ package ru.basics.server.DAO;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Component;
+
 
 public interface DAO<Entity, Key> {
 

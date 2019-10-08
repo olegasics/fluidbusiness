@@ -3,9 +3,9 @@ package ru.basics.server.DAO.cargoMove;
 import com.sun.istack.NotNull;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Component;
 import ru.basics.server.DAO.DAO;
 import ru.basics.server.entity.cargo.cargoMove.CargoMove;
-
 public class CargoMoveDAO implements DAO<CargoMove, String> {
 
     SessionFactory sessionFactory = null;

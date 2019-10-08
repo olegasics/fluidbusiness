@@ -1,5 +1,6 @@
 package ru.basics.server.entity.cargo.cargoMove;
 
+import org.springframework.stereotype.Component;
 import ru.basics.server.entity.contractor.forwarders.Forwarders;
 import ru.basics.server.entity.contractor.Contractor;
 
@@ -8,6 +9,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "cargo_move")
+
 public class CargoMove {
 
 

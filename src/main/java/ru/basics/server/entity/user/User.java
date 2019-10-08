@@ -1,5 +1,7 @@
 package ru.basics.server.entity.user;
 import com.sun.istack.NotNull;
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 
 @Entity

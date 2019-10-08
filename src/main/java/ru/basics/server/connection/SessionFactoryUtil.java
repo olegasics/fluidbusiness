@@ -2,6 +2,7 @@ package ru.basics.server.connection;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.springframework.stereotype.Component;
 
 public class SessionFactoryUtil {
      private static volatile SessionFactory sessionFactory;

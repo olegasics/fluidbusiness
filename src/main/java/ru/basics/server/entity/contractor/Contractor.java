@@ -1,5 +1,7 @@
 package ru.basics.server.entity.contractor;
 
+import org.springframework.stereotype.Component;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,6 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "contractor")
+
 public class Contractor {
 
     @Column
