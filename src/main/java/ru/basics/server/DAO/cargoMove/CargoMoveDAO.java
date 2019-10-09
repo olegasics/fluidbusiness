@@ -3,21 +3,20 @@ package ru.basics.server.DAO.cargoMove;
 import com.sun.istack.NotNull;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.stereotype.Component;
-import ru.basics.server.DAO.DAO;
+import ru.basics.server.DAO.interfaces.DAO;
 import ru.basics.server.entity.cargo.cargoMove.CargoMove;
 public class CargoMoveDAO implements DAO<CargoMove, String> {
 
-    SessionFactory sessionFactory = null;
+   private final SessionFactory sessionFactory;
 
-    public CargoMoveDAO(SessionFactory sessionFactory) {
+    public CargoMoveDAO(@NotNull SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
     @Override
     public void create(@NotNull CargoMove cargoMove) {
         try(Session session = sessionFactory.openSession()) {
-            session.getTransaction();
+            session.beginTransaction();
             session.save(cargoMove);
             session.getTransaction().commit();
         }

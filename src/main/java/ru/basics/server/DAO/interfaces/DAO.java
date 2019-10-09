@@ -1,4 +1,4 @@
-package ru.basics.server.DAO;
+package ru.basics.server.DAO.interfaces;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

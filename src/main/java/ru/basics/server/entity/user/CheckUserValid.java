@@ -4,7 +4,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
-import ru.basics.server.DAO.DAO;
+import ru.basics.server.DAO.interfaces.DAO;
 import ru.basics.server.DAO.UserDAO;
 
 public class CheckUserValid  {

@@ -9,9 +9,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "cargo_move")
-
 public class CargoMove {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

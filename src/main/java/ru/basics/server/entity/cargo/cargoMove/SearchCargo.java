@@ -2,8 +2,7 @@ package ru.basics.server.entity.cargo.cargoMove;
 
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
-import org.springframework.stereotype.Component;
-import ru.basics.server.DAO.DAO;
+import ru.basics.server.DAO.interfaces.DAO;
 import ru.basics.server.DAO.cargoMove.CargoMoveDAO;
 import ru.basics.server.connection.SessionFactoryUtil;
 

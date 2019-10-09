@@ -1,18 +1,11 @@
 package ru.basics.server.entity.user;
 
 
-import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.criterion.Restrictions;
-import org.springframework.stereotype.Component;
-import ru.basics.server.DAO.DAO;
+import ru.basics.server.DAO.interfaces.DAO;
 import ru.basics.server.DAO.UserDAO;
 import ru.basics.server.connection.SessionFactoryUtil;
-
-import java.util.List;
 
 public class Auth extends CheckUserValid {
 

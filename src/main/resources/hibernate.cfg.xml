@@ -11,6 +11,7 @@
         <property name="show_sql">true</property>
 
         <mapping class="ru.basics.server.entity.user.User"/>
+        <mapping class="ru.basics.server.entity.cargo.cargoMove.CargoMove"/>
 <!--        <mapping resource="ru/basics/server/User.hbm.xml"/>-->
 
 

@@ -3,12 +3,11 @@ package ru.basics.server.DAO.cargoMove;
 import com.sun.istack.NotNull;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.stereotype.Component;
-import ru.basics.server.DAO.DAO;
+import ru.basics.server.DAO.interfaces.DAO;
 import ru.basics.server.entity.contractor.forwarders.Forwarders;
 public class ForwarderDAO implements DAO<Forwarders, String> {
 
-    private SessionFactory sessionFactory = null;
+    private SessionFactory sessionFactory;
 
     public ForwarderDAO(@NotNull SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
