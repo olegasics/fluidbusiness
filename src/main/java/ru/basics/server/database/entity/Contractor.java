@@ -1,4 +1,4 @@
-package ru.basics.server.entity.contractor;
+package ru.basics.server.database.entity;
 
 import org.springframework.stereotype.Component;
 
@@ -9,9 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "contractor")
-
 public class Contractor {
-
     @Column
     @Id
     private Long id;
@@ -20,16 +18,12 @@ public class Contractor {
     @Column
     private String phone;
     @Column
-    private  String city;
+    private String city;
 
-     public Contractor(String name, String phone, String city) {
+    public Contractor(String name, String phone, String city) {
         this.name = name;
         this.phone = phone;
         this.city = city;
-    }
-
-    public Contractor() {
-
     }
 
     public String getPhone() {

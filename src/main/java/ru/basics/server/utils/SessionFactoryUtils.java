@@ -1,17 +1,17 @@
-package ru.basics.server.connection;
+package ru.basics.server.utils;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.springframework.stereotype.Component;
 
-public class SessionFactoryUtil {
-     private static volatile SessionFactory sessionFactory;
+public class SessionFactoryUtils {
+    private static volatile SessionFactory sessionFactory;
 
-    private SessionFactoryUtil() {}
+    private SessionFactoryUtils() {
+    }
 
-    public static  SessionFactory getInstance() {
-        if(sessionFactory == null) {
-            synchronized (SessionFactoryUtil.class) {
+    public static SessionFactory getInstance() {
+        if (sessionFactory == null) {
+            synchronized (SessionFactoryUtils.class) {
                 if (sessionFactory == null) {
                     sessionFactory = new Configuration()
                             .configure("hibernate.cfg.xml")
@@ -19,6 +19,7 @@ public class SessionFactoryUtil {
                 }
             }
         }
+
         return sessionFactory;
     }
 }

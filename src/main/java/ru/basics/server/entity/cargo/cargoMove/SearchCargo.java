@@ -2,9 +2,10 @@ package ru.basics.server.entity.cargo.cargoMove;
 
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
-import ru.basics.server.DAO.interfaces.DAO;
-import ru.basics.server.DAO.cargoMove.CargoMoveDAO;
-import ru.basics.server.connection.SessionFactoryUtil;
+import ru.basics.server.database.dao.DAO;
+import ru.basics.server.database.dao.CargoMoveDAO;
+import ru.basics.server.utils.SessionFactoryUtils;
+import ru.basics.server.database.entity.CargoMove;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ public class SearchCargo {
 
     public List<CargoMove> search(String numberProject) {
         try {
-            sessionFactory = SessionFactoryUtil.getInstance();
+            sessionFactory = SessionFactoryUtils.getInstance();
 
             DAO<CargoMove, String> cargoDAO = new CargoMoveDAO(sessionFactory);
             //как получить количество совпадений в БД

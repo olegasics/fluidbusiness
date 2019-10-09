@@ -1,11 +1,6 @@
-package ru.basics.server.entity.cargo.cargoMove;
-
-import org.springframework.stereotype.Component;
-import ru.basics.server.entity.contractor.forwarders.Forwarders;
-import ru.basics.server.entity.contractor.Contractor;
+package ru.basics.server.database.entity;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Table(name = "cargo_move")
@@ -15,22 +10,14 @@ public class CargoMove {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column()
+    @Column
     private String statusMove;
-
-    public String getNumberProject() {
-        return numberProject;
-    }
-
-    public void setNumberProject(String numberProject) {
-        this.numberProject = numberProject;
-    }
 
     @Column
     private String numberProject;
 
     @Column
-    private String RP;
+    private String manager;
 
     @Column
     private String endCustomer;
@@ -68,6 +55,24 @@ public class CargoMove {
     @Column
     private boolean upd;
 
+    public CargoMove(String statusMove, String numberProject, String manager, String endCustomer, String nameCargo, String placeLoading, String placeUnloading, String dateSend, String dateDelivery, String forwarder, String contractor, String invoce, String trackNumber, int TTNNumber, boolean upd) {
+        this.statusMove = statusMove;
+        this.numberProject = numberProject;
+        this.manager = manager;
+        this.endCustomer = endCustomer;
+        this.nameCargo = nameCargo;
+        this.placeLoading = placeLoading;
+        this.placeUnloading = placeUnloading;
+        this.dateSend = dateSend;
+        this.dateDelivery = dateDelivery;
+        this.forwarder = forwarder;
+        this.contractor = contractor;
+        this.invoce = invoce;
+        this.trackNumber = trackNumber;
+        this.TTNNumber = TTNNumber;
+        this.upd = upd;
+    }
+
     public CargoMove() {
 
     }
@@ -88,12 +93,20 @@ public class CargoMove {
         this.statusMove = statusMove;
     }
 
-    public String getRP() {
-        return RP;
+    public String getNumberProject() {
+        return numberProject;
     }
 
-    public void setRP(String RP) {
-        this.RP = RP;
+    public void setNumberProject(String numberProject) {
+        this.numberProject = numberProject;
+    }
+
+    public String getManager() {
+        return manager;
+    }
+
+    public void setManager(String manager) {
+        this.manager = manager;
     }
 
     public String getEndCustomer() {
@@ -191,6 +204,7 @@ public class CargoMove {
     public void setUpd(boolean upd) {
         this.upd = upd;
     }
+
     @Override
     public String toString() {
         return "Number project: " + numberProject

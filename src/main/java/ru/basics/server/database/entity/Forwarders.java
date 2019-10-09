@@ -1,22 +1,29 @@
-package ru.basics.server.entity.contractor;
+package ru.basics.server.database.entity;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "forwarders")
 
-public abstract class Contractors {
+public class Forwarders extends Contractors {
 
+    @Id
+    @Column
     private Long id;
 
-
+    @Column(unique = true)
     private String name;
 
+    @Column(unique = true)
     private String email;
 
-
+    @Column(unique = true)
     private String phone;
 
+    @Column
     private String city;
 
     public Long getId() {
@@ -42,25 +49,24 @@ public abstract class Contractors {
         return city;
     }
 
-    public Contractors() {
+    public Forwarders() {
 
     }
 
-    public Contractors(String name, String phone, String city, String email) {
+    public Forwarders(String name, String phone, String city, String email) {
         this.name = name;
         this.phone = phone;
         this.city = city;
         this.email = email;
     }
 
+    @Override
     public void addNewContactor(Contractors contractors) {
-
+//        super.addNewContactor(contractors);
     }
-
 
     @Override
     public String toString() {
         return "forwarder_name: " + name;
     }
-
 }

@@ -1,10 +1,9 @@
-package ru.basics.server.DAO.cargoMove;
+package ru.basics.server.database.dao;
 
 import com.sun.istack.NotNull;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import ru.basics.server.DAO.interfaces.DAO;
-import ru.basics.server.entity.contractor.forwarders.Forwarders;
+import ru.basics.server.database.entity.Forwarders;
 public class ForwarderDAO implements DAO<Forwarders, String> {
 
     private SessionFactory sessionFactory;
