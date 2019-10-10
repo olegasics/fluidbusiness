@@ -18,6 +18,7 @@ public class AuthUtils {
 
     public static String signIn(User user) throws UserNotFoundException {
         if (userDAO.exists(user.getLogin())) {
+
             return "AUTH TOKEN"; // TODO Почитай про это и добавь проверку пароля
         }
 

@@ -11,27 +11,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchCargo {
-    SessionFactory sessionFactory = null;
-    CargoMove cargoMove = null;
+    CargoMoveDAO cargoMoveDAO = new CargoMoveDAO();
+    CargoMove cargoMove;
     List<CargoMove> cargoMovesResult = new ArrayList<>();
 
     public List<CargoMove> search(String numberProject) {
         try {
-            sessionFactory = SessionFactoryUtils.getInstance();
-
-            DAO<CargoMove, String> cargoDAO = new CargoMoveDAO(sessionFactory);
-            //как получить количество совпадений в БД
-            cargoMove = cargoDAO.read(numberProject);
-            while(cargoMove.getNumberProject() != null) {
-                System.out.println(cargoMove);
-                cargoMovesResult.add(cargoMove);
-                cargoMove = cargoDAO.read(numberProject);
-
-            }
+           if(cargoMoveDAO.existsProject(numberProject)) {
+               //как получить количество совпадений в БД
+               while (cargoMove.getNumberProject() != null) {
+                   cargoMove = cargoMoveDAO.readNumProject(numberProject);
+                   cargoMovesResult.add(cargoMove);
+               }
+           }
         } catch (HibernateException e ) {
             System.out.println("Ошибка при поиске записи по номеру проекта в движении груза" + e);
-        } finally {
-            sessionFactory.close();
         }
         return cargoMovesResult;
     }

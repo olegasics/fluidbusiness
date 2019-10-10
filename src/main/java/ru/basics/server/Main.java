@@ -1,8 +1,11 @@
 package ru.basics.server;
 
+import ru.basics.server.database.dao.CargoMoveDAO;
 import ru.basics.server.database.dao.UserDAO;
+import ru.basics.server.database.entity.CargoMove;
 import ru.basics.server.database.entity.User;
-import ru.basics.server.entity.cargo.cargoMove.AddNewCargo;
+import ru.basics.server.entity.cargo.cargoMove.AddCargo;
+import ru.basics.server.entity.cargo.cargoMove.SearchCargo;
 import ru.basics.server.utils.AuthUtils;
 
 public class Main {
@@ -26,13 +29,18 @@ public class Main {
         //        System.out.println(auth.Authy("ealekseeva"));
 
 
-
-
-
-
-        AuthUtils.signUp(new User("Kek", "cheburek", "1234"));
-        String token = AuthUtils.signIn(new User("Kek", "cheburek"));
-        System.out.println(token);
+       // AuthUtils.signUp(new User("Kek", "cheburek", "1234"));
+        AddCargo addCargo = new AddCargo();
+//        addCargo.add("В пути", "DPO", "RU08259", "ЯМЦ",
+//               "переходы", "Синерго, Обнинск", "ЯМЦ, Ярославль", "30.09.2019", "31.09.2019",
+//               "Деловые Линии", "Флюид Бизнес", "счет №1", "00000", 123, true);
+        SearchCargo searchCargo = new SearchCargo();
+        System.out.println(searchCargo.search("RU08259"));
+//        CargoMoveDAO cargoMoveDAO = new CargoMoveDAO();
+//        System.out.println(cargoMoveDAO.existsProject("RU06297"));
+//
+//        String token = AuthUtils.signIn(new User("Kek", "cheburek"));
+//        System.out.println(token);
 
     }
 }

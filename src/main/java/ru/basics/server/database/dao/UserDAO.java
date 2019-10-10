@@ -14,16 +14,7 @@ public class UserDAO extends AbstractDAO<User> {
         return User.class;
     }
 
-    public User findByLogin(@NotNull String key) {
-        try (final Session session = sessionFactory.openSession()) {
-            Criteria criteria = session.createCriteria(User.class);
-            criteria.add(Restrictions.eq("login", key));
-
-            return (User) criteria.uniqueResult();
-        }
-    }
-
     public boolean exists(String login) {
-        return this.findByLogin(login) != null;
+        return this.findByField("login", login) != null;
     }
 }
