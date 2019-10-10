@@ -19,10 +19,8 @@ public class SearchCargo {
         try {
            if(cargoMoveDAO.existsProject(numberProject)) {
                //как получить количество совпадений в БД
-               while (cargoMove.getNumberProject() != null) {
-                   cargoMove = cargoMoveDAO.readNumProject(numberProject);
-                   cargoMovesResult.add(cargoMove);
-               }
+                    cargoMovesResult = cargoMoveDAO.readNumProject(numberProject);
+                   cargoMove = cargoMoveDAO.readNumProject(numberProject).get(0);
            }
         } catch (HibernateException e ) {
             System.out.println("Ошибка при поиске записи по номеру проекта в движении груза" + e);

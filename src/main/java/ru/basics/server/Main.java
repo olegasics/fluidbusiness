@@ -30,12 +30,15 @@ public class Main {
 
 
        // AuthUtils.signUp(new User("Kek", "cheburek", "1234"));
-        AddCargo addCargo = new AddCargo();
-//        addCargo.add("В пути", "DPO", "RU08259", "ЯМЦ",
+//        AddCargo addCargo = new AddCargo();
+//        addCargo.add("В пути", "DPO", "RU06297", "ЯМЦ",
 //               "переходы", "Синерго, Обнинск", "ЯМЦ, Ярославль", "30.09.2019", "31.09.2019",
 //               "Деловые Линии", "Флюид Бизнес", "счет №1", "00000", 123, true);
         SearchCargo searchCargo = new SearchCargo();
-        System.out.println(searchCargo.search("RU08259"));
+        for(CargoMove cargoMove : searchCargo.search("RU06297")) {
+            System.out.println(cargoMove);
+        }
+       // System.out.println(searchCargo.search("RU06297"));
 //        CargoMoveDAO cargoMoveDAO = new CargoMoveDAO();
 //        System.out.println(cargoMoveDAO.existsProject("RU06297"));
 //
