@@ -8,4 +8,6 @@ public class CargoMoveDAO extends AbstractDAO<CargoMove> {
     public Class<CargoMove> getEntityClass() {
         return CargoMove.class;
     }
+
+
 }
