@@ -8,6 +8,8 @@ import ru.basics.server.database.entity.User;
 
 import org.hibernate.SessionFactory;
 
+import java.util.List;
+
 public class UserDAO extends AbstractDAO<User> {
     @Override
     public Class<User> getEntityClass() {
@@ -17,4 +19,5 @@ public class UserDAO extends AbstractDAO<User> {
     public boolean exists(String login) {
         return this.findByField("login", login) != null;
     }
+
 }

@@ -33,6 +33,7 @@ public abstract class AbstractDAO<T> {
         try (Session session = sessionFactory.openSession()) {
             Criteria criteria = session.createCriteria(this.getEntityClass(), String.valueOf(key));
             criteria.add(Restrictions.eq(field, key));
+            System.out.println(criteria.list());
             return (List<T>) criteria.list();
         }
     }
