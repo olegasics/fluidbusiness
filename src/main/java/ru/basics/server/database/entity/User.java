@@ -16,28 +16,22 @@ public class User extends AbstractPerson {
 
     public User() {
     }
-
     public User(String login, String password) {
         this.login = login;
         this.password = password;
     }
-
     public User(String login, String password, String phoneNumber) {
         super(phoneNumber);
 
         this.login = login;
         this.password = password;
     }
-
     public User(String login, String password, String name, String phoneNumber, String city) {
         super(name, phoneNumber);
-
         this.login = login;
         this.password = password;
         this.city = city;
     }
-
-
     public String getLogin() {
         return login;
     }

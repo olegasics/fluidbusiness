@@ -30,11 +30,9 @@ public class Contractor {
         return phone;
     }
 
-
     public String getCity() {
         return city;
     }
-
 
     public String getName() {
         return name;
