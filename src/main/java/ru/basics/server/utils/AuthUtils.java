@@ -5,9 +5,6 @@ import ru.basics.server.database.entity.User;
 import ru.basics.server.database.exceptions.UserAlreadyExistsException;
 import ru.basics.server.database.exceptions.UserNotFoundException;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class AuthUtils {
     private static final UserDAO userDAO = new UserDAO();
 
