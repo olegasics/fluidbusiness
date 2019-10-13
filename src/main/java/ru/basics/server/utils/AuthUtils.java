@@ -18,8 +18,10 @@ public class AuthUtils {
 
     public static String signIn(User user) throws UserNotFoundException {
         if (userDAO.exists(user.getLogin())) {
-            if (user.getPassword().equals(userDAO.findByField("password", user.getPassword()).get(0).getPassword())) {
-                return "AUTH TOKEN"; // TODO Почитай про это и добавь проверку пароля
+            if (user.getPassword().equals(userDAO.findByField("login", user.getLogin()).get(0).getPassword())) {
+                return "AUTH TOKEN"; // TODO Почитай про это и добавь проверку пароля (проверяет пароль в базе, а не у пользователя
+            } else {
+                return "Password invalid!";
             }
         }
 

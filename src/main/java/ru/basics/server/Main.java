@@ -11,12 +11,7 @@ import ru.basics.server.utils.AuthUtils;
 public class Main {
     public static void main(String[] args) {
 
-//        addCargo.add("В пути", "DPO", "RU06297", "ЯМЦ",
-//               "переходы", "Синерго, Обнинск", "ЯМЦ, Ярославль", "30.09.2019", "31.09.2019",
-//               "Деловые Линии", "Флюид Бизнес", "счет №1", "00000", 123, true);
-
-        String token = AuthUtils.signIn(new User("Kek", "cheburek"));
-        CargoMoveDAO cargoMoveDAO = new CargoMoveDAO();
+        String token = AuthUtils.signIn(new User("Kek", "chebuk"));
         System.out.println(token);
 
     }
