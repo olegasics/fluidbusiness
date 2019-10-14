@@ -17,9 +17,9 @@ public class Project {
     private String manager;
 
     @Column
-    private Contractor endCustomer;
+    private Customer endCustomer;
 
-    public Project(String numProject, String manager, Contractor endCustomer) {
+    public Project(String numProject, String manager, Customer endCustomer) {
         this.numProject = numProject;
         this.manager = manager;
         this.endCustomer = endCustomer;
@@ -41,11 +41,11 @@ public class Project {
         this.manager = manager;
     }
 
-    public Contractor getEndCustomer() {
+    public Customer getEndCustomer() {
         return endCustomer;
     }
 
-    public void setEndCustomer(Contractor endCustomer) {
+    public void setEndCustomer(Customer endCustomer) {
         this.endCustomer = endCustomer;
     }
 }

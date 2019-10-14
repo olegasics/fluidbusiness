@@ -5,9 +5,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import ru.basics.server.utils.SessionFactoryUtils;
+
+import javax.swing.text.html.parser.Entity;
+import java.security.Key;
 import java.util.List;
 
-public abstract class AbstractDAO<T> {
+public abstract class AbstractDAO<T>  {
     SessionFactory sessionFactory;
     Criteria criteria;
 
@@ -30,6 +33,7 @@ public abstract class AbstractDAO<T> {
             return session.get(this.getEntityClass(), id);
         }
     }
+
     public List<T> findByField(String field, Object key) {
         try (Session session = sessionFactory.openSession()) {
               criteria =  session.createCriteria(this.getEntityClass())

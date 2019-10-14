@@ -1,5 +1,8 @@
 package ru.basics.server.database.entity;
 
+import jdk.nashorn.internal.objects.annotations.Getter;
+import jdk.nashorn.internal.objects.annotations.Setter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,46 +10,24 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "forwarders")
-
 public class Forwarders extends AbstractPerson {
-    @Id
-    @Column
-    private Long id;
-
-    @Column(unique = true)
-    private String name;
-
-    @Column(unique = true)
-    private String email;
-
-    @Column(unique = true)
-    private String phone;
 
     @Column
-    private String city;
+    String city;
 
-    public Long getId() {
-        return id;
+    public void setCity(String city) {
+        this.city = city;
     }
-    public String getName() {
-        return name;
-    }
-    public String getEmail() {
-        return email;
-    }
-    public String getPhone() {
-        return phone;
-    }
+
     public String getCity() {
         return city;
     }
+
     public Forwarders() {
     }
     public Forwarders(String name, String phone, String city, String email) {
-        this.name = name;
-        this.phone = phone;
+        super(name,phone,email);
         this.city = city;
-        this.email = email;
     }
     @Override
     public String toString() {

@@ -7,16 +7,16 @@ public class AbstractPerson {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column
-    private Long id;
+    protected Long id;
 
     @Column(nullable = false)
-    private String name;
+    protected String name;
 
     @Column(unique = true)
-    private String phoneNumber;
+    protected String phoneNumber;
 
     @Column(unique = true)
-    private String email;
+    protected String email;
 
     public AbstractPerson() {
     }
@@ -25,9 +25,9 @@ public class AbstractPerson {
         this.name = name;
     }
 
-    public AbstractPerson(String name, String phoneNumber) {
+    public AbstractPerson(String name, String email) {
         this.name = name;
-        this.phoneNumber = phoneNumber;
+        this.email = email;
     }
 
     public AbstractPerson(String name, String phoneNumber, String email) {

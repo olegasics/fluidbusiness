@@ -11,7 +11,7 @@ import ru.basics.server.utils.AuthUtils;
 public class Main {
     public static void main(String[] args) {
 
-        String token = AuthUtils.signIn(new User("Kek", "chebuk"));
+        String token = AuthUtils.signIn(new User("Kek", "cheburek"));
         System.out.println(token);
 
     }

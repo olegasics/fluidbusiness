@@ -7,5 +7,4 @@ public class CargoMoveDAO extends AbstractDAO<CargoMove> {
         return CargoMove.class;
     }
 
-
 }
