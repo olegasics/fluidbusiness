@@ -5,8 +5,12 @@ import ru.basics.server.database.entity.User;
 import ru.basics.server.database.exceptions.UserAlreadyExistsException;
 import ru.basics.server.database.exceptions.UserNotFoundException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AuthUtils {
     private static final UserDAO userDAO = new UserDAO();
+    static List<User> userAuth = new ArrayList<>();
 
     public static User signUp(User user) throws UserAlreadyExistsException {
         if (!userDAO.exists(user.getLogin())) {
@@ -24,6 +28,7 @@ public class AuthUtils {
             String passwordInDB = userDAO.findByField("login", userLoginInFiled).get(0).getPassword();
 
             if (userPasswordInFiled.equals(passwordInDB)) {
+                userAuth.add(user);
                 return "AUTH TOKEN"; // TODO Почитай про это
             } else {
                 return "Password invalid!";

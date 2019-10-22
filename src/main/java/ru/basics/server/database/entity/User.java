@@ -4,7 +4,18 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
-public class User extends AbstractPerson {
+public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @Column(nullable = false)
+    private String name;
+    private String phone;
+
+    private String email;
+
     @Column(unique = true, nullable = false)
     private String login;
 
@@ -14,6 +25,18 @@ public class User extends AbstractPerson {
     @Column
     private String city;
 
+    @Column
+    private Position position;
+
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
     public User() {
     }
     public User(String login, String password) {
@@ -21,16 +44,19 @@ public class User extends AbstractPerson {
         this.password = password;
     }
     public User(String login, String password, String phoneNumber) {
-        super(phoneNumber);
-
+        this.phone = phoneNumber;
         this.login = login;
         this.password = password;
     }
-    public User(String login, String password, String name, String phoneNumber, String city) {
-        super(name, phoneNumber);
+
+    public User(String login, String password, String email, String name, String phoneNumber, String city, Position position) {
+        this.name = name;
+        this.phone = phoneNumber;
+        this.email = email;
         this.login = login;
         this.password = password;
         this.city = city;
+        this.position = position;
     }
     public String getLogin() {
         return login;

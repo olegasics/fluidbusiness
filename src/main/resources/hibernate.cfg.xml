@@ -12,8 +12,7 @@
 
         <mapping class="ru.basics.server.database.entity.User"/>
         <mapping class="ru.basics.server.database.entity.CargoMove"/>
-        <!--        <mapping resource="ru/basics/server/User.hbm.xml"/>-->
-
+        <mapping class="ru.basics.server.database.entity.Forwarders"/>
 
     </session-factory>
 </hibernate-configuration>
