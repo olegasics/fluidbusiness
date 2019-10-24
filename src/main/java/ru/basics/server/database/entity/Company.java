@@ -3,49 +3,47 @@ package ru.basics.server.database.entity;
 import javax.persistence.*;
 import java.util.List;
 
-@MappedSuperclass
 @Entity
 @Table
 public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @Column(unique = true, nullable = false)
+    private String name;
+
     @Column
-    protected Long id;
+    private String contactPersonName;
 
-    private TypeCompanyEnum typeCompanyEnum;
-
-    @Column(nullable = false)
-    protected String name;
-
-    private Contract contract;
-
-    private String contactPerson;
-
+    @Column
     private String contactPersonPhone;
 
-    private String contactPersonEmail;
+    @Column
+    String contactPersonEmail;
 
-    private String adress_legal;
-    private String adresses_send;
-    private String adresses_delivery;
+    @Column
+    private String adressLegal;
 
-    private Driver driver;
+    @Column
+    private String adressSend;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sendContractor")
-    private List<Waybill> sendWaybills;
+    @Column
+    private String adressDelivery;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "deliveryContactor")
-    private List<Waybill> deliveryContractor;
+    @OneToMany(mappedBy = "company")
+    private List<DriverData> driverData;
 
-    public Company() {
-    }
-
-    public TypeCompanyEnum getTypeCompanyEnum() {
-        return typeCompanyEnum;
-    }
-
-    public void setTypeCompanyEnum(TypeCompanyEnum typeCompanyEnum) {
-        this.typeCompanyEnum = typeCompanyEnum;
+    public Company(String name, String contactPersonName, String contactPersonPhone,
+                   String contactPersonEmail, String adressLegal, String adressSend,
+                   String adressDelivery) {
+        this.name = name;
+        this.contactPersonName = contactPersonName;
+        this.contactPersonPhone = contactPersonPhone;
+        this.contactPersonEmail = contactPersonEmail;
+        this.adressLegal = adressLegal;
+        this.adressSend = adressSend;
+        this.adressDelivery = adressDelivery;
     }
 
     public String getName() {
@@ -56,20 +54,12 @@ public class Company {
         this.name = name;
     }
 
-    public Contract getContract() {
-        return contract;
+    public String getContactPersonName() {
+        return contactPersonName;
     }
 
-    public void setContract(Contract contract) {
-        this.contract = contract;
-    }
-
-    public String getContactPerson() {
-        return contactPerson;
-    }
-
-    public void setContactPerson(String contactPerson) {
-        this.contactPerson = contactPerson;
+    public void setContactPersonName(String contactPersonName) {
+        this.contactPersonName = contactPersonName;
     }
 
     public String getContactPersonPhone() {
@@ -88,51 +78,35 @@ public class Company {
         this.contactPersonEmail = contactPersonEmail;
     }
 
-    public String getAdress_legal() {
-        return adress_legal;
+    public String getAdressLegal() {
+        return adressLegal;
     }
 
-    public void setAdress_legal(String adress_legal) {
-        this.adress_legal = adress_legal;
+    public void setAdressLegal(String adressLegal) {
+        this.adressLegal = adressLegal;
     }
 
-    public String getAdresses_send() {
-        return adresses_send;
+    public String getAdressSend() {
+        return adressSend;
     }
 
-    public void setAdresses_send(String adresses_send) {
-        this.adresses_send = adresses_send;
+    public void setAdressSend(String adressSend) {
+        this.adressSend = adressSend;
     }
 
-    public String getAdresses_delivery() {
-        return adresses_delivery;
+    public String getAdressDelivery() {
+        return adressDelivery;
     }
 
-    public void setAdresses_delivery(String adresses_delivery) {
-        this.adresses_delivery = adresses_delivery;
+    public void setAdressDelivery(String adressDelivery) {
+        this.adressDelivery = adressDelivery;
     }
 
-    public Driver getDriver() {
-        return driver;
+    public List<DriverData> getDriverData() {
+        return driverData;
     }
 
-    public void setDriver(Driver driver) {
-        this.driver = driver;
+    public void setDriverData(List<DriverData> driverData) {
+        this.driverData = driverData;
     }
-
-    public Company(String name) {
-        this.name = name;
-    }
-
-    public Company(String name, String email) {
-        this.name = name;
-
-    }
-
-    public Company(String name, String phoneNumber, String email) {
-        this.name = name;
-
-    }
-
-
 }

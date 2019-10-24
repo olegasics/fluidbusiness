@@ -10,9 +10,9 @@
         <property name="dialect">org.hibernate.dialect.PostgreSQL94Dialect</property>
         <property name="show_sql">true</property>
 
-        <mapping class="ru.basics.server.database.entity.User"/>
-        <mapping class="ru.basics.server.database.entity.CargoMove"/>
-        <mapping class="ru.basics.server.database.entity.Forwarders"/>
+        <mapping class="ru.basics.server.database.entity.Company"/>
+        <mapping class="ru.basics.server.database.entity.DriverData"/>
+
 
     </session-factory>
 </hibernate-configuration>
