@@ -34,6 +34,21 @@ public class Company {
     @OneToMany(mappedBy = "company")
     private List<DriverData> driverData;
 
+    @OneToMany(mappedBy = "company")
+    private List<Document> documents;
+
+    @OneToMany(mappedBy = "payer")
+    private List<Document> documentsPayer;
+
+    @OneToMany(mappedBy = "endCustomer")
+    private List<Project> project;
+
+    @ManyToMany
+    private List<Project> providers;
+
+    public Company() {
+    }
+
     public Company(String name, String contactPersonName, String contactPersonPhone,
                    String contactPersonEmail, String adressLegal, String adressSend,
                    String adressDelivery) {
@@ -44,6 +59,38 @@ public class Company {
         this.adressLegal = adressLegal;
         this.adressSend = adressSend;
         this.adressDelivery = adressDelivery;
+    }
+
+    public List<Project> getProject() {
+        return project;
+    }
+
+    public void setProject(List<Project> project) {
+        this.project = project;
+    }
+
+    public List<Project> getProviders() {
+        return providers;
+    }
+
+    public void setProviders(List<Project> providers) {
+        this.providers = providers;
+    }
+
+    public List<Document> getDocuments() {
+        return documents;
+    }
+
+    public void setDocuments(List<Document> documents) {
+        this.documents = documents;
+    }
+
+    public List<Document> getDocumentsPayer() {
+        return documentsPayer;
+    }
+
+    public void setDocumentsPayer(List<Document> documentsPayer) {
+        this.documentsPayer = documentsPayer;
     }
 
     public String getName() {

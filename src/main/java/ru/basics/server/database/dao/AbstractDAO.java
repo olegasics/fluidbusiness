@@ -7,8 +7,6 @@ import org.hibernate.criterion.Restrictions;
 import ru.basics.server.utils.SessionFactoryUtils;
 
 import javax.persistence.MappedSuperclass;
-import javax.swing.text.html.parser.Entity;
-import java.security.Key;
 import java.util.List;
 
 @MappedSuperclass
@@ -20,13 +18,13 @@ public abstract class AbstractDAO<T>  {
         this.sessionFactory = SessionFactoryUtils.getInstance();
     }
 
-    public T create(T entity) {
+    public void create(T entity) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.save(entity);
             session.getTransaction().commit();
 
-            return entity;
+            //return entity;
         }
     }
 
@@ -42,6 +40,15 @@ public abstract class AbstractDAO<T>  {
                     .add(Restrictions.eq(field, key));
             return criteria.list();
         }
+    }
+
+    public void update(T entity) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.update(entity);
+            session.getTransaction().commit();
+        }
+        //return entity;
     }
 
     public abstract Class<T> getEntityClass();
