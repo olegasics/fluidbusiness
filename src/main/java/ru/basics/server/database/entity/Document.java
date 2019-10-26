@@ -7,7 +7,6 @@ import java.util.zip.DataFormatException;
 @Entity
 @Table
 public class Document {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

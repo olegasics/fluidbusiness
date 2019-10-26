@@ -6,7 +6,6 @@ import java.util.List;
 @Entity
 @Table
 public class Project {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -21,7 +20,11 @@ public class Project {
     @OneToMany(mappedBy = "")
     private List<Document> document;
 
+    @ManyToMany
     private List<Company> providers;
+
+    @ManyToMany
+    private List<User> team;
 
     public Project() {
     }
