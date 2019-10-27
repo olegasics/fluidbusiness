@@ -41,6 +41,14 @@ public class Document {
         this.date = date;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Project getNumProject() {
         return numProject;
     }

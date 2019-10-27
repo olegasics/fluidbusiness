@@ -1,19 +1,56 @@
 package ru.basics.server;
 
-import ru.basics.server.database.dao.CompanyDAO;
-import ru.basics.server.database.dao.DocumentDAO;
-import ru.basics.server.database.dao.DriverDataDAO;
-import ru.basics.server.database.entity.Company;
-import ru.basics.server.database.entity.Document;
-import ru.basics.server.database.entity.DriverData;
+import ru.basics.server.database.dao.*;
+import ru.basics.server.database.entity.*;
 
-import java.util.Date;
+import javax.persistence.Query;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
         CompanyDAO companyDAO = new CompanyDAO();
         DriverDataDAO driverDataDAO = new DriverDataDAO();
         DocumentDAO documentDAO = new DocumentDAO();
+        UserDAO userDAO = new UserDAO();
+        ProjectDAO projectDAO = new ProjectDAO();
+
+        Project projectRU06297 = projectDAO.findById(77L);
+
+
+//        User user = new User("Олег", "omaslo", "Edc",
+//                "omaslo@fluid", "Москва", "89038456869" );
+
+        User userElena = new User("Елена", "ealekseeva", "Edc",
+                "el@fluid", "Москва", "8985" );
+
+        userDAO.create(userElena);
+        projectRU06297.addUser(userElena);
+        projectDAO.update(projectRU06297);
+        Set<User> pro = projectRU06297.getTeam();
+        for(User user : pro) {
+            System.out.println(user.getName());
+        }
+        List<User> users = userDAO.findAllField();
+       for(User user : users) {
+           System.out.println(user.getProjects());
+       }
+
+        //System.out.println(users);
+
+//        projectRU06297.addUser(userOleg);
+//        userOleg.addProject(projectRU06297);
+//        projectDAO.update(projectRU06297);
+
+//        List<User> users = new ArrayList<>();
+//        users.add(userDAO.findById(75L));
+//        for(User user : users) {
+//            System.out.println(user.getProject().get(0).getNumber());
+//        }
+
+        //System.out.println(testProject.getTeam().get(1).getName());
+
 //        Company fluidBusiness = new Company("ООО \"Флюид Бизнес\"", "Олег", "89038456869",
 //                "omaslo@fluidbusiness.ru", "Москва, Сретенка 12",
 //                null, null );
@@ -21,9 +58,9 @@ public class Main {
 
         // Document invoice = new Document("438", fluidBusiness, new Date());
 
-        Document document = documentDAO.findByField("name", "438").get(0);
-        document.setStatus(true);
-        documentDAO.update(document);
+//        Document document = documentDAO.findByField("name", "438").get(0);
+//        document.setStatus(true);
+//        documentDAO.update(document);
 
 
 //

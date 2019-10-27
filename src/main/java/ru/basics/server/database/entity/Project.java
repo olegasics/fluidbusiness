@@ -1,7 +1,10 @@
 package ru.basics.server.database.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table
@@ -20,11 +23,20 @@ public class Project {
     @OneToMany(mappedBy = "")
     private List<Document> document;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "projects")
     private List<Company> providers;
 
-    @ManyToMany
-    private List<User> team;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "user_project",
+            joinColumns = {@JoinColumn(name = "project_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")}
+    )
+    private Set<User> team = new HashSet<>();
+
+    public void addUser(User user) {
+        team.add(user);
+    }
 
     public Project() {
     }
@@ -32,6 +44,24 @@ public class Project {
     public Project(String number, Company endCustomer) {
         this.number = number;
         this.endCustomer = endCustomer;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Set<User> getTeam() {
+        return team;
+    }
+
+
+
+    public void setTeam(Set<User> team) {
+        this.team = team;
     }
 
     public String getNumber() {

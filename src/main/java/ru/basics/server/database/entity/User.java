@@ -1,9 +1,13 @@
 package ru.basics.server.database.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table
+@Table(name = "person")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,23 +30,27 @@ public class User {
     @Column(unique = true)
     private String phoneNumber;
 
-    @Column(nullable = false)
+    @Column
     private Position position;
 
-    @ManyToMany
-    private Project project;
+    @ManyToMany(mappedBy = "team", fetch = FetchType.EAGER)
+    private Set<Project> projects = new HashSet<>();
+
+    public void addProject(Project project) {
+        projects.add(project);
+    }
 
     public User() {
     }
 
     public User(String name, String login, String password,
-                String email, Position position, Project project) {
+                String email, Position position, List<Project> project) {
         this.name = name;
         this.login = login;
         this.password = password;
         this.email = email;
         this.position = position;
-        this.project = project;
+        this.projects = projects;
     }
 
     public User(String login, String password) {
@@ -51,8 +59,19 @@ public class User {
     }
 
     public User(String name, String login, String password,
+                String email, String city, String phoneNumber) {
+        this.name = name;
+        this.login = login;
+        this.password = password;
+        this.email = email;
+        this.city = city;
+        this.phoneNumber = phoneNumber;
+        this.projects = projects;
+    }
+
+    public User(String name, String login, String password,
                 String email, String city, String phoneNumber,
-                Position position, Project project) {
+                Position position, Set<Project> projects) {
         this.name = name;
         this.login = login;
         this.password = password;
@@ -60,7 +79,31 @@ public class User {
         this.city = city;
         this.phoneNumber = phoneNumber;
         this.position = position;
-        this.project = project;
+        this.projects = projects;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
+    public Set<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(Set<Project> projects) {
+        this.projects = projects;
     }
 
     public String getName() {
@@ -111,19 +154,19 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public Position getPosition() {
+    public Position getPosotionUser() {
         return position;
     }
 
-    public void setPosition(Position position) {
-        this.position = position;
+    public void setPosotionUser(Position posotion) {
+        this.position = posotion;
     }
 
-    public Project getProject() {
-        return project;
+    public Set<Project> getProject() {
+        return projects;
     }
 
-    public void setProject(Project project) {
-        this.project = project;
+    public void setProject(Set<Project> projects) {
+        this.projects = projects;
     }
 }

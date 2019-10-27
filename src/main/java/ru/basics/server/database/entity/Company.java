@@ -1,6 +1,7 @@
 package ru.basics.server.database.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -44,7 +45,11 @@ public class Company {
     private List<Project> project;
 
     @ManyToMany
-    private List<Project> providers;
+    @JoinTable(name = "project_company",
+    joinColumns = @JoinColumn(name = "company_id", referencedColumnName = "id"),
+    inverseJoinColumns = @JoinColumn(name = "project_id", referencedColumnName = "id")
+    )
+    private List<Project> projects = new ArrayList<>();
 
     public Company() {
     }
@@ -61,6 +66,14 @@ public class Company {
         this.adressDelivery = adressDelivery;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public List<Project> getProject() {
         return project;
     }
@@ -69,12 +82,12 @@ public class Company {
         this.project = project;
     }
 
-    public List<Project> getProviders() {
-        return providers;
+    public List<Project> getProjects() {
+        return projects;
     }
 
-    public void setProviders(List<Project> providers) {
-        this.providers = providers;
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
     }
 
     public List<Document> getDocuments() {

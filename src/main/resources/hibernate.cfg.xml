@@ -14,6 +14,7 @@
         <mapping class="ru.basics.server.database.entity.DriverData"/>
         <mapping class="ru.basics.server.database.entity.Document"/>
         <mapping class="ru.basics.server.database.entity.Project"/>
+        <mapping class="ru.basics.server.database.entity.User"/>
 
 
     </session-factory>

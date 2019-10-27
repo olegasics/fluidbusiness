@@ -6,8 +6,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="fluidbusiness" />
         <module name="fluidbusinessNewBranch" />
+        <module name="fluidbusinessNew" />
+        <module name="fluidbusiness" />
       </profile>
     </annotationProcessing>
   </component>
