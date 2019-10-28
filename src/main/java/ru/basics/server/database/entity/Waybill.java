@@ -2,7 +2,9 @@ package ru.basics.server.database.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table
@@ -41,6 +43,13 @@ public class Waybill {
     @JoinColumn(name = "delivery_company_id")
     private Company deliveryCompany;
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinTable(name = "waybill_document",
+            joinColumns = {@JoinColumn(name = "waybill_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "document_id", referencedColumnName = "id")}
+    )
+    private Set<Document> invoices = new HashSet<>();
+
     public Waybill() {
     }
 
@@ -63,6 +72,14 @@ public class Waybill {
         this.forwarder = forwarder;
         this.sendCompany = sendCompany;
         this.deliveryCompany = deliveryCompany;
+    }
+
+    public Set<Document> getInvoices() {
+        return invoices;
+    }
+
+    public void setInvoices(Set<Document> invoices) {
+        this.invoices = invoices;
     }
 
     public Long getId() {

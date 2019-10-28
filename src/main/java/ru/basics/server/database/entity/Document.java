@@ -2,6 +2,8 @@ package ru.basics.server.database.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.zip.DataFormatException;
 
 @Entity
@@ -34,6 +36,9 @@ public class Document {
     @ManyToOne
     @JoinColumn(name = "project_id")
     private Project numProject;
+
+    @ManyToMany(mappedBy = "invoices", fetch = FetchType.EAGER)
+    private Set<Waybill> waybills = new HashSet<>();
 
     public Document() {
     }
