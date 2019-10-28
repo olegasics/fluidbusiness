@@ -44,12 +44,21 @@ public class Company {
     @OneToMany(mappedBy = "endCustomer")
     private List<Project> project;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(name = "project_company",
     joinColumns = @JoinColumn(name = "company_id", referencedColumnName = "id"),
     inverseJoinColumns = @JoinColumn(name = "project_id", referencedColumnName = "id")
     )
     private List<Project> projects = new ArrayList<>();
+
+    @OneToMany(mappedBy = "forwarder")
+    private List<Waybill> forwarderWaybills;
+
+    @OneToMany(mappedBy = "sendCompany")
+    private List<Waybill> sendCompanyWaybills;
+
+    @OneToMany(mappedBy = "deliveryCompany")
+    private List<Waybill> deliveryCompanyWaybills;
 
     public Company() {
     }
@@ -64,6 +73,30 @@ public class Company {
         this.adressLegal = adressLegal;
         this.adressSend = adressSend;
         this.adressDelivery = adressDelivery;
+    }
+
+    public List<Waybill> getForwarderWaybills() {
+        return forwarderWaybills;
+    }
+
+    public void setForwarderWaybills(List<Waybill> forwarderWaybills) {
+        this.forwarderWaybills = forwarderWaybills;
+    }
+
+    public List<Waybill> getSendCompanyWaybills() {
+        return sendCompanyWaybills;
+    }
+
+    public void setSendCompanyWaybills(List<Waybill> sendCompanyWaybills) {
+        this.sendCompanyWaybills = sendCompanyWaybills;
+    }
+
+    public List<Waybill> getDeliveryCompanyWaybills() {
+        return deliveryCompanyWaybills;
+    }
+
+    public void setDeliveryCompanyWaybills(List<Waybill> deliveryCompanyWaybills) {
+        this.deliveryCompanyWaybills = deliveryCompanyWaybills;
     }
 
     public Long getId() {

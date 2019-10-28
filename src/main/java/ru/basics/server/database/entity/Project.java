@@ -20,7 +20,7 @@ public class Project {
     @JoinColumn(name = "endCustomer")
     private Company endCustomer;
 
-    @OneToMany(mappedBy = "")
+    @OneToMany(mappedBy = "numProject")
     private List<Document> document;
 
     @ManyToMany(mappedBy = "projects")

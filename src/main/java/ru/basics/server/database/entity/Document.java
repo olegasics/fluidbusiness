@@ -24,6 +24,9 @@ public class Document {
     @Column
     private boolean status;
 
+    @Column
+    private String file;
+
     @ManyToOne
     @JoinColumn(name = "payer_company_id")
     private Company payer;
@@ -39,6 +42,14 @@ public class Document {
         this.name = name;
         this.company = company;
         this.date = date;
+    }
+
+    public String getFile() {
+        return file;
+    }
+
+    public void setFile(String file) {
+        this.file = file;
     }
 
     public Long getId() {
