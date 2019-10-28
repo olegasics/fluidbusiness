@@ -43,6 +43,11 @@ public class Document {
     public Document() {
     }
 
+    public Document(String name, Project numProject) {
+        this.name = name;
+        this.numProject = numProject;
+    }
+
     public Document(String name, Company company, Date date) {
         this.name = name;
         this.company = company;

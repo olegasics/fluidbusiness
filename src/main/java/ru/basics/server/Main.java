@@ -15,27 +15,60 @@ public class Main {
         DocumentDAO documentDAO = new DocumentDAO();
         UserDAO userDAO = new UserDAO();
         ProjectDAO projectDAO = new ProjectDAO();
+        WayBillDAO wayBillDAO = new WayBillDAO();
+        Waybill waybill = new Waybill(383, 2, 1.5, 3.14);
+        waybill.addItems("Болт");
+        waybill.addItems("Гайка");
+        waybill.addItems("Шпилька");
+
+        Company fb = new Company("Флюид Бизнес", "Олег",
+                "89038456869", "omaslo@fluidbusiness.ru",
+                "Сретенка 12", null, null);
+        Company dl = new Company("Деловые линии", "Елена", "8999323432321",
+                "info@delin.ru", "Санкт-Петербург", null, null);
+        Company sinergo = new Company("ООО Синерго", "Михаил", "893232474301",
+                "mih@sinergo.ru", "Самара",
+                "Самара, песчаная 3", "Самара, песчаная 3" );
+        Company russianPump = new Company("ООО КБ Русские насосы", "Евгений Соколов", "89223409832", "asokolov@fluid.ru",
+                "Москва, шоссе фрезе 2 стр 1",
+                "Москва, шоссе фрезе 2 стр 1", "Москва, шоссе фрезе 2 стр 1");
+        companyDAO.create(fb);
+        companyDAO.create(dl);
+        companyDAO.create(sinergo);
+        companyDAO.create(russianPump);
+        waybill.setSendCompany(sinergo);
+        waybill.setForwarder(dl);
+        waybill.setDeliveryCompany(russianPump);
+
 
         Project projectRU06297 = projectDAO.findById(77L);
+        Document document = new Document("77 от 28.10.2019", projectRU06297);
+        document.setCompany(fb);
+        waybill.addInvoice(document);
+        projectDAO.update(projectRU06297);
+        documentDAO.create(document);
+        wayBillDAO.create(waybill);
+
+
 
 
 //        User user = new User("Олег", "omaslo", "Edc",
 //                "omaslo@fluid", "Москва", "89038456869" );
-
-        User userElena = new User("Елена", "ealekseeva", "Edc",
-                "el@fluid", "Москва", "8985" );
-
-        userDAO.create(userElena);
-        projectRU06297.addUser(userElena);
-        projectDAO.update(projectRU06297);
-        Set<User> pro = projectRU06297.getTeam();
-        for(User user : pro) {
-            System.out.println(user.getName());
-        }
-        List<User> users = userDAO.findAllField();
-       for(User user : users) {
-           System.out.println(user.getProjects());
-       }
+//
+//        User userElena = new User("Елена", "ealekseeva", "Edc",
+//                "el@fluid", "Москва", "8985" );
+//
+//        userDAO.create(userElena);
+//        projectRU06297.addUser(userElena);
+//        projectDAO.update(projectRU06297);
+//        Set<User> pro = projectRU06297.getTeam();
+//        for(User user : pro) {
+//            System.out.println(user.getName());
+//        }
+//        List<User> users = userDAO.findAllField();
+//       for(User user : users) {
+//           System.out.println(user.getProjects());
+//       }
 
         //System.out.println(users);
 

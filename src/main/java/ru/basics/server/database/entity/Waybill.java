@@ -53,9 +53,8 @@ public class Waybill {
     public Waybill() {
     }
 
-    public Waybill(int number, List<String> items, int numSeats, double weight, double volume) {
+    public Waybill(int number, int numSeats, double weight, double volume) {
         this.number = number;
-        this.items = items;
         this.numSeats = numSeats;
         this.weight = weight;
         this.volume = volume;
@@ -72,6 +71,14 @@ public class Waybill {
         this.forwarder = forwarder;
         this.sendCompany = sendCompany;
         this.deliveryCompany = deliveryCompany;
+    }
+
+    public void addItems(String items) {
+        this.items.add(items);
+    }
+
+    public void addInvoice(Document document) {
+        invoices.add(document);
     }
 
     public Set<Document> getInvoices() {

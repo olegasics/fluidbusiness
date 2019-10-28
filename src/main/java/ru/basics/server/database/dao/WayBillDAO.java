@@ -1,10 +1,12 @@
 package ru.basics.server.database.dao;
 
-public class WayBillDAO {
+import ru.basics.server.database.entity.Waybill;
 
-//
-//    @Override
-//    public Class<Waybill> getEntityClass() {
-//        return Waybill.class;
-//    }
+public class WayBillDAO extends AbstractDAO<Waybill> {
+
+
+    @Override
+    public Class<Waybill> getEntityClass() {
+        return Waybill.class;
+    }
 }
