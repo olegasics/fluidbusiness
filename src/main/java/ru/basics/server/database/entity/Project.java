@@ -95,4 +95,11 @@ public class Project {
     public void setProviders(List<Company> providers) {
         this.providers = providers;
     }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "number='" + number + '\'' +
+                '}';
+    }
 }

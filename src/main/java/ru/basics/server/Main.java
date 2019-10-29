@@ -16,38 +16,43 @@ public class Main {
         UserDAO userDAO = new UserDAO();
         ProjectDAO projectDAO = new ProjectDAO();
         WayBillDAO wayBillDAO = new WayBillDAO();
-        Waybill waybill = new Waybill(383, 2, 1.5, 3.14);
-        waybill.addItems("Болт");
-        waybill.addItems("Гайка");
-        waybill.addItems("Шпилька");
+        //Waybill waybill = new Waybill(383, 2, 1.5, 3.14);
+//        waybill.addItems("Болт");
+//        waybill.addItems("Гайка");
+//        waybill.addItems("Шпилька");
 
-        Company fb = new Company("Флюид Бизнес", "Олег",
-                "89038456869", "omaslo@fluidbusiness.ru",
-                "Сретенка 12", null, null);
-        Company dl = new Company("Деловые линии", "Елена", "8999323432321",
-                "info@delin.ru", "Санкт-Петербург", null, null);
-        Company sinergo = new Company("ООО Синерго", "Михаил", "893232474301",
-                "mih@sinergo.ru", "Самара",
-                "Самара, песчаная 3", "Самара, песчаная 3" );
-        Company russianPump = new Company("ООО КБ Русские насосы", "Евгений Соколов", "89223409832", "asokolov@fluid.ru",
-                "Москва, шоссе фрезе 2 стр 1",
-                "Москва, шоссе фрезе 2 стр 1", "Москва, шоссе фрезе 2 стр 1");
-        companyDAO.create(fb);
-        companyDAO.create(dl);
-        companyDAO.create(sinergo);
-        companyDAO.create(russianPump);
-        waybill.setSendCompany(sinergo);
-        waybill.setForwarder(dl);
-        waybill.setDeliveryCompany(russianPump);
+//        Company fb = new Company("Флюид Бизнес", "Олег",
+//                "89038456869", "omaslo@fluidbusiness.ru",
+//                "Сретенка 12", null, null);
+//        Company dl = new Company("Деловые линии", "Елена", "8999323432321",
+//                "info@delin.ru", "Санкт-Петербург", null, null);
+//        Company sinergo = new Company("ООО Синерго", "Михаил", "893232474301",
+//                "mih@sinergo.ru", "Самара",
+//                "Самара, песчаная 3", "Самара, песчаная 3" );
+//        Company russianPump = new Company("ООО КБ Русские насосы", "Евгений Соколов", "89223409832", "asokolov@fluid.ru",
+//                "Москва, шоссе фрезе 2 стр 1",
+//                "Москва, шоссе фрезе 2 стр 1", "Москва, шоссе фрезе 2 стр 1");
+//        companyDAO.create(fb);
+//        companyDAO.create(dl);
+//        companyDAO.create(sinergo);
+//        companyDAO.create(russianPump);
+//        waybill.setSendCompany(sinergo);
+//        waybill.setForwarder(dl);
+//        waybill.setDeliveryCompany(russianPump);
+//
+//
+//        Project projectRU06297 = projectDAO.findById(77L);
+//        Document document = new Document("77 от 28.10.2019", projectRU06297);
+//        document.setCompany(fb);
+//        waybill.addInvoice(document);
+//        projectDAO.update(projectRU06297);
+//        documentDAO.create(document);
+//        wayBillDAO.create(waybill);
+
+        Waybill waybill1 = wayBillDAO.findById(86L);
 
 
-        Project projectRU06297 = projectDAO.findById(77L);
-        Document document = new Document("77 от 28.10.2019", projectRU06297);
-        document.setCompany(fb);
-        waybill.addInvoice(document);
-        projectDAO.update(projectRU06297);
-        documentDAO.create(document);
-        wayBillDAO.create(waybill);
+
 
 
 

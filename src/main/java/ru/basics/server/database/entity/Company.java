@@ -202,4 +202,12 @@ public class Company {
     public void setDriverData(List<DriverData> driverData) {
         this.driverData = driverData;
     }
+
+    @Override
+    public String toString() {
+        return "Company{" +
+                "id=" + id +
+                ", name='" + name;
+
+    }
 }

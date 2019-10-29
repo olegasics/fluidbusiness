@@ -16,6 +16,7 @@ public class Document {
     @Column
     private String name;
 
+
     @ManyToOne
     @JoinColumn(name = "company_id")
     private Company company;

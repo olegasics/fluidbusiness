@@ -64,7 +64,7 @@ public class Waybill {
                    double weight, double volume, Company forwarder, Company sendCompany, Company deliveryCompany) {
         this.number = number;
         this.dateSend = dateSend;
-        this.items = items;
+        //this.items = items;
         this.numSeats = numSeats;
         this.weight = weight;
         this.volume = volume;
@@ -73,9 +73,9 @@ public class Waybill {
         this.deliveryCompany = deliveryCompany;
     }
 
-    public void addItems(String items) {
-        this.items.add(items);
-    }
+//    public void addItems(String items) {
+//        this.items.add(items);
+//    }
 
     public void addInvoice(Document document) {
         invoices.add(document);
@@ -113,13 +113,13 @@ public class Waybill {
         this.dateSend = dateSend;
     }
 
-    public List<String> getItems() {
-        return items;
-    }
-
-    public void setItems(List<String> items) {
-        this.items = items;
-    }
+//    public List<String> getItems() {
+//        return items;
+//    }
+//
+//    public void setItems(List<String> items) {
+//        this.items = items;
+//    }
 
     public int getNumSeats() {
         return numSeats;
@@ -167,5 +167,21 @@ public class Waybill {
 
     public void setDeliveryCompany(Company deliveryCompany) {
         this.deliveryCompany = deliveryCompany;
+    }
+
+    @Override
+    public String toString() {
+        return "Waybill{" +
+                "id=" + id +
+                ", number=" + number +
+                ", dateSend=" + dateSend +
+                ", numSeats=" + numSeats +
+                ", weight=" + weight +
+                ", volume=" + volume +
+                ", forwarder=" + forwarder +
+                ", sendCompany=" + sendCompany +
+                ", deliveryCompany=" + deliveryCompany +
+                ", invoices=" + invoices +
+                '}';
     }
 }
