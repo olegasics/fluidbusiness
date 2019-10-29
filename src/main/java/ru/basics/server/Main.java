@@ -41,15 +41,20 @@ public class Main {
 //        waybill.setDeliveryCompany(russianPump);
 //
 //
-//        Project projectRU06297 = projectDAO.findById(77L);
+        Project projectRU06297 = projectDAO.findById(77L);
 //        Document document = new Document("77 от 28.10.2019", projectRU06297);
 //        document.setCompany(fb);
 //        waybill.addInvoice(document);
 //        projectDAO.update(projectRU06297);
 //        documentDAO.create(document);
 //        wayBillDAO.create(waybill);
+        Company sinergo = companyDAO.findById(73L);
+        sinergo.addProject(projectRU06297);
+        projectRU06297.setEndCustomer(companyDAO.findById(84L));
+        companyDAO.update(sinergo);
+        projectDAO.update(projectRU06297);
 
-        Waybill waybill1 = wayBillDAO.findById(86L);
+        // Waybill waybill1 = wayBillDAO.findById(86L);
 
 
 

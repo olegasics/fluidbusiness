@@ -42,7 +42,7 @@ public class Company {
     private List<Document> documentsPayer;
 
     @OneToMany(mappedBy = "endCustomer")
-    private List<Project> project;
+    private List<Company> companies;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(name = "project_company",
@@ -73,6 +73,10 @@ public class Company {
         this.adressLegal = adressLegal;
         this.adressSend = adressSend;
         this.adressDelivery = adressDelivery;
+    }
+
+    public void addProject(Project project) {
+        projects.add(project);
     }
 
     public List<Waybill> getForwarderWaybills() {
@@ -107,12 +111,12 @@ public class Company {
         this.id = id;
     }
 
-    public List<Project> getProject() {
-        return project;
+    public List<Company> getCompanies() {
+        return companies;
     }
 
-    public void setProject(List<Project> project) {
-        this.project = project;
+    public void setCompanies(List<Company> companies) {
+        this.companies = companies;
     }
 
     public List<Project> getProjects() {

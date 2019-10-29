@@ -16,7 +16,6 @@ public class Document {
     @Column
     private String name;
 
-
     @ManyToOne
     @JoinColumn(name = "company_id")
     private Company company;
@@ -53,6 +52,14 @@ public class Document {
         this.name = name;
         this.company = company;
         this.date = date;
+    }
+
+    public Set<Waybill> getWaybills() {
+        return waybills;
+    }
+
+    public void setWaybills(Set<Waybill> waybills) {
+        this.waybills = waybills;
     }
 
     public String getFile() {
