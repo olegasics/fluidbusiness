@@ -5,6 +5,7 @@ import ru.basics.server.database.entity.*;
 
 import javax.persistence.Query;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -17,6 +18,18 @@ public class Main {
         ProjectDAO projectDAO = new ProjectDAO();
         WayBillDAO wayBillDAO = new WayBillDAO();
         WaybillDocumentDAO waybillDocumentDAO = new WaybillDocumentDAO();
+        Project projectRU06297 = projectDAO.findByField("number", "RU06297");
+        TaskDAO taskDAO = new TaskDAO();
+        Task task = new Task();
+        task.setTask("Осуществить доставку про проекту RU08932");
+        task.setDate(new Date());
+        User userOleg = userDAO.findById(78L);
+        User userElena = userDAO.findById(80L);
+        task.addUser(userElena);
+        task.addUser(userOleg);
+        task.setProject(projectRU06297);
+        taskDAO.create(task);
+
 
 //        Company fb = new Company("Флюид Бизнес", "Олег",
 //                "89038456869", "omaslo@fluidbusiness.ru",

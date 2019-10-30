@@ -36,6 +36,9 @@ public class User {
     @ManyToMany(mappedBy = "team", fetch = FetchType.EAGER)
     private Set<Project> projects = new HashSet<>();
 
+    @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
+    private List<Task> tasks;
+
     public void addProject(Project project) {
         projects.add(project);
     }

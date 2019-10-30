@@ -38,11 +38,11 @@ public abstract class AbstractDAO<T>  {
         }
     }
 
-    public List<T> findByField(String field, Object key) {
+    public T findByField(String field, Object key) {
         try (Session session = sessionFactory.openSession()) {
             criteria =  session.createCriteria(this.getEntityClass())
                     .add(Restrictions.eq(field, key));
-            return criteria.list();
+            return (T) criteria.uniqueResult();
         }
     }
 

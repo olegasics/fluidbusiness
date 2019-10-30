@@ -34,6 +34,9 @@ public class Project {
     )
     private Set<User> team = new HashSet<>();
 
+    @OneToMany(mappedBy = "project")
+    private List<Task> task;
+
     public void addUser(User user) {
         team.add(user);
     }
