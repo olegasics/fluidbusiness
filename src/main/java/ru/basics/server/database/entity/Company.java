@@ -42,9 +42,9 @@ public class Company {
     private List<Document> documentsPayer;
 
     @OneToMany(mappedBy = "endCustomer")
-    private List<Company> companies;
+    private List<Project> companies;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(name = "project_company",
     joinColumns = @JoinColumn(name = "company_id", referencedColumnName = "id"),
     inverseJoinColumns = @JoinColumn(name = "project_id", referencedColumnName = "id")
@@ -111,11 +111,11 @@ public class Company {
         this.id = id;
     }
 
-    public List<Company> getCompanies() {
+    public List<Project> getCompanies() {
         return companies;
     }
 
-    public void setCompanies(List<Company> companies) {
+    public void setCompanies(List<Project> companies) {
         this.companies = companies;
     }
 

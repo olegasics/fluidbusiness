@@ -17,6 +17,7 @@
         <mapping class="ru.basics.server.database.entity.User"/>
         <mapping class="ru.basics.server.database.entity.Waybill"/>
         <mapping class="ru.basics.server.database.entity.Position"/>
+        <mapping class="ru.basics.server.database.entity.WaybillDocument"/>
 
 
     </session-factory>

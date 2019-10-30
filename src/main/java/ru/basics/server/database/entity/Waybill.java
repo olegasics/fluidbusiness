@@ -20,9 +20,6 @@ public class Waybill {
     private Date dateSend;
 
     @Column
-    private List<String> items;
-
-    @Column
     private int numSeats;
 
     @Column
@@ -30,6 +27,10 @@ public class Waybill {
 
     @Column
     private double volume;
+
+    @OneToMany(mappedBy = "waybill", fetch = FetchType.EAGER,
+            cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private List<WaybillDocument> waybillDocuments;
 
     @ManyToOne
     @JoinColumn(name = "forwarder_id")
@@ -43,12 +44,16 @@ public class Waybill {
     @JoinColumn(name = "delivery_company_id")
     private Company deliveryCompany;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinTable(name = "waybill_document",
-            joinColumns = {@JoinColumn(name = "waybill_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "document_id", referencedColumnName = "id")}
-    )
-    private Set<Document> invoices = new HashSet<>();
+//    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+//    @JoinTable(name = "waybill_document",
+//            joinColumns = {@JoinColumn(name = "waybill_id", referencedColumnName = "id")},
+//            inverseJoinColumns = {@JoinColumn(name = "document_id", referencedColumnName = "id")}
+//    )
+//    private Set<Document> invoices = new HashSet<>();
+
+    public void addItem(WaybillDocument waybillDocument) {
+        waybillDocuments.add(waybillDocument);
+    }
 
     public Waybill() {
     }
@@ -77,16 +82,13 @@ public class Waybill {
 //        this.items.add(items);
 //    }
 
-    public void addInvoice(Document document) {
-        invoices.add(document);
+
+    public List<WaybillDocument> getWaybillDocuments() {
+        return waybillDocuments;
     }
 
-    public Set<Document> getInvoices() {
-        return invoices;
-    }
-
-    public void setInvoices(Set<Document> invoices) {
-        this.invoices = invoices;
+    public void setWaybillDocuments(List<WaybillDocument> waybillDocuments) {
+        this.waybillDocuments = waybillDocuments;
     }
 
     public Long getId() {
@@ -181,7 +183,6 @@ public class Waybill {
                 ", forwarder=" + forwarder +
                 ", sendCompany=" + sendCompany +
                 ", deliveryCompany=" + deliveryCompany +
-                ", invoices=" + invoices +
                 '}';
     }
 }

@@ -16,10 +16,7 @@ public class Main {
         UserDAO userDAO = new UserDAO();
         ProjectDAO projectDAO = new ProjectDAO();
         WayBillDAO wayBillDAO = new WayBillDAO();
-        //Waybill waybill = new Waybill(383, 2, 1.5, 3.14);
-//        waybill.addItems("Болт");
-//        waybill.addItems("Гайка");
-//        waybill.addItems("Шпилька");
+        WaybillDocumentDAO waybillDocumentDAO = new WaybillDocumentDAO();
 
 //        Company fb = new Company("Флюид Бизнес", "Олег",
 //                "89038456869", "omaslo@fluidbusiness.ru",
@@ -32,35 +29,6 @@ public class Main {
 //        Company russianPump = new Company("ООО КБ Русские насосы", "Евгений Соколов", "89223409832", "asokolov@fluid.ru",
 //                "Москва, шоссе фрезе 2 стр 1",
 //                "Москва, шоссе фрезе 2 стр 1", "Москва, шоссе фрезе 2 стр 1");
-//        companyDAO.create(fb);
-//        companyDAO.create(dl);
-//        companyDAO.create(sinergo);
-//        companyDAO.create(russianPump);
-//        waybill.setSendCompany(sinergo);
-//        waybill.setForwarder(dl);
-//        waybill.setDeliveryCompany(russianPump);
-//
-//
-        Project projectRU06297 = projectDAO.findById(77L);
-//        Document document = new Document("77 от 28.10.2019", projectRU06297);
-//        document.setCompany(fb);
-//        waybill.addInvoice(document);
-//        projectDAO.update(projectRU06297);
-//        documentDAO.create(document);
-//        wayBillDAO.create(waybill);
-        Company sinergo = companyDAO.findById(73L);
-        sinergo.addProject(projectRU06297);
-        projectRU06297.setEndCustomer(companyDAO.findById(84L));
-        companyDAO.update(sinergo);
-        projectDAO.update(projectRU06297);
-
-        // Waybill waybill1 = wayBillDAO.findById(86L);
-
-
-
-
-
-
 
 //        User user = new User("Олег", "omaslo", "Edc",
 //                "omaslo@fluid", "Москва", "89038456869" );
@@ -99,14 +67,6 @@ public class Main {
 //                null, null );
 //        companyDAO.create(fluidBusiness);
 
-        // Document invoice = new Document("438", fluidBusiness, new Date());
-
-//        Document document = documentDAO.findByField("name", "438").get(0);
-//        document.setStatus(true);
-//        documentDAO.update(document);
-
-
-//
 //        Company dl = new Company("Деловые линии", "Митина Елена",
 //                "123", "info@delin.ru",
 //                "СПБ", " ", " ");

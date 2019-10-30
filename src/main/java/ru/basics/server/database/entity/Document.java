@@ -3,6 +3,7 @@ package ru.basics.server.database.entity;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.zip.DataFormatException;
 
@@ -29,6 +30,10 @@ public class Document {
     @Column
     private String file;
 
+    @OneToMany(mappedBy = "document", fetch = FetchType.EAGER,
+            cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private List<WaybillDocument> waybillDocuments;
+
     @ManyToOne
     @JoinColumn(name = "payer_company_id")
     private Company payer;
@@ -37,8 +42,12 @@ public class Document {
     @JoinColumn(name = "project_id")
     private Project numProject;
 
-    @ManyToMany(mappedBy = "invoices", fetch = FetchType.EAGER)
-    private Set<Waybill> waybills = new HashSet<>();
+//    @ManyToMany(mappedBy = "invoices", fetch = FetchType.EAGER)
+//    private Set<Waybill> waybills = new HashSet<>();
+
+    public void addItem(WaybillDocument waybillDocument) {
+        waybillDocuments.add(waybillDocument);
+    }
 
     public Document() {
     }
@@ -54,12 +63,21 @@ public class Document {
         this.date = date;
     }
 
-    public Set<Waybill> getWaybills() {
-        return waybills;
+//    public Set<Waybill> getWaybills() {
+//        return waybills;
+//    }
+
+//    public void setWaybills(Set<Waybill> waybills) {
+//        this.waybills = waybills;
+//    }
+
+
+    public List<WaybillDocument> getWaybillDocuments() {
+        return waybillDocuments;
     }
 
-    public void setWaybills(Set<Waybill> waybills) {
-        this.waybills = waybills;
+    public void setWaybillDocuments(List<WaybillDocument> waybillDocuments) {
+        this.waybillDocuments = waybillDocuments;
     }
 
     public String getFile() {
