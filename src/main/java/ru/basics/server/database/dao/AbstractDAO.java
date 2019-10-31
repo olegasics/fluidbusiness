@@ -3,13 +3,11 @@ package ru.basics.server.database.dao;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import ru.basics.server.database.entity.User;
 import ru.basics.server.utils.SessionFactoryUtils;
 
 import javax.persistence.MappedSuperclass;
-import javax.persistence.Query;
 import java.util.List;
 
 @MappedSuperclass
@@ -21,14 +19,15 @@ public abstract class AbstractDAO<T>  {
         this.sessionFactory = SessionFactoryUtils.getInstance();
     }
 
-    public void create(T entity) {
+    public T create(T entity) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.save(entity);
             session.getTransaction().commit();
 
-            //return entity;
+            return entity;
         }
+
     }
 
     public T findById(Long id) {
