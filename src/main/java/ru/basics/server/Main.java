@@ -10,8 +10,8 @@ public class Main {
         User user = userDAO.findByField("login", "omaslo");
         System.out.println(user.getEmail());
         User pleg = new User("omaslo", "Edc");
-
         System.out.println(AuthUtils.signIn(pleg));
+
 
     }
 }
