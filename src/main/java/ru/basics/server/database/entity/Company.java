@@ -49,7 +49,7 @@ public class Company {
     joinColumns = @JoinColumn(name = "company_id", referencedColumnName = "id"),
     inverseJoinColumns = @JoinColumn(name = "project_id", referencedColumnName = "id")
     )
-    private List<Project> projects = new ArrayList<>();
+    private List<Project> projects = new ArrayList<Project>();
 
     @OneToMany(mappedBy = "forwarder")
     private List<Waybill> forwarderWaybills;

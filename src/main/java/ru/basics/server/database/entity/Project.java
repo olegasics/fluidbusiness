@@ -32,7 +32,7 @@ public class Project {
             joinColumns = {@JoinColumn(name = "project_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")}
     )
-    private Set<User> team = new HashSet<>();
+    private Set<User> team = new HashSet<User>();
 
     @OneToMany(mappedBy = "project")
     private List<Task> task;

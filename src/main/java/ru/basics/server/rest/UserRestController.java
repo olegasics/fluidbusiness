@@ -1,5 +1,6 @@
 package ru.basics.server.rest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,32 +14,46 @@ import ru.basics.server.utils.AuthUtils;
 
 
 @RestController
-@RequestMapping("users")
+@RequestMapping("/users")
 public class UserRestController {
+
     UserDAO userDAO;
     AuthUtils authUtils;
 
-    @RequestMapping(value = "", path = "reg", produces = MediaType.APPLICATION_JSON_VALUE,
+    @Autowired
+    public UserRestController(UserDAO userDAO, AuthUtils authUtils) {
+        this.userDAO = userDAO;
+        this.authUtils = authUtils;
+    }
+
+    @RequestMapping(value = "/reg", produces = MediaType.APPLICATION_JSON_VALUE,
             method = RequestMethod.POST)
-    public ResponseEntity<User> addUser(@RequestBody User user) {
+    public ResponseEntity<User> registration(@RequestBody User user) {
 
         if (user == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
         }
 
         if (AuthUtils.signUp(user) == null) {
-            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+            return new ResponseEntity<User>(HttpStatus.EXPECTATION_FAILED);
         }
 
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<User>(HttpStatus.CREATED);
 
     }
 
-    @RequestMapping(value = "", path = "auth", produces = MediaType.APPLICATION_JSON_VALUE,
+    @RequestMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE,
             method = RequestMethod.POST)
-    public ResponseEntity<User> signUser(@RequestBody User user) {
+    public ResponseEntity<User> login(@RequestBody User user) {
         if (user == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
         }
+        if(AuthUtils.signIn(user) == null) {
+            return new ResponseEntity<User>(HttpStatus.EXPECTATION_FAILED);
+        }
+
+        return new ResponseEntity<User>(HttpStatus.OK);
+
+
     }
 }

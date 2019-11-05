@@ -4,11 +4,13 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Component;
 import ru.basics.server.database.entity.User;
 import ru.basics.server.utils.SessionFactoryUtils;
 
 import javax.persistence.MappedSuperclass;
 import java.util.List;
+
 
 @MappedSuperclass
 public abstract class AbstractDAO<T>  {

@@ -23,11 +23,18 @@
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
     <show-object-properties value="true" />
-    <loaded-nodes />
+    <loaded-nodes>
+      <connection connection-id="ea6c4251-24e1-4559-b70c-d1339f95ddcb">
+        <schema name="public" object-types="table, view" />
+      </connection>
+      <connection connection-id="4a682503-375c-463a-9d89-541e1d6076d1">
+        <schema name="public" object-types="table, view" />
+      </connection>
+    </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="ea6c4251-24e1-4559-b70c-d1339f95ddcb">
-      <console name="Connection" type="STANDARD" schema="" session="Main"><![CDATA[select * from cargo_move;]]></console>
+      <console name="Connection" type="STANDARD" schema="" session="Main">select * from cargo_move;</console>
     </connection>
     <connection id="4a682503-375c-463a-9d89-541e1d6076d1">
       <console name="Connection 1" type="STANDARD" schema="information_schema" session="Main" />
@@ -41,8 +48,14 @@
     <connection id="4a682503-375c-463a-9d89-541e1d6076d1" />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="ea6c4251-24e1-4559-b70c-d1339f95ddcb" dataset="public.waybill" active-filter-id="b258ca3a-a14b-4a37-b870-738143125c76">
+      <filter id="b258ca3a-a14b-4a37-b870-738143125c76" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND">
+        <condition column="id" operator="=" value="" active="true" />
+      </filter>
+    </filter-actions>
     <filter-actions connection-id="4a682503-375c-463a-9d89-541e1d6076d1" dataset="public.driverdata" active-filter-id="" />
     <filter-actions connection-id="4a682503-375c-463a-9d89-541e1d6076d1" dataset="public.company" active-filter-id="" />
+    <filter-actions connection-id="4a682503-375c-463a-9d89-541e1d6076d1" dataset="public.task" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="4a682503-375c-463a-9d89-541e1d6076d1" dataset="public.user_project" active-filter-id="" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">

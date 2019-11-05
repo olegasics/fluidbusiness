@@ -4,6 +4,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import ru.basics.server.database.dao.UserDAO;
 import ru.basics.server.database.entity.User;
@@ -14,16 +17,13 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController()
-@RequestMapping("/log/api/v1")
+@Service
 public class AuthUtils {
     private static UserDAO userDAO = new UserDAO();
-    static List<User> userAuth = new ArrayList<>();
+    static List<User> userAuth = new ArrayList<User>();
 
-    @RequestMapping(value = "", path = "reg", produces = MediaType.APPLICATION_JSON_VALUE,
-            method = RequestMethod.POST)
+
     public static User signUp(User user) throws UserAlreadyExistsException {
-        HttpHeaders httpHeaders = new HttpHeaders();
 
         if (!userDAO.exists(user.getLogin())) {
             return userDAO.create(user);
@@ -47,6 +47,6 @@ public class AuthUtils {
             }
         }
 
-        throw new UserNotFoundException();
+        return null;
     }
 }
