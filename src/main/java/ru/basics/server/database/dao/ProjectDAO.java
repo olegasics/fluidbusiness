@@ -12,4 +12,8 @@ public class ProjectDAO extends AbstractDAO<Project> {
     public Class<Project> getEntityClass() {
         return Project.class;
     }
+
+    public boolean isExist(String number) {
+        return this.findByField("number", number) != null;
+    }
 }

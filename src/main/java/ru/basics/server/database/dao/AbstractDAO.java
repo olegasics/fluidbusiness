@@ -62,5 +62,13 @@ public abstract class AbstractDAO<T>  {
         //return entity;
     }
 
+    public void delete(T entity) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.delete(entity);
+            session.getTransaction().commit();
+        }
+    }
+
     public abstract Class<T> getEntityClass();
 }
