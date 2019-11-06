@@ -1,6 +1,12 @@
 package ru.basics.server.database.entity;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -8,7 +14,10 @@ import java.util.Set;
 
 @Entity
 @Table(name = "person")
-public class User {
+public class User implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -33,8 +42,10 @@ public class User {
     @Column
     private Position position;
 
-    @ManyToMany(mappedBy = "team", fetch = FetchType.EAGER)
-    private Set<Project> projects = new HashSet<>();
+    @ManyToMany(mappedBy = "team", fetch = FetchType.LAZY)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @Fetch(FetchMode.SELECT)
+    private transient Set<Project> projects = new HashSet<>();
 
     @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
     private List<Task> tasks;
@@ -171,5 +182,14 @@ public class User {
 
     public void setProject(Set<Project> projects) {
         this.projects = projects;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", login='" + login + '\'' +
+                '}';
     }
 }

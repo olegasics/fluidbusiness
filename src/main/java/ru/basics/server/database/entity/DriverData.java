@@ -1,10 +1,16 @@
 package ru.basics.server.database.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.UUID;
 
 @Entity
 @Table
-public class DriverData {
+public class DriverData implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

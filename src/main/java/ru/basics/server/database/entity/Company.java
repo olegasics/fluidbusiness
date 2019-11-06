@@ -1,12 +1,22 @@
 package ru.basics.server.database.entity;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table
-public class Company {
+public class Company implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -33,31 +43,47 @@ public class Company {
     private String adressDelivery;
 
     @OneToMany(mappedBy = "company")
-    private List<DriverData> driverData;
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @Fetch(FetchMode.SELECT)
+    private List<DriverData> driverData = new ArrayList<>();
 
     @OneToMany(mappedBy = "company")
-    private List<Document> documents;
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @Fetch(FetchMode.SELECT)
+    private transient List<Document> documents;
 
     @OneToMany(mappedBy = "payer")
-    private List<Document> documentsPayer;
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @Fetch(FetchMode.SELECT)
+    private List<Document> documentsPayer = new ArrayList<>();
 
     @OneToMany(mappedBy = "endCustomer")
-    private List<Project> companies;
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @Fetch(FetchMode.SELECT)
+    private transient List<Project> companies = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(name = "project_company",
     joinColumns = @JoinColumn(name = "company_id", referencedColumnName = "id"),
     inverseJoinColumns = @JoinColumn(name = "project_id", referencedColumnName = "id")
     )
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @Fetch(FetchMode.SELECT)
     private List<Project> projects = new ArrayList<Project>();
 
     @OneToMany(mappedBy = "forwarder")
-    private List<Waybill> forwarderWaybills;
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @Fetch(FetchMode.SELECT)
+    private List<Waybill> forwarderWaybills = new ArrayList<>();
 
     @OneToMany(mappedBy = "sendCompany")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @Fetch(FetchMode.SELECT)
     private List<Waybill> sendCompanyWaybills;
 
     @OneToMany(mappedBy = "deliveryCompany")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @Fetch(FetchMode.SELECT)
     private List<Waybill> deliveryCompanyWaybills;
 
     public Company() {

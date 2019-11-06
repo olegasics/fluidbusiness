@@ -1,6 +1,11 @@
 package ru.basics.server.database.entity;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -8,7 +13,10 @@ import java.util.Set;
 
 @Entity
 @Table
-public class Project {
+public class Project implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,24 +26,32 @@ public class Project {
 
     @ManyToOne
     @JoinColumn(name = "endCustomer")
-    private Company endCustomer;
+    private transient Company endCustomer;
 
-    @OneToMany(mappedBy = "numProject")
-    private List<Document> document;
+    @OneToMany(mappedBy = "numProject", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @Fetch(FetchMode.SELECT)
+    private transient List<Document> document = new ArrayList<>();
 
     @ManyToMany(mappedBy = "projects")
-    private List<Company> providers;
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @Fetch(FetchMode.SELECT)
+    private List<Company> providers = new ArrayList<>();
 
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "user_project",
             joinColumns = {@JoinColumn(name = "project_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")}
     )
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @Fetch(FetchMode.SELECT)
     private Set<User> team = new HashSet<User>();
 
     @OneToMany(mappedBy = "project")
-    private List<Task> task;
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @Fetch(FetchMode.SELECT)
+    private List<Task> task = new ArrayList<>();
 
     public void addUser(User user) {
         team.add(user);

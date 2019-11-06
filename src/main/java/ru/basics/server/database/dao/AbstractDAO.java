@@ -4,15 +4,15 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.stereotype.Component;
-import ru.basics.server.database.entity.User;
+import org.springframework.stereotype.Service;
 import ru.basics.server.utils.SessionFactoryUtils;
-
 import javax.persistence.MappedSuperclass;
+import javax.transaction.Transactional;
 import java.util.List;
 
-
 @MappedSuperclass
+@Service
+@Transactional
 public abstract class AbstractDAO<T>  {
     SessionFactory sessionFactory;
     Criteria criteria;

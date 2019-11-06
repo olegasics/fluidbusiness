@@ -12,6 +12,9 @@ import ru.basics.server.database.dao.UserDAO;
 import ru.basics.server.database.entity.User;
 import ru.basics.server.utils.AuthUtils;
 
+import java.io.Serializable;
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/users")
@@ -24,6 +27,9 @@ public class UserRestController {
     public UserRestController(UserDAO userDAO, AuthUtils authUtils) {
         this.userDAO = userDAO;
         this.authUtils = authUtils;
+    }
+
+    public UserRestController() {
     }
 
     @RequestMapping(value = "/reg", produces = MediaType.APPLICATION_JSON_VALUE,
@@ -51,9 +57,14 @@ public class UserRestController {
         if(AuthUtils.signIn(user) == null) {
             return new ResponseEntity<User>(HttpStatus.EXPECTATION_FAILED);
         }
-
         return new ResponseEntity<User>(HttpStatus.OK);
+    }
 
+    @RequestMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE,
+            method = RequestMethod.GET)
+    public ResponseEntity<List<User>> all() {
+
+        return new ResponseEntity<>(userDAO.findAllField(), HttpStatus.OK);
 
     }
 }

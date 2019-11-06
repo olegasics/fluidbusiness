@@ -1,6 +1,10 @@
 package ru.basics.server.database.entity;
 
-public class PositinUser {
+import java.io.Serializable;
+
+public class PositinUser implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private Position position;
 

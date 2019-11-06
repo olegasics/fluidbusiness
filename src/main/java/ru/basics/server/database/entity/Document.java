@@ -1,6 +1,7 @@
 package ru.basics.server.database.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -9,7 +10,9 @@ import java.util.zip.DataFormatException;
 
 @Entity
 @Table
-public class Document {
+public class Document implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -19,7 +22,7 @@ public class Document {
 
     @ManyToOne
     @JoinColumn(name = "company_id")
-    private Company company;
+    private transient Company company;
 
     @Column
     private Date date;
@@ -32,7 +35,7 @@ public class Document {
 
     @OneToMany(mappedBy = "document", fetch = FetchType.EAGER,
             cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    private List<WaybillDocument> waybillDocuments;
+    private transient List<WaybillDocument> waybillDocuments;
 
     @ManyToOne
     @JoinColumn(name = "payer_company_id")
