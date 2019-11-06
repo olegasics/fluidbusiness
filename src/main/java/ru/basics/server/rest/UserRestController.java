@@ -6,7 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
 import ru.basics.server.database.dao.UserDAO;
+import ru.basics.server.database.entity.Project;
 import ru.basics.server.database.entity.User;
 import ru.basics.server.utils.AuthUtils;
 
@@ -17,7 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
-public class UserRestController {
+public class UserRestController implements ru.basics.server.rest.RestController<User> {
 
     UserDAO userDAO;
     AuthUtils authUtils;
@@ -37,9 +39,9 @@ public class UserRestController {
      * @param user
      * @return
      */
-    @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE,
+    @RequestMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             method = RequestMethod.POST)
-    public ResponseEntity<User> registration(@RequestBody @Valid User user) {
+    public ResponseEntity<User> add(@RequestBody @Valid User user) {
         HttpHeaders headers = new HttpHeaders();
 
         if (user == null) {
@@ -54,7 +56,7 @@ public class UserRestController {
 
     }
 
-    @RequestMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE,
+    @RequestMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             method = RequestMethod.GET)
     public ResponseEntity<User> login(@PathVariable("id") Long id) {
         User user = userDAO.findById(id);
@@ -67,7 +69,7 @@ public class UserRestController {
 
     }
 
-    @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE,
+    @RequestMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             method = RequestMethod.GET)
     public ResponseEntity<List<User>> all() {
 
@@ -75,7 +77,17 @@ public class UserRestController {
 
     }
 
-    @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.PATCH)
+    @Override
+    public ResponseEntity<User> getById(Long id) {
+        User user = userDAO.findById(id);
+        if(user == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @RequestMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE, method = RequestMethod.PATCH)
     public ResponseEntity<User> update(@RequestBody @Valid User user) {
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -86,6 +98,30 @@ public class UserRestController {
         }
 
         userDAO.update(user);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<User> delete(@RequestBody @Valid User user) {
+        if(user == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        if (!userDAO.exists(user.getLogin())) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        userDAO.delete(user);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @Override
+    public ResponseEntity<User> deleteById(@PathVariable("id") Long id) {
+        User user = userDAO.findById(id);
+        if(user == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        userDAO.delete(user);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

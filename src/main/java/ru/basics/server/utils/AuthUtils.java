@@ -1,19 +1,10 @@
 package ru.basics.server.utils;
 
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
 import ru.basics.server.database.dao.UserDAO;
 import ru.basics.server.database.entity.User;
 import ru.basics.server.database.exceptions.UserAlreadyExistsException;
 import ru.basics.server.database.exceptions.UserNotFoundException;
-
-import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
