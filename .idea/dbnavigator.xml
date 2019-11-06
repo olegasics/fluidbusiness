@@ -34,16 +34,14 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="ea6c4251-24e1-4559-b70c-d1339f95ddcb">
-      <console name="Connection" type="STANDARD" schema="" session="Main">select * from cargo_move;</console>
+      <console name="Connection" type="STANDARD" schema="" session="Main"><![CDATA[select * from cargo_move;]]></console>
     </connection>
     <connection id="4a682503-375c-463a-9d89-541e1d6076d1">
       <console name="Connection 1" type="STANDARD" schema="information_schema" session="Main" />
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files>
-      <object connection-id="ea6c4251-24e1-4559-b70c-d1339f95ddcb" object-ref="schemas/public/tables/person" />
-    </open-files>
+    <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="ea6c4251-24e1-4559-b70c-d1339f95ddcb" />
