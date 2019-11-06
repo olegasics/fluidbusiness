@@ -54,8 +54,7 @@ public class UserRestControllerInterface implements RestControllerInterface<User
 
     }
 
-    @RequestMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
-            method = RequestMethod.GET)
+
     public ResponseEntity<User> login(@PathVariable("id") Long id) {
         User user = userDAO.findById(id);
 

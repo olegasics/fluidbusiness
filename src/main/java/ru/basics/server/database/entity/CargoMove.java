@@ -35,6 +35,9 @@ public class CargoMove implements Serializable {
         this.waybill = waybill;
     }
 
+    public CargoMove() {
+    }
+
     public Long getId() {
         return id;
     }

@@ -3,11 +3,15 @@ package ru.basics.server.rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ru.basics.server.database.dao.DocumentDAO;
 import ru.basics.server.database.entity.Document;
 
 import java.util.List;
 
+@RestController
+@RequestMapping("/documents")
 public class DocumentRestControllerInterface implements RestControllerInterface<Document> {
     DocumentDAO documentDAO;
 

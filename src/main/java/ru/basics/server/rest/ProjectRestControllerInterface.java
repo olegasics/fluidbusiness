@@ -27,8 +27,6 @@ public class ProjectRestControllerInterface implements RestControllerInterface<P
     public ProjectRestControllerInterface() {
     }
 
-    @RequestMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
-            method = RequestMethod.GET)
     public ResponseEntity<List<Project>> all() {
         return new ResponseEntity<>(projectDAO.findAllField(), HttpStatus.OK);
     }

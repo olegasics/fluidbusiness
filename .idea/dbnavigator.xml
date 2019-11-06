@@ -25,6 +25,7 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="ea6c4251-24e1-4559-b70c-d1339f95ddcb">
+        <schema name="pg_catalog" object-types="function" />
         <schema name="public" object-types="table, function, index, column, view, constraint, dataset trigger, sequence" />
       </connection>
       <connection connection-id="4a682503-375c-463a-9d89-541e1d6076d1">
@@ -41,13 +42,24 @@
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="ea6c4251-24e1-4559-b70c-d1339f95ddcb" object-ref="schemas/public/tables/document" />
+      <object connection-id="ea6c4251-24e1-4559-b70c-d1339f95ddcb" object-ref="schemas/public/tables/project" />
+      <object connection-id="ea6c4251-24e1-4559-b70c-d1339f95ddcb" object-ref="schemas/public/tables/project_company" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="ea6c4251-24e1-4559-b70c-d1339f95ddcb" />
     <connection id="4a682503-375c-463a-9d89-541e1d6076d1" />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="ea6c4251-24e1-4559-b70c-d1339f95ddcb" dataset="public.document" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="ea6c4251-24e1-4559-b70c-d1339f95ddcb" dataset="public.project_company" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="ea6c4251-24e1-4559-b70c-d1339f95ddcb" dataset="public.project" active-filter-id="f1f118c4-5c71-472f-90d7-c1e312845c45">
+      <filter id="f1f118c4-5c71-472f-90d7-c1e312845c45" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND">
+        <condition column="id" operator="=" value="" active="true" />
+      </filter>
+    </filter-actions>
     <filter-actions connection-id="ea6c4251-24e1-4559-b70c-d1339f95ddcb" dataset="public.waybill" active-filter-id="b258ca3a-a14b-4a37-b870-738143125c76">
       <filter id="b258ca3a-a14b-4a37-b870-738143125c76" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND">
         <condition column="id" operator="=" value="" active="true" />

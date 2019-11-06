@@ -26,7 +26,7 @@ public class Project implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "endCustomer")
-    private transient Company endCustomer;
+    private  Company endCustomer;
 
     @OneToMany(mappedBy = "numProject", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @LazyCollection(LazyCollectionOption.FALSE)
