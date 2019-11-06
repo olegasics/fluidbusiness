@@ -1,16 +1,23 @@
 package ru.basics.server.rest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import ru.basics.server.database.dao.DocumentDAO;
-import ru.basics.server.database.entity.CargoMove;
 import ru.basics.server.database.entity.Document;
 
-import javax.print.Doc;
 import java.util.List;
 
-public class DocumentRestController implements RestController<Document> {
+public class DocumentRestControllerInterface implements RestControllerInterface<Document> {
     DocumentDAO documentDAO;
+
+    @Autowired
+    public DocumentRestControllerInterface(DocumentDAO documentDAO) {
+        this.documentDAO = documentDAO;
+    }
+
+    public DocumentRestControllerInterface() {
+    }
 
     @Override
     public ResponseEntity<Document> add(Document document) {

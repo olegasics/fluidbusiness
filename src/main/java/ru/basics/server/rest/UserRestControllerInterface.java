@@ -8,29 +8,27 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 import ru.basics.server.database.dao.UserDAO;
-import ru.basics.server.database.entity.Project;
 import ru.basics.server.database.entity.User;
 import ru.basics.server.utils.AuthUtils;
 
 import javax.validation.Valid;
-import java.io.Serializable;
 import java.util.List;
 
 
 @RestController
 @RequestMapping("/users")
-public class UserRestController implements ru.basics.server.rest.RestController<User> {
+public class UserRestControllerInterface implements RestControllerInterface<User> {
 
     UserDAO userDAO;
     AuthUtils authUtils;
 
     @Autowired
-    public UserRestController(UserDAO userDAO, AuthUtils authUtils) {
+    public UserRestControllerInterface(UserDAO userDAO, AuthUtils authUtils) {
         this.userDAO = userDAO;
         this.authUtils = authUtils;
     }
 
-    public UserRestController() {
+    public UserRestControllerInterface() {
     }
 
     /**

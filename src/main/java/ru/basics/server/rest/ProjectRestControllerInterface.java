@@ -16,12 +16,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/projects")
-public class ProjectRestController implements ru.basics.server.rest.RestController<Project> {
+public class ProjectRestControllerInterface implements RestControllerInterface<Project> {
     ProjectDAO projectDAO;
 
     @Autowired
-    public ProjectRestController(ProjectDAO projectDAO) {
+    public ProjectRestControllerInterface(ProjectDAO projectDAO) {
         this.projectDAO = projectDAO;
+    }
+
+    public ProjectRestControllerInterface() {
     }
 
     @RequestMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE,

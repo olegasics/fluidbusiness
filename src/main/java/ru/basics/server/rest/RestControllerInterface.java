@@ -12,7 +12,7 @@ import ru.basics.server.database.entity.User;
 import javax.validation.Valid;
 import java.util.List;
 
-public interface RestController<T> {
+public interface RestControllerInterface<T> {
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<T> add(@RequestBody @Valid T t);

@@ -1,16 +1,25 @@
 package ru.basics.server.rest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
 import ru.basics.server.database.dao.CompanyDAO;
 import ru.basics.server.database.entity.Company;
-import ru.basics.server.database.entity.Document;
 
 import java.util.List;
-
-public class CompanyRestController implements RestController<Company> {
+@RestController
+public class CompanyRestControllerInterface implements RestControllerInterface<Company> {
 
     CompanyDAO companyDAO;
+
+    @Autowired
+    public CompanyRestControllerInterface(CompanyDAO companyDAO) {
+        this.companyDAO = companyDAO;
+    }
+
+    public CompanyRestControllerInterface() {
+    }
 
     @Override
     public ResponseEntity<Company> add(Company company) {

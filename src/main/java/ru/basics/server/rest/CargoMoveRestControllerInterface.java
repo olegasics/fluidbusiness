@@ -1,15 +1,27 @@
 package ru.basics.server.rest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
 import ru.basics.server.database.dao.CargoMoveDAO;
 import ru.basics.server.database.entity.CargoMove;
 
 import java.util.List;
 
-public class CargoMoveRestController implements RestController<CargoMove> {
+@org.springframework.web.bind.annotation.RestController
+@RequestMapping("/cargro-moves")
+public class CargoMoveRestControllerInterface implements RestControllerInterface<CargoMove> {
 
     CargoMoveDAO cargoMoveDAO;
+
+    @Autowired
+    public CargoMoveRestControllerInterface(CargoMoveDAO cargoMoveDAO) {
+        this.cargoMoveDAO = cargoMoveDAO;
+    }
+
+    public CargoMoveRestControllerInterface() {
+    }
 
     @Override
     public ResponseEntity<CargoMove> add(CargoMove cargoMove) {
