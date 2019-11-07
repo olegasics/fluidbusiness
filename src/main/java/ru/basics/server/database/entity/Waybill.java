@@ -1,12 +1,16 @@
 package ru.basics.server.database.entity;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
+@Component
 @Entity
 @Table
 public class Waybill implements Serializable {
@@ -31,9 +35,10 @@ public class Waybill implements Serializable {
     @Column
     private double volume;
 
-    @OneToMany(mappedBy = "waybill", fetch = FetchType.EAGER,
-            cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    private List<WaybillDocument> waybillDocuments;
+    @OneToMany(mappedBy = "waybill")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @Fetch(FetchMode.SELECT)
+    private List<WaybillDocument> waybillDocuments = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "forwarder_id")

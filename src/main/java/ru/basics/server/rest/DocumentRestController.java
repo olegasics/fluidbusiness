@@ -12,15 +12,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/documents")
-public class DocumentRestControllerInterface implements RestControllerInterface<Document> {
+public class DocumentRestController implements RestControllerInterface<Document> {
     DocumentDAO documentDAO;
 
     @Autowired
-    public DocumentRestControllerInterface(DocumentDAO documentDAO) {
+    public DocumentRestController(DocumentDAO documentDAO) {
         this.documentDAO = documentDAO;
     }
 
-    public DocumentRestControllerInterface() {
+    public DocumentRestController() {
     }
 
     @Override

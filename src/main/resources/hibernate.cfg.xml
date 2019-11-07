@@ -19,6 +19,7 @@
         <mapping class="ru.basics.server.database.entity.Position"/>
         <mapping class="ru.basics.server.database.entity.WaybillDocument"/>
         <mapping class="ru.basics.server.database.entity.Task"/>
+        <mapping class="ru.basics.server.database.entity.CargoMove"/>
 
 
     </session-factory>

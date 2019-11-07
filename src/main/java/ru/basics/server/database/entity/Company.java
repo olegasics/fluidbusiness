@@ -74,17 +74,17 @@ public class Company implements Serializable {
     @OneToMany(mappedBy = "forwarder")
     @LazyCollection(LazyCollectionOption.FALSE)
     @Fetch(FetchMode.SELECT)
-    private List<Waybill> forwarderWaybills = new ArrayList<>();
+    private transient List<Waybill> forwarderWaybills = new ArrayList<>();
 
     @OneToMany(mappedBy = "sendCompany")
     @LazyCollection(LazyCollectionOption.FALSE)
     @Fetch(FetchMode.SELECT)
-    private List<Waybill> sendCompanyWaybills;
+    private transient List<Waybill> sendCompanyWaybills;
 
     @OneToMany(mappedBy = "deliveryCompany")
     @LazyCollection(LazyCollectionOption.FALSE)
     @Fetch(FetchMode.SELECT)
-    private List<Waybill> deliveryCompanyWaybills;
+    private transient List<Waybill> deliveryCompanyWaybills;
 
     public Company() {
     }

@@ -3,19 +3,23 @@ package ru.basics.server.rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ru.basics.server.database.dao.DriverDataDAO;
 import ru.basics.server.database.entity.DriverData;
 import java.util.List;
 
-public class DriverDataRestControllerInterface implements RestControllerInterface<DriverData> {
+@RestController
+@RequestMapping("/drivers")
+public class DriverDataRestController implements RestControllerInterface<DriverData> {
     DriverDataDAO driverDataDAO;
 
     @Autowired
-    public DriverDataRestControllerInterface(DriverDataDAO driverDataDAO) {
+    public DriverDataRestController(DriverDataDAO driverDataDAO) {
         this.driverDataDAO = driverDataDAO;
     }
 
-    public DriverDataRestControllerInterface() {
+    public DriverDataRestController() {
     }
 
     @Override

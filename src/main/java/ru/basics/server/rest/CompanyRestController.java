@@ -3,22 +3,24 @@ package ru.basics.server.rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.basics.server.database.dao.CompanyDAO;
 import ru.basics.server.database.entity.Company;
 
 import java.util.List;
 @RestController
-public class CompanyRestControllerInterface implements RestControllerInterface<Company> {
+@RequestMapping("/companies")
+public class CompanyRestController implements RestControllerInterface<Company> {
 
     CompanyDAO companyDAO;
 
     @Autowired
-    public CompanyRestControllerInterface(CompanyDAO companyDAO) {
+    public CompanyRestController(CompanyDAO companyDAO) {
         this.companyDAO = companyDAO;
     }
 
-    public CompanyRestControllerInterface() {
+    public CompanyRestController() {
     }
 
     @Override

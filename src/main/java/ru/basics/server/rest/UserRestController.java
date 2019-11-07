@@ -17,18 +17,18 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
-public class UserRestControllerInterface implements RestControllerInterface<User> {
+public class UserRestController implements RestControllerInterface<User> {
 
     UserDAO userDAO;
     AuthUtils authUtils;
 
     @Autowired
-    public UserRestControllerInterface(UserDAO userDAO, AuthUtils authUtils) {
+    public UserRestController(UserDAO userDAO, AuthUtils authUtils) {
         this.userDAO = userDAO;
         this.authUtils = authUtils;
     }
 
-    public UserRestControllerInterface() {
+    public UserRestController() {
     }
 
     /**

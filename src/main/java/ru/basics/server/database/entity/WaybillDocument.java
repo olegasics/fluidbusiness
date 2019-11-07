@@ -1,14 +1,18 @@
 package ru.basics.server.database.entity;
 
+import com.sun.xml.internal.ws.developer.Serialization;
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
 
+@Serialization
+@Component
 @Entity
 @Table
 public class WaybillDocument implements Serializable {
-
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

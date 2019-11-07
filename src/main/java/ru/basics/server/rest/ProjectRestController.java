@@ -16,15 +16,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/projects")
-public class ProjectRestControllerInterface implements RestControllerInterface<Project> {
+public class ProjectRestController implements RestControllerInterface<Project> {
     ProjectDAO projectDAO;
 
     @Autowired
-    public ProjectRestControllerInterface(ProjectDAO projectDAO) {
+    public ProjectRestController(ProjectDAO projectDAO) {
         this.projectDAO = projectDAO;
     }
 
-    public ProjectRestControllerInterface() {
+    public ProjectRestController() {
     }
 
     public ResponseEntity<List<Project>> all() {

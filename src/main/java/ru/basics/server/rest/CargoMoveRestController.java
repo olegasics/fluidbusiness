@@ -2,25 +2,48 @@ package ru.basics.server.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import ru.basics.server.database.dao.CargoMoveDAO;
+import ru.basics.server.database.dao.WayBillDAO;
+import ru.basics.server.database.dao.WaybillDocumentDAO;
 import ru.basics.server.database.entity.CargoMove;
+import ru.basics.server.database.entity.Waybill;
+import ru.basics.server.database.entity.WaybillDocument;
 
 import java.util.List;
 
-@org.springframework.web.bind.annotation.RestController
+@RestController
 @RequestMapping("/cargro-moves")
-public class CargoMoveRestControllerInterface implements RestControllerInterface<CargoMove> {
+public class CargoMoveRestController implements RestControllerInterface<CargoMove> {
 
     CargoMoveDAO cargoMoveDAO;
 
     @Autowired
-    public CargoMoveRestControllerInterface(CargoMoveDAO cargoMoveDAO) {
+    public CargoMoveRestController(CargoMoveDAO cargoMoveDAO) {
         this.cargoMoveDAO = cargoMoveDAO;
     }
 
-    public CargoMoveRestControllerInterface() {
+    public CargoMoveRestController() {
+    }
+
+    @RequestMapping(value = "/test", produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            method = RequestMethod.GET)
+    public ResponseEntity<CargoMove> test() {
+
+
+        WayBillDAO wayBillDAO = new WayBillDAO();
+        Waybill waybill = wayBillDAO.findById(86L);
+        WaybillDocumentDAO waybillDocumentDAO = new WaybillDocumentDAO();
+        WaybillDocument waybillDocument = waybillDocumentDAO.findById(1L);
+        WaybillDocument waybillDocument1 = waybillDocumentDAO.findById(2L);
+        waybillDocument.setWaybill(waybill);
+        waybillDocument1.setWaybill(waybill);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @Override
