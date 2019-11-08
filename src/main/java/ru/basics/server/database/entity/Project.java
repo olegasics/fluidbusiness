@@ -30,10 +30,11 @@ public class Project implements Serializable {
     @JoinColumn(name = "endCustomer")
     private  Company endCustomer;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "numProject", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @LazyCollection(LazyCollectionOption.FALSE)
     @Fetch(FetchMode.SELECT)
-    private transient List<Document> document = new ArrayList<>();
+    private List<Document> documents = new ArrayList<>();
 
     @ManyToMany(mappedBy = "projects")
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -101,12 +102,12 @@ public class Project implements Serializable {
         this.endCustomer = endCustomer;
     }
 
-    public List<Document> getDocument() {
-        return document;
+    public List<Document> getDocuments() {
+        return documents;
     }
 
-    public void setDocument(List<Document> document) {
-        this.document = document;
+    public void setDocuments(List<Document> documents) {
+        this.documents = documents;
     }
 
     public List<Company> getProviders() {
