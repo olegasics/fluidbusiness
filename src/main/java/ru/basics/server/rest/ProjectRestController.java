@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.basics.server.database.dao.ProjectDAO;
 import ru.basics.server.database.entity.Project;
 
@@ -45,8 +42,8 @@ public class ProjectRestController implements RestControllerInterface<Project> {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Project> getById(Long id) {
+
+    public ResponseEntity<Project> getById(@PathVariable("id") Long id) {
             Project project = projectDAO.findById(id);
             if(project == null) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
