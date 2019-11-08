@@ -1,6 +1,7 @@
 package ru.basics.server.database.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -33,6 +34,7 @@ public class Task implements Serializable {
     @Column
     private int status;
 
+    @JsonIgnore
     @ManyToOne()
     @JoinColumn(name = "project_id")
     private Project project;

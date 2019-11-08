@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import ru.basics.server.database.entity.Project;
-import ru.basics.server.database.entity.User;
 
 import javax.validation.Valid;
 import java.util.List;

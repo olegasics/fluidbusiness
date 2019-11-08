@@ -1,5 +1,7 @@
 package ru.basics.server.database.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -20,9 +22,10 @@ public class Document implements Serializable {
     @Column
     private String name;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "company_id")
-    private transient Company company;
+    private Company company;
 
     @Column
     private Date date;
@@ -35,12 +38,14 @@ public class Document implements Serializable {
 
     @OneToMany(mappedBy = "document", fetch = FetchType.EAGER,
             cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    private transient List<WaybillDocument> waybillDocuments;
+    private List<WaybillDocument> waybillDocuments;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "payer_company_id")
     private Company payer;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "project_id")
     private Project numProject;

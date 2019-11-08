@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.basics.server.database.dao.CompanyDAO;
 import ru.basics.server.database.entity.Company;
-
 import java.util.List;
+
 @RestController
 @RequestMapping("/companies")
 public class CompanyRestController implements RestControllerInterface<Company> {

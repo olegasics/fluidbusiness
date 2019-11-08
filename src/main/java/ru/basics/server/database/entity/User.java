@@ -45,7 +45,7 @@ public class User implements Serializable {
     @ManyToMany(mappedBy = "team", fetch = FetchType.LAZY)
     @LazyCollection(LazyCollectionOption.FALSE)
     @Fetch(FetchMode.SELECT)
-    private transient Set<Project> projects = new HashSet<>();
+    private Set<Project> projects = new HashSet<>();
 
     @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
     private List<Task> tasks;

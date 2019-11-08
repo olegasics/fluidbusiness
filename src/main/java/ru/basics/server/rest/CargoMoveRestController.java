@@ -13,7 +13,9 @@ import ru.basics.server.database.dao.WaybillDocumentDAO;
 import ru.basics.server.database.entity.CargoMove;
 import ru.basics.server.database.entity.Waybill;
 import ru.basics.server.database.entity.WaybillDocument;
+import ru.basics.server.database.dto.CargoMoveDTO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -44,6 +46,19 @@ public class CargoMoveRestController implements RestControllerInterface<CargoMov
         waybillDocument1.setWaybill(waybill);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @RequestMapping(value = "/dto", produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            method = RequestMethod.GET)
+    public ResponseEntity<List<CargoMoveDTO>> dto() {
+        List<CargoMove> cargoMove = cargoMoveDAO.findAllField();
+        CargoMoveDTO cargoMoveDTO = new CargoMoveDTO(cargoMove.get(0));
+        cargoMoveDTO.getNameCargo(cargoMove.get(0));
+        cargoMoveDTO.getStatus(cargoMove.get(0));
+        cargoMoveDTO.getWaybill(cargoMove.get(0));
+        List<CargoMoveDTO> cargoMoveDTOS = new ArrayList<>();
+        cargoMoveDTOS.add(cargoMoveDTO);
+        return new ResponseEntity<>(cargoMoveDTOS, HttpStatus.OK);
     }
 
     @Override

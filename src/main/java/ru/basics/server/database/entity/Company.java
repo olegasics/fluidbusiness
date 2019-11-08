@@ -1,5 +1,6 @@
 package ru.basics.server.database.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyCollection;
@@ -50,17 +51,18 @@ public class Company implements Serializable {
     @OneToMany(mappedBy = "company")
     @LazyCollection(LazyCollectionOption.FALSE)
     @Fetch(FetchMode.SELECT)
-    private transient List<Document> documents;
+    private List<Document> documents;
 
     @OneToMany(mappedBy = "payer")
     @LazyCollection(LazyCollectionOption.FALSE)
     @Fetch(FetchMode.SELECT)
     private List<Document> documentsPayer = new ArrayList<>();
 
+
     @OneToMany(mappedBy = "endCustomer")
     @LazyCollection(LazyCollectionOption.FALSE)
     @Fetch(FetchMode.SELECT)
-    private transient List<Project> companies = new ArrayList<>();
+    private List<Project> companies = new ArrayList<>();
 
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(name = "project_company",
@@ -74,17 +76,17 @@ public class Company implements Serializable {
     @OneToMany(mappedBy = "forwarder")
     @LazyCollection(LazyCollectionOption.FALSE)
     @Fetch(FetchMode.SELECT)
-    private transient List<Waybill> forwarderWaybills = new ArrayList<>();
+    private List<Waybill> forwarderWaybills = new ArrayList<>();
 
     @OneToMany(mappedBy = "sendCompany")
     @LazyCollection(LazyCollectionOption.FALSE)
     @Fetch(FetchMode.SELECT)
-    private transient List<Waybill> sendCompanyWaybills;
+    private List<Waybill> sendCompanyWaybills;
 
     @OneToMany(mappedBy = "deliveryCompany")
     @LazyCollection(LazyCollectionOption.FALSE)
     @Fetch(FetchMode.SELECT)
-    private transient List<Waybill> deliveryCompanyWaybills;
+    private List<Waybill> deliveryCompanyWaybills;
 
     public Company() {
     }

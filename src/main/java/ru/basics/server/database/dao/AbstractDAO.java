@@ -1,5 +1,6 @@
 package ru.basics.server.database.dao;
 
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -8,12 +9,13 @@ import org.springframework.stereotype.Service;
 import ru.basics.server.utils.SessionFactoryUtils;
 import javax.persistence.MappedSuperclass;
 import javax.transaction.Transactional;
+import java.io.Serializable;
 import java.util.List;
 
 @MappedSuperclass
 @Service
 @Transactional
-public abstract class AbstractDAO<T>  {
+public abstract class AbstractDAO<T> implements Serializable {
     SessionFactory sessionFactory;
     Criteria criteria;
 

@@ -38,6 +38,7 @@ public class CargoMove implements Serializable {
     public CargoMove() {
     }
 
+
     public Long getId() {
         return id;
     }

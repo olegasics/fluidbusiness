@@ -1,5 +1,7 @@
 package ru.basics.server.database.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.UUID;
@@ -27,6 +29,7 @@ public class DriverData implements Serializable {
     @Column
     private String numberPhone;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "company_id")
     private Company company;

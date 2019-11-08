@@ -1,5 +1,6 @@
 package ru.basics.server.database.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyCollection;
@@ -38,26 +39,22 @@ public class Waybill implements Serializable {
     @OneToMany(mappedBy = "waybill")
     @LazyCollection(LazyCollectionOption.FALSE)
     @Fetch(FetchMode.SELECT)
-    private List<WaybillDocument> waybillDocuments = new ArrayList<>();
+    private List<WaybillDocument> waybillDocuments;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "forwarder_id")
     private Company forwarder;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "send_company_id")
     private Company sendCompany;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "delivery_company_id")
     private Company deliveryCompany;
-
-//    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-//    @JoinTable(name = "waybill_document",
-//            joinColumns = {@JoinColumn(name = "waybill_id", referencedColumnName = "id")},
-//            inverseJoinColumns = {@JoinColumn(name = "document_id", referencedColumnName = "id")}
-//    )
-//    private Set<Document> invoices = new HashSet<>();
 
     public void addItem(WaybillDocument waybillDocument) {
         waybillDocuments.add(waybillDocument);

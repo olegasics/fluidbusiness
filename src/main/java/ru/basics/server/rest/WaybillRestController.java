@@ -1,38 +1,83 @@
 package ru.basics.server.rest;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import ru.basics.server.database.entity.WaybillDocument;
-
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import ru.basics.server.database.dao.WayBillDAO;
+import ru.basics.server.database.entity.Waybill;
 import java.util.List;
 
-public class WaybillRestController implements RestControllerInterface<WaybillDocument> {
-    @Override
-    public ResponseEntity<WaybillDocument> add(WaybillDocument waybillDocument) {
-        return null;
+@RestController
+@RequestMapping(value = "/waybills")
+public class WaybillRestController implements RestControllerInterface<Waybill> {
+
+    WayBillDAO wayBillDAO;
+
+    @Autowired
+    public WaybillRestController(WayBillDAO wayBillDAO) {
+        this.wayBillDAO = wayBillDAO;
+    }
+
+    public WaybillRestController() {
     }
 
     @Override
-    public ResponseEntity<List<WaybillDocument>> all() {
-        return null;
+    public ResponseEntity<Waybill> add(Waybill waybill) {
+        if (waybill == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        wayBillDAO.create(waybill);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @Override
-    public ResponseEntity<WaybillDocument> getById(Long id) {
-        return null;
+    public ResponseEntity<List<Waybill>> all() {
+        List<Waybill> waybills = wayBillDAO.findAllField();
+        return new ResponseEntity<>(waybills, HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<WaybillDocument> update(WaybillDocument waybillDocument) {
-        return null;
+    public ResponseEntity<Waybill> getById(Long id) {
+        Waybill waybill = wayBillDAO.findById(id);
+        if (waybill == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(waybill, HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<WaybillDocument> delete(WaybillDocument waybillDocument) {
-        return null;
+    public ResponseEntity<Waybill> update(Waybill waybill) {
+        if (waybill == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        wayBillDAO.update(waybill);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @Override
-    public ResponseEntity<WaybillDocument> deleteById(Long id) {
-        return null;
+    public ResponseEntity<Waybill> delete(Waybill waybill) {
+        if (waybill == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        if (wayBillDAO.findById(waybill.getId()) == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        wayBillDAO.delete(waybill);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @Override
+    public ResponseEntity<Waybill> deleteById(Long id) {
+        Waybill waybill = wayBillDAO.findById(id);
+        if (waybill == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        wayBillDAO.delete(waybill);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

@@ -1,5 +1,6 @@
 package ru.basics.server.database.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyCollection;
@@ -24,6 +25,7 @@ public class Project implements Serializable {
     @Column(unique = true, nullable = false)
     private String number;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "endCustomer")
     private  Company endCustomer;
@@ -38,7 +40,7 @@ public class Project implements Serializable {
     @Fetch(FetchMode.SELECT)
     private List<Company> providers = new ArrayList<>();
 
-
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "user_project",
             joinColumns = {@JoinColumn(name = "project_id", referencedColumnName = "id")},

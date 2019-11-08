@@ -1,12 +1,12 @@
 package ru.basics.server.database.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.xml.internal.ws.developer.Serialization;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Serialization
 @Component
 @Entity
 @Table
@@ -17,10 +17,12 @@ public class WaybillDocument implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonIgnore
     @ManyToOne()
     @JoinColumn(name = "waybill_id")
     private Waybill waybill;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "documents_id")
     private Document document;
@@ -71,6 +73,7 @@ public class WaybillDocument implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
 
     public Waybill getWaybill() {
         return waybill;
