@@ -87,4 +87,19 @@ public class ProjectRestController implements RestControllerInterface<Project> {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @RequestMapping(value = "/end-customer/{number}", method = RequestMethod.GET,
+    produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Project> findByNumber(@PathVariable("number") String number) {
+        if(number == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        Project project = projectDAO.findByField("number", number);
+        if(project == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(project, HttpStatus.OK);
+    }
+
 }
