@@ -27,6 +27,8 @@ public class CargoMove implements Serializable {
     @OneToOne
     private Waybill waybill;
 
+    //TODO дополнить поля, *смотреть схему бд
+
     public CargoMove(boolean status, String nameCargo, String trackNumber, boolean upd, Waybill waybill) {
         this.status = status;
         this.nameCargo = nameCargo;
