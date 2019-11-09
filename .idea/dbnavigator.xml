@@ -42,17 +42,14 @@
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files>
-      <object connection-id="ea6c4251-24e1-4559-b70c-d1339f95ddcb" object-ref="schemas/public/tables/document" />
-      <object connection-id="ea6c4251-24e1-4559-b70c-d1339f95ddcb" object-ref="schemas/public/tables/project" />
-      <object connection-id="ea6c4251-24e1-4559-b70c-d1339f95ddcb" object-ref="schemas/public/tables/project_company" />
-    </open-files>
+    <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="ea6c4251-24e1-4559-b70c-d1339f95ddcb" />
     <connection id="4a682503-375c-463a-9d89-541e1d6076d1" />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="ea6c4251-24e1-4559-b70c-d1339f95ddcb" dataset="public.cargomove" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="ea6c4251-24e1-4559-b70c-d1339f95ddcb" dataset="public.document" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="ea6c4251-24e1-4559-b70c-d1339f95ddcb" dataset="public.project_company" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="ea6c4251-24e1-4559-b70c-d1339f95ddcb" dataset="public.project" active-filter-id="f1f118c4-5c71-472f-90d7-c1e312845c45">

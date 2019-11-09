@@ -15,5 +15,6 @@ import ru.basics.server.database.entity.Waybill;
 public class Main {
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
+
     }
 }

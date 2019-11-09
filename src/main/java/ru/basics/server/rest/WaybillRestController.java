@@ -3,6 +3,7 @@ package ru.basics.server.rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.basics.server.database.dao.WayBillDAO;
@@ -39,7 +40,7 @@ public class WaybillRestController implements RestControllerInterface<Waybill> {
     }
 
     @Override
-    public ResponseEntity<Waybill> getById(Long id) {
+    public ResponseEntity<Waybill> getById(@PathVariable("id") Long id) {
         Waybill waybill = wayBillDAO.findById(id);
         if (waybill == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

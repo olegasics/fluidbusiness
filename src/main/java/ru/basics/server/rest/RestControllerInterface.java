@@ -20,7 +20,7 @@ public interface RestControllerInterface<T> {
             method = RequestMethod.GET)
     public ResponseEntity<List<T>> all();
 
-    @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<T> getById(@PathVariable("id") Long id);
 
     @RequestMapping(method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

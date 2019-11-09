@@ -1,9 +1,15 @@
 package ru.basics.server.database.entity;
 
-public enum Position {
+import java.io.Serializable;
+
+public enum Position implements Serializable {
     LOGIST,
     MANAGER,
     DIRECTOR,
     SECRETARY,
     INGENER;
+
+    public String getPosition() {
+        return this.name();
+    }
 }

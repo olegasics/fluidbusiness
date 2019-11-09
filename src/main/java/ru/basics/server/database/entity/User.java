@@ -85,7 +85,7 @@ public class User implements Serializable {
 
     public User(String name, String login, String password,
                 String email, String city, String phoneNumber,
-                Position position, Set<Project> projects) {
+                Position position) {
         this.name = name;
         this.login = login;
         this.password = password;
@@ -93,7 +93,6 @@ public class User implements Serializable {
         this.city = city;
         this.phoneNumber = phoneNumber;
         this.position = position;
-        this.projects = projects;
     }
 
     public Long getId() {

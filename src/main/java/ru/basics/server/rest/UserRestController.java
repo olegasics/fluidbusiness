@@ -73,9 +73,8 @@ public class UserRestController implements RestControllerInterface<User> {
         return new ResponseEntity<>(userDAO.findAllField(), HttpStatus.OK);
 
     }
-
     @Override
-    public ResponseEntity<User> getById(Long id) {
+    public ResponseEntity<User> getById(@PathVariable("id")  Long id) {
         User user = userDAO.findById(id);
         if(user == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -121,4 +120,5 @@ public class UserRestController implements RestControllerInterface<User> {
         userDAO.delete(user);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
 }
