@@ -2,6 +2,10 @@ package ru.basics.server.database.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -39,11 +43,14 @@ public class Task implements Serializable {
     @JoinColumn(name = "project_id")
     private Project project;
 
-    @ManyToMany
+    @JsonIgnore
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(
             joinColumns = @JoinColumn(name = "task_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @Fetch(FetchMode.SELECT)
     private Set<User> users = new HashSet<>();
 
 

@@ -48,7 +48,12 @@ public class User implements Serializable {
     private Set<Project> projects = new HashSet<>();
 
     @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @Fetch(FetchMode.SELECT)
     private List<Task> tasks;
+
+    @Column
+    private Boolean deleted;
 
     public void addProject(Project project) {
         projects.add(project);
@@ -93,6 +98,22 @@ public class User implements Serializable {
         this.city = city;
         this.phoneNumber = phoneNumber;
         this.position = position;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
     }
 
     public Long getId() {
@@ -189,6 +210,7 @@ public class User implements Serializable {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", login='" + login + '\'' +
+                ", status='" + deleted + '\'' +
                 '}';
     }
 }

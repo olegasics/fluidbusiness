@@ -12,6 +12,7 @@ import ru.basics.server.database.entity.User;
 import ru.basics.server.utils.AuthUtils;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -76,7 +77,7 @@ public class UserRestController implements RestControllerInterface<User> {
     @Override
     public ResponseEntity<User> getById(@PathVariable("id")  Long id) {
         User user = userDAO.findById(id);
-        if(user == null) {
+        if(!userDAO.exists(user.getLogin())) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
@@ -119,6 +120,32 @@ public class UserRestController implements RestControllerInterface<User> {
         }
         userDAO.delete(user);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @RequestMapping(value = "/deactivation/{id}", method = RequestMethod.GET,
+    produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<User> deActivation(@PathVariable("id") Long id) {
+        User user = userDAO.findById(id);
+        if(user == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        user.setDeleted(true);
+        userDAO.update(user);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @RequestMapping(value = "/getstatus", method = RequestMethod.GET,
+    produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<User>> getStatus() {
+        List<User> users = userDAO.findAllField();
+        List<User> users2 = new ArrayList<>();
+        for(User user : users) {
+            user.setDeleted(false);
+            userDAO.update(user);
+            users2.add(user);
+        }
+        return new ResponseEntity<>(users2, HttpStatus.OK);
+
     }
 
 }
