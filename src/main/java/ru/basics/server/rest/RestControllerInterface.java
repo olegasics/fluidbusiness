@@ -13,6 +13,7 @@ import ru.basics.server.database.dao.TestDAO;
 import ru.basics.server.database.entity.AbstractStandartEntity;
 import ru.basics.server.database.entity.CargoMove;
 import ru.basics.server.database.entity.Project;
+import ru.basics.server.database.entity.User;
 import ru.basics.server.utils.restUtils.RestUtils;
 
 import javax.validation.Valid;
@@ -29,13 +30,14 @@ public class RestControllerInterface<T, E extends AbstractDAO<T>> extends Abstra
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         this.create(t);
+
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @RequestMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             method = RequestMethod.GET)
     public List<T> all() {
-        return e.findAllField();
+        return (List<T>) e.findAllField();
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -106,7 +108,7 @@ public class RestControllerInterface<T, E extends AbstractDAO<T>> extends Abstra
 
 
     @Override
-    public Class<T> getEntityClass() {
+    public  Class<T> getEntityClass() {
         return null;
     }
 /*

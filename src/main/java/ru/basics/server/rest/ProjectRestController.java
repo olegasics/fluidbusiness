@@ -17,6 +17,7 @@ import java.util.List;
 public class ProjectRestController extends RestControllerInterface<Project, ProjectDAO> {
     ProjectDAO projectDAO;
     CargoMoveRestController cargoMoveRestController;
+    RestControllerInterface restControllerInterface;
 
     @Autowired
     public ProjectRestController(ProjectDAO projectDAO) {
@@ -25,6 +26,10 @@ public class ProjectRestController extends RestControllerInterface<Project, Proj
 
     public ProjectRestController() {
     }
+
+
+
+
     /*
     public ResponseEntity<List<Project>> all() {
         return new ResponseEntity<>(projectDAO.findAllField(), HttpStatus.OK);
@@ -115,6 +120,5 @@ public class ProjectRestController extends RestControllerInterface<Project, Proj
 
         return new ResponseEntity<>(project, HttpStatus.OK);
     }
-
 
 }
