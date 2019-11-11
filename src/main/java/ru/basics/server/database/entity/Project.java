@@ -14,21 +14,15 @@ import java.util.Set;
 
 @Entity
 @Table
-public class Project implements Serializable {
+public class Project extends AbstractStandartEntity implements Serializable {
 
     private static final long serialVersionUID = 3L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(unique = true, nullable = false)
-    private String number;
 
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "endCustomer")
-    private  Company endCustomer;
+    protected Company endCustomer;
 
     @JsonIgnore
     @OneToMany(mappedBy = "numProject", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
@@ -63,8 +57,8 @@ public class Project implements Serializable {
     public Project() {
     }
 
-    public Project(String number, Company endCustomer) {
-        this.number = number;
+    public Project(String name, Company endCustomer) {
+        this.name = name;
         this.endCustomer = endCustomer;
     }
 
@@ -86,13 +80,7 @@ public class Project implements Serializable {
         this.team = team;
     }
 
-    public String getNumber() {
-        return number;
-    }
 
-    public void setNumber(String number) {
-        this.number = number;
-    }
 
     public Company getEndCustomer() {
         return endCustomer;
@@ -121,7 +109,7 @@ public class Project implements Serializable {
     @Override
     public String toString() {
         return "Project{" +
-                "number='" + number + '\'' +
+                "Number" + name +
                 '}';
     }
 }

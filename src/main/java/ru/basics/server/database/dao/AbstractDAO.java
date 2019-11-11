@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
+import ru.basics.server.database.entity.Project;
 import ru.basics.server.utils.SessionFactoryUtils;
 import javax.persistence.MappedSuperclass;
 import javax.transaction.Transactional;
@@ -70,6 +71,11 @@ public abstract class AbstractDAO<T> implements Serializable {
             session.delete(entity);
             session.getTransaction().commit();
         }
+    }
+
+    public boolean isExistWithString(Long id) {
+        //TODO  сделать поиск по логину
+        return findById() != null;
     }
 
     public abstract Class<T> getEntityClass();

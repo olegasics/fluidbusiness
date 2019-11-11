@@ -6,6 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.basics.server.database.dao.ProjectDAO;
+import ru.basics.server.database.entity.CargoMove;
 import ru.basics.server.database.entity.Project;
 
 import javax.validation.Valid;
@@ -13,8 +14,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/projects")
-public class ProjectRestController implements RestControllerInterface<Project> {
+public class ProjectRestController extends RestControllerInterface<Project> {
     ProjectDAO projectDAO;
+    CargoMoveRestController cargoMoveRestController;
 
     @Autowired
     public ProjectRestController(ProjectDAO projectDAO) {
@@ -28,6 +30,7 @@ public class ProjectRestController implements RestControllerInterface<Project> {
         return new ResponseEntity<>(projectDAO.findAllField(), HttpStatus.OK);
     }
 
+    /*
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Project> add(@RequestBody Project project) {
 
@@ -43,6 +46,8 @@ public class ProjectRestController implements RestControllerInterface<Project> {
     }
 
 
+
+
     public ResponseEntity<Project> getById(@PathVariable("id") Long id) {
             Project project = projectDAO.findById(id);
             if(project == null) {
@@ -50,6 +55,8 @@ public class ProjectRestController implements RestControllerInterface<Project> {
             }
             return new ResponseEntity<>(project, HttpStatus.OK);
     }
+
+
 
     @RequestMapping(method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Project> update(@RequestBody @Valid Project project) {
@@ -63,6 +70,8 @@ public class ProjectRestController implements RestControllerInterface<Project> {
         projectDAO.update(project);
         return new ResponseEntity<>(project, HttpStatus.OK);
     }
+
+     */
 
     @RequestMapping(method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Project> delete(@RequestBody @Valid Project project) {

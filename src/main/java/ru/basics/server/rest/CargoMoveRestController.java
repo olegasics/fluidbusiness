@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import ru.basics.server.database.dao.*;
 import ru.basics.server.database.entity.*;
-import ru.basics.server.database.dto.CargoMoveDTO;
+import ru.basics.server.utils.restUtils.RestUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/cargro-moves")
-public class CargoMoveRestController implements RestControllerInterface<CargoMove> {
+@RequestMapping("/cargo-moves")
+public class CargoMoveRestController extends RestControllerInterface<CargoMove> {
 
     CargoMoveDAO cargoMoveDAO;
     WayBillDAO wayBillDAO;
@@ -33,14 +33,17 @@ public class CargoMoveRestController implements RestControllerInterface<CargoMov
     public CargoMoveRestController() {
     }
 
+    /*
     @Override
     public ResponseEntity<CargoMove> add(CargoMove cargoMove) {
-        if(cargoMove == null) {
+        if(RestUtils.checkIsNullBool(cargoMove)) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         cargoMoveDAO.create(cargoMove);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+
 
     @Override
     public ResponseEntity<List<CargoMove>> all() {
@@ -50,12 +53,15 @@ public class CargoMoveRestController implements RestControllerInterface<CargoMov
     @Override
     public ResponseEntity<CargoMove> getById(Long id) {
         CargoMove cargoMove = cargoMoveDAO.findById(id);
+        RestUtils.checkIsNullBool(cargoMove);
         if(cargoMove == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
         return new ResponseEntity<>(cargoMove, HttpStatus.OK);
     }
+
+     */
 
     @Override
     public ResponseEntity<CargoMove> update(CargoMove cargoMove) {

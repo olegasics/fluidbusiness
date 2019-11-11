@@ -1,11 +1,17 @@
 package ru.basics.server.database.entity;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table
-public class CargoMove implements Serializable {
+public class CargoMove extends AbstractStandartEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -26,6 +32,11 @@ public class CargoMove implements Serializable {
 
     @OneToOne
     private Waybill waybill;
+
+    @OneToMany(mappedBy = "cargo_move_id")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @Fetch(FetchMode.SELECT)
+    private List<WaybillDocument> waybillDocuments;
 
     //TODO дополнить поля, *смотреть схему бд
 
