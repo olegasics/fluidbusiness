@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/drivers")
-public class DriverDataRestController implements RestControllerInterface<DriverData> {
+public class DriverDataRestController extends RestControllerInterface<DriverData, DriverDataDAO> {
     DriverDataDAO driverDataDAO;
 
     @Autowired
@@ -21,7 +21,7 @@ public class DriverDataRestController implements RestControllerInterface<DriverD
 
     public DriverDataRestController() {
     }
-
+    /*
     @Override
     public ResponseEntity<DriverData> add(DriverData driverData) {
         if(driverData == null) {
@@ -78,7 +78,11 @@ public class DriverDataRestController implements RestControllerInterface<DriverD
 
         driverDataDAO.delete(driverData);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+
     }
+
+     */
 
 
 }

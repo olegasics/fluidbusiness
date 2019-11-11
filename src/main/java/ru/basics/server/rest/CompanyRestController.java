@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/companies")
-public class CompanyRestController implements RestControllerInterface<Company> {
+public class CompanyRestController extends RestControllerInterface<Company, CompanyDAO> {
 
     CompanyDAO companyDAO;
 
@@ -23,6 +23,7 @@ public class CompanyRestController implements RestControllerInterface<Company> {
     public CompanyRestController() {
     }
 
+    /*
     @Override
     public ResponseEntity<Company> add(Company company) {
         if(company == null) {
@@ -80,4 +81,6 @@ public class CompanyRestController implements RestControllerInterface<Company> {
         companyDAO.delete(company);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+     */
 }

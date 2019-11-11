@@ -1,6 +1,7 @@
 package ru.basics.server.database.dao;
 
 
+import com.sun.corba.se.spi.ior.ObjectKey;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -24,6 +25,7 @@ public abstract class AbstractDAO<T> implements Serializable {
         this.sessionFactory = SessionFactoryUtils.getInstance();
     }
 
+
     public T create(T entity) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
@@ -39,6 +41,12 @@ public abstract class AbstractDAO<T> implements Serializable {
         try (Session session = sessionFactory.openSession()) {
             return session.get(this.getEntityClass(), id);
 
+        }
+    }
+
+    public T findByObject(Object o) {
+        try(Session session = sessionFactory.openSession()) {
+            return session.get(this.getEntityClass(), (Serializable) o);
         }
     }
 
@@ -73,9 +81,9 @@ public abstract class AbstractDAO<T> implements Serializable {
         }
     }
 
-    public boolean isExistWithString(Long id) {
+    public boolean isExist(Object o) {
         //TODO  сделать поиск по логину
-        return findById() != null;
+        return findByObject(o) != null;
     }
 
     public abstract Class<T> getEntityClass();

@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/waybills-documents")
-public class WaybillDocumentRestController implements RestControllerInterface<WaybillDocument> {
+public class WaybillDocumentRestController extends RestControllerInterface<WaybillDocument, WaybillDocumentDAO> {
 
     WaybillDocumentDAO waybillDocumentDAO;
 
@@ -22,6 +22,7 @@ public class WaybillDocumentRestController implements RestControllerInterface<Wa
 
     public WaybillDocumentRestController() {
     }
+    /*
 
     @Override
     public ResponseEntity<WaybillDocument> add(WaybillDocument waybillDocument) {
@@ -82,4 +83,6 @@ public class WaybillDocumentRestController implements RestControllerInterface<Wa
         waybillDocumentDAO.delete(waybillDocument);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+     */
 }

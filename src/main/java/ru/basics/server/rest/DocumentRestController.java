@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/documents")
-public class DocumentRestController implements RestControllerInterface<Document> {
+public class DocumentRestController extends RestControllerInterface<Document, DocumentDAO> {
     DocumentDAO documentDAO;
 
     @Autowired
@@ -21,7 +21,7 @@ public class DocumentRestController implements RestControllerInterface<Document>
 
     public DocumentRestController() {
     }
-
+    /*
     @Override
     public ResponseEntity<Document> add(Document document) {
         if(document == null) {
@@ -79,4 +79,6 @@ public class DocumentRestController implements RestControllerInterface<Document>
         documentDAO.delete(document);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+     */
 }

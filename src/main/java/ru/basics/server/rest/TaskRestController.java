@@ -2,16 +2,20 @@ package ru.basics.server.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import ru.basics.server.database.dao.TaskDAO;
 import ru.basics.server.database.entity.Task;
+
+import javax.persistence.Table;
 import java.util.List;
 
 @RestController
 @RequestMapping("/tasks")
-public class TaskRestController implements RestControllerInterface<Task> {
+public class TaskRestController extends RestControllerInterface<Task, TaskDAO> {
 
     TaskDAO taskDAO;
 
@@ -22,8 +26,10 @@ public class TaskRestController implements RestControllerInterface<Task> {
 
     public TaskRestController() {
     }
-
+    /*
     @Override
+    @RequestMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            method = RequestMethod.POST)
     public ResponseEntity<Task> add(Task task) {
         if (task == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -33,7 +39,7 @@ public class TaskRestController implements RestControllerInterface<Task> {
         taskDAO.create(task);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-
+    /*
     @Override
     public ResponseEntity<List<Task>> all() {
         List<Task> tasks = taskDAO.findAllField();
@@ -82,4 +88,6 @@ public class TaskRestController implements RestControllerInterface<Task> {
         taskDAO.delete(task);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+     */
 }

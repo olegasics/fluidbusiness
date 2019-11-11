@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/cargo-moves")
-public class CargoMoveRestController extends RestControllerInterface<CargoMove> {
+public class CargoMoveRestController extends RestControllerInterface<CargoMove, CargoMoveDAO> {
 
     CargoMoveDAO cargoMoveDAO;
     WayBillDAO wayBillDAO;
@@ -61,7 +61,7 @@ public class CargoMoveRestController extends RestControllerInterface<CargoMove> 
         return new ResponseEntity<>(cargoMove, HttpStatus.OK);
     }
 
-     */
+
 
     @Override
     public ResponseEntity<CargoMove> update(CargoMove cargoMove) {
@@ -81,9 +81,13 @@ public class CargoMoveRestController extends RestControllerInterface<CargoMove> 
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
+
+
         cargoMoveDAO.delete(cargoMove);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+
 
     @Override
     public ResponseEntity<CargoMove> deleteById(Long id) {
@@ -95,6 +99,8 @@ public class CargoMoveRestController extends RestControllerInterface<CargoMove> 
         cargoMoveDAO.delete(cargoMove);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+     */
     @RequestMapping(value = "/waybills/{id}", method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<CargoMove>> findByWaybill(@PathVariable("id") Integer number) {

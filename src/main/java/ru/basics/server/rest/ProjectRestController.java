@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/projects")
-public class ProjectRestController extends RestControllerInterface<Project> {
+public class ProjectRestController extends RestControllerInterface<Project, ProjectDAO> {
     ProjectDAO projectDAO;
     CargoMoveRestController cargoMoveRestController;
 
@@ -25,12 +25,12 @@ public class ProjectRestController extends RestControllerInterface<Project> {
 
     public ProjectRestController() {
     }
-
+    /*
     public ResponseEntity<List<Project>> all() {
         return new ResponseEntity<>(projectDAO.findAllField(), HttpStatus.OK);
     }
 
-    /*
+
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Project> add(@RequestBody Project project) {
 
@@ -71,10 +71,10 @@ public class ProjectRestController extends RestControllerInterface<Project> {
         return new ResponseEntity<>(project, HttpStatus.OK);
     }
 
-     */
+
 
     @RequestMapping(method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Project> delete(@RequestBody @Valid Project project) {
+    public ResponseEntity<Project> deleteProject(@RequestBody @Valid Project project) {
         if(project == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -86,6 +86,9 @@ public class ProjectRestController extends RestControllerInterface<Project> {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
     }
+
+
+
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Project> deleteById(Long id) {
         Project project = projectDAO.findById(id);
@@ -95,6 +98,8 @@ public class ProjectRestController extends RestControllerInterface<Project> {
         projectDAO.delete(project);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+     */
 
     @RequestMapping(value = "/end-customer/{number}", method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

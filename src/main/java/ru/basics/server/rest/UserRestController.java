@@ -18,7 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
-public class UserRestController implements RestControllerInterface<User> {
+public class UserRestController extends RestControllerInterface<User, UserDAO> {
 
     UserDAO userDAO;
     AuthUtils authUtils;
@@ -38,6 +38,7 @@ public class UserRestController implements RestControllerInterface<User> {
      * @param user
      * @return
      */
+    /*
     @RequestMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             method = RequestMethod.POST)
     public ResponseEntity<User> add(@RequestBody @Valid User user) {
@@ -121,6 +122,8 @@ public class UserRestController implements RestControllerInterface<User> {
         userDAO.delete(user);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+     */
 
     @RequestMapping(value = "/deactivation/{id}", method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

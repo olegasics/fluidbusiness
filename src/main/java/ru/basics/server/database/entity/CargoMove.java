@@ -33,7 +33,7 @@ public class CargoMove extends AbstractStandartEntity implements Serializable {
     @OneToOne
     private Waybill waybill;
 
-    @OneToMany(mappedBy = "cargo_move_id")
+    @OneToMany(mappedBy = "cargoMove")
     @LazyCollection(LazyCollectionOption.FALSE)
     @Fetch(FetchMode.SELECT)
     private List<WaybillDocument> waybillDocuments;

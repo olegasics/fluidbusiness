@@ -18,6 +18,30 @@ public class Project extends AbstractStandartEntity implements Serializable {
 
     private static final long serialVersionUID = 3L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Long id;
+
+    @Column(unique = true, nullable = false)
+    protected String name;
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Task> getTask() {
+        return task;
+    }
+
+    public void setTask(List<Task> task) {
+        this.task = task;
+    }
 
     @JsonIgnore
     @ManyToOne

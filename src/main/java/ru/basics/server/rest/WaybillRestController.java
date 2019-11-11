@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/waybills")
-public class WaybillRestController implements RestControllerInterface<Waybill> {
+public class WaybillRestController extends RestControllerInterface<Waybill, WayBillDAO> {
 
     WayBillDAO wayBillDAO;
 
@@ -23,7 +23,7 @@ public class WaybillRestController implements RestControllerInterface<Waybill> {
 
     public WaybillRestController() {
     }
-
+    /*
     @Override
     public ResponseEntity<Waybill> add(Waybill waybill) {
         if (waybill == null) {
@@ -81,4 +81,6 @@ public class WaybillRestController implements RestControllerInterface<Waybill> {
         wayBillDAO.delete(waybill);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+     */
 }
