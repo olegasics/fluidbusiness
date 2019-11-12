@@ -11,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Table
-public class CargoMove extends AbstractStandartEntity implements Serializable {
+public class CargoMove implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -37,8 +37,6 @@ public class CargoMove extends AbstractStandartEntity implements Serializable {
     @LazyCollection(LazyCollectionOption.FALSE)
     @Fetch(FetchMode.SELECT)
     private List<WaybillDocument> waybillDocuments;
-
-    //TODO дополнить поля, *смотреть схему бд
 
     public CargoMove(boolean status, String nameCargo, String trackNumber, boolean upd, Waybill waybill) {
         this.status = status;

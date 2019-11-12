@@ -6,7 +6,6 @@ import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.stereotype.Component;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;

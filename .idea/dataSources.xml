@@ -7,5 +7,11 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://94.103.90.9:5432/fluidbusiness</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="fluidbusiness@localhost" uuid="3b5451e0-f352-455f-b47c-9826e223299d">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/fluidbusiness</jdbc-url>
+    </data-source>
   </component>
 </project>

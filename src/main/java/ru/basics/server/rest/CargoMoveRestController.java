@@ -21,12 +21,14 @@ public class CargoMoveRestController extends AbstractRestController<CargoMove> {
     CargoMoveDAO cargoMoveDAO;
     WayBillDAO wayBillDAO;
     DocumentDAO documentDAO;
+    List<CargoMove> cargoMoves;
 
     @Autowired
     public CargoMoveRestController(CargoMoveDAO cargoMoveDAO, WayBillDAO wayBillDAO, DocumentDAO documentDAO) {
         this.cargoMoveDAO = cargoMoveDAO;
         this.wayBillDAO = wayBillDAO;
         this.documentDAO = documentDAO;
+
     }
 
     public CargoMoveRestController() {
@@ -61,9 +63,17 @@ public class CargoMoveRestController extends AbstractRestController<CargoMove> {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        CargoMove cargoMove = cargoMoveDAO.findByField("document", document);
+        CargoMove cargoMove = cargoMoveDAO.findByField("waybillDocuments", document);
+        if (cargoMove == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        do {
+            cargoMoves.add(cargoMove);
+            cargoMove = cargoMoveDAO.findByField("waybillDocuments", document);
+        } while (cargoMove != null);
+
         //TODO сделать филд document(invoice) в CargoMove
-        return  null;
+        return new ResponseEntity<>(cargoMoves, HttpStatus.NO_CONTENT);
     }
 
     public ResponseEntity<List<CargoMove>> findByTrackNumber(String trackNumber) {

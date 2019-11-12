@@ -1,9 +1,7 @@
 package ru.basics.server.database.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sun.xml.internal.ws.developer.Serialization;
 import org.springframework.stereotype.Component;
-
 import javax.persistence.*;
 import java.io.Serializable;
 

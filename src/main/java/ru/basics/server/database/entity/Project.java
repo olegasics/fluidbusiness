@@ -14,7 +14,7 @@ import java.util.Set;
 
 @Entity
 @Table
-public class Project extends AbstractStandartEntity implements Serializable {
+public class Project implements Serializable {
 
     private static final long serialVersionUID = 3L;
 
@@ -25,12 +25,12 @@ public class Project extends AbstractStandartEntity implements Serializable {
     @Column(unique = true, nullable = false)
     protected String name;
 
-    @Override
+
     public String getName() {
         return name;
     }
 
-    @Override
+
     public void setName(String name) {
         this.name = name;
     }

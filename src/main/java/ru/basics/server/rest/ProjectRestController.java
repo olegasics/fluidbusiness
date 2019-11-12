@@ -32,7 +32,7 @@ public class ProjectRestController extends AbstractRestController<Project> {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        Project project = projectDAO.findByField("number", number);
+        Project project = projectDAO.findByField("name", number);
         if(project == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

@@ -1,12 +1,15 @@
 package ru.basics.server.utils.restUtils;
 
-public class RestUtils<T> {
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
-    public static Boolean checkIsNullBool(Object o) {
+public class RestUtils {
+
+    public static ResponseEntity<Object> checkIsNullBool(Object o) {
         if (o == null) {
-            return true;
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return false;
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
