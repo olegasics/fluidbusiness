@@ -13,7 +13,6 @@ public class AuthUtils {
     private static UserDAO userDAO = new UserDAO();
     static List<User> userAuth = new ArrayList<User>();
 
-
     public static User signUp(User user) throws UserAlreadyExistsException {
 
         if (!userDAO.exists(user.getLogin())) {

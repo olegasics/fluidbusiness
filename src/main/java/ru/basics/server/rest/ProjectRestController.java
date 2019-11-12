@@ -5,106 +5,25 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.basics.server.database.dao.AbstractDAO;
 import ru.basics.server.database.dao.ProjectDAO;
-import ru.basics.server.database.entity.CargoMove;
 import ru.basics.server.database.entity.Project;
-
-import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping("/projects")
-public class ProjectRestController extends RestControllerInterface<Project, ProjectDAO> {
+public class ProjectRestController extends AbstractRestController<Project> {
     ProjectDAO projectDAO;
     CargoMoveRestController cargoMoveRestController;
-    RestControllerInterface restControllerInterface;
+    AbstractRestController abstractRestController;
 
     @Autowired
     public ProjectRestController(ProjectDAO projectDAO) {
         this.projectDAO = projectDAO;
+
     }
 
     public ProjectRestController() {
     }
-
-
-
-
-    /*
-    public ResponseEntity<List<Project>> all() {
-        return new ResponseEntity<>(projectDAO.findAllField(), HttpStatus.OK);
-    }
-
-
-    @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Project> add(@RequestBody Project project) {
-
-        if (project == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-
-        if (!projectDAO.isExist(project.getNumber())) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        projectDAO.create(project);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
-
-
-
-
-    public ResponseEntity<Project> getById(@PathVariable("id") Long id) {
-            Project project = projectDAO.findById(id);
-            if(project == null) {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-            return new ResponseEntity<>(project, HttpStatus.OK);
-    }
-
-
-
-    @RequestMapping(method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Project> update(@RequestBody @Valid Project project) {
-        if(project == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-
-        if(!projectDAO.isExist(project.getNumber())) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        projectDAO.update(project);
-        return new ResponseEntity<>(project, HttpStatus.OK);
-    }
-
-
-
-    @RequestMapping(method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Project> deleteProject(@RequestBody @Valid Project project) {
-        if(project == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-
-        if(!projectDAO.isExist(project.getNumber())) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        projectDAO.delete(project);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-
-    }
-
-
-
-    @RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Project> deleteById(Long id) {
-        Project project = projectDAO.findById(id);
-        if(project == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        projectDAO.delete(project);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-     */
 
     @RequestMapping(value = "/end-customer/{number}", method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -121,4 +40,8 @@ public class ProjectRestController extends RestControllerInterface<Project, Proj
         return new ResponseEntity<>(project, HttpStatus.OK);
     }
 
+    @Override
+    public AbstractDAO getDao() {
+        return projectDAO;
+    }
 }

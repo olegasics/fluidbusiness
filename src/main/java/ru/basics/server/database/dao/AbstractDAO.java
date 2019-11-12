@@ -6,6 +6,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 import ru.basics.server.database.entity.Project;
 import ru.basics.server.utils.SessionFactoryUtils;

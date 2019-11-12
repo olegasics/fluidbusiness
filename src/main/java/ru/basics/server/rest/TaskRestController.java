@@ -1,21 +1,15 @@
 package ru.basics.server.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import ru.basics.server.database.dao.AbstractDAO;
 import ru.basics.server.database.dao.TaskDAO;
 import ru.basics.server.database.entity.Task;
 
-import javax.persistence.Table;
-import java.util.List;
-
 @RestController
 @RequestMapping("/tasks")
-public class TaskRestController extends RestControllerInterface<Task, TaskDAO> {
+public class TaskRestController extends AbstractRestController<Task> {
 
     TaskDAO taskDAO;
 
@@ -26,68 +20,9 @@ public class TaskRestController extends RestControllerInterface<Task, TaskDAO> {
 
     public TaskRestController() {
     }
-    /*
-    @Override
-    @RequestMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
-            method = RequestMethod.POST)
-    public ResponseEntity<Task> add(Task task) {
-        if (task == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-
-
-        taskDAO.create(task);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
-    /*
-    @Override
-    public ResponseEntity<List<Task>> all() {
-        List<Task> tasks = taskDAO.findAllField();
-        return new ResponseEntity<>(tasks, HttpStatus.OK);
-    }
 
     @Override
-    public ResponseEntity<Task> getById(Long id) {
-        Task task = taskDAO.findById(id);
-        if (task == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        return new ResponseEntity<>(task, HttpStatus.OK);
+    public AbstractDAO getDao() {
+        return taskDAO;
     }
-
-    @Override
-    public ResponseEntity<Task> update(Task task) {
-        if (task == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        taskDAO.update(task);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-    @Override
-    public ResponseEntity<Task> delete(Task task) {
-        if (task == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        if (taskDAO.findById(task.getId()) == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        taskDAO.delete(task);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-    @Override
-    public ResponseEntity<Task> deleteById(Long id) {
-        Task task = taskDAO.findById(id);
-        if (task == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        taskDAO.delete(task);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-     */
 }

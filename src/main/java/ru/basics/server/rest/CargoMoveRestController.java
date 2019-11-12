@@ -10,14 +10,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import ru.basics.server.database.dao.*;
 import ru.basics.server.database.entity.*;
-import ru.basics.server.utils.restUtils.RestUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/cargo-moves")
-public class CargoMoveRestController extends RestControllerInterface<CargoMove, CargoMoveDAO> {
+public class CargoMoveRestController extends AbstractRestController<CargoMove> {
 
     CargoMoveDAO cargoMoveDAO;
     WayBillDAO wayBillDAO;
@@ -33,74 +32,7 @@ public class CargoMoveRestController extends RestControllerInterface<CargoMove, 
     public CargoMoveRestController() {
     }
 
-    /*
-    @Override
-    public ResponseEntity<CargoMove> add(CargoMove cargoMove) {
-        if(RestUtils.checkIsNullBool(cargoMove)) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        cargoMoveDAO.create(cargoMove);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
 
-
-
-    @Override
-    public ResponseEntity<List<CargoMove>> all() {
-        return new ResponseEntity<>(cargoMoveDAO.findAllField(), HttpStatus.OK);
-    }
-
-    @Override
-    public ResponseEntity<CargoMove> getById(Long id) {
-        CargoMove cargoMove = cargoMoveDAO.findById(id);
-        RestUtils.checkIsNullBool(cargoMove);
-        if(cargoMove == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        return new ResponseEntity<>(cargoMove, HttpStatus.OK);
-    }
-
-
-
-    @Override
-    public ResponseEntity<CargoMove> update(CargoMove cargoMove) {
-        if(cargoMove == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        cargoMoveDAO.update(cargoMove);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-    @Override
-    public ResponseEntity<CargoMove> delete(CargoMove cargoMove) {
-        if(cargoMove == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        if(cargoMoveDAO.findById(cargoMove.getId()) == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-
-
-        cargoMoveDAO.delete(cargoMove);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-
-
-    @Override
-    public ResponseEntity<CargoMove> deleteById(Long id) {
-        CargoMove cargoMove = cargoMoveDAO.findById(id);
-        if(cargoMove == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        cargoMoveDAO.delete(cargoMove);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-     */
     @RequestMapping(value = "/waybills/{id}", method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<CargoMove>> findByWaybill(@PathVariable("id") Integer number) {
@@ -117,7 +49,6 @@ public class CargoMoveRestController extends RestControllerInterface<CargoMove, 
         if(cargoMove == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
         cargoMoves.add(cargoMove);
 
         return new ResponseEntity<>(cargoMoves, HttpStatus.OK);
@@ -149,6 +80,8 @@ public class CargoMoveRestController extends RestControllerInterface<CargoMove, 
         return new ResponseEntity<>(cargoMoves, HttpStatus.OK);
     }
 
-
-
+    @Override
+    public AbstractDAO getDao() {
+        return cargoMoveDAO;
+    }
 }
