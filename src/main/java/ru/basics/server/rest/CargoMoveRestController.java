@@ -35,7 +35,7 @@ public class CargoMoveRestController extends AbstractRestController<CargoMove> {
     }
 
 
-    @RequestMapping(value = "/waybills/{id}", method = RequestMethod.GET,
+    @RequestMapping(value = "/search/waybills/{id}", method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<CargoMove>> findByWaybill(@PathVariable("id") Integer number) {
         List<CargoMove> cargoMoves = new ArrayList<>();
@@ -57,7 +57,9 @@ public class CargoMoveRestController extends AbstractRestController<CargoMove> {
 
     }
 
-    public ResponseEntity<List<CargoMove>> findByInvoice(Integer documentNumber) {
+    @RequestMapping(value = "/search/invoice/{id}", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<CargoMove>> findByInvoice(@PathVariable("id") Integer documentNumber) {
         Document document = documentDAO.findByField("name", documentNumber);
         if(document == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -72,11 +74,12 @@ public class CargoMoveRestController extends AbstractRestController<CargoMove> {
             cargoMove = cargoMoveDAO.findByField("waybillDocuments", document);
         } while (cargoMove != null);
 
-        //TODO сделать филд document(invoice) в CargoMove
         return new ResponseEntity<>(cargoMoves, HttpStatus.NO_CONTENT);
     }
 
-    public ResponseEntity<List<CargoMove>> findByTrackNumber(String trackNumber) {
+    @RequestMapping(value = "/search/track-number/{track}", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<CargoMove>> findByTrackNumber(@PathVariable("track") String trackNumber) {
         if(trackNumber == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
