@@ -6,7 +6,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.basics.server.database.dao.AbstractDAO;
+import ru.basics.server.database.dao.CompanyDAO;
 import ru.basics.server.database.dao.ProjectDAO;
+import ru.basics.server.database.entity.Company;
 import ru.basics.server.database.entity.Project;
 
 import java.util.List;
@@ -15,14 +17,15 @@ import java.util.List;
 @RequestMapping("/projects")
 public class ProjectRestController extends AbstractRestController<Project> {
     ProjectDAO projectDAO;
+    CompanyDAO companyDAO;
     CargoMoveRestController cargoMoveRestController;
     AbstractRestController abstractRestController;
     List<Project> projects;
 
     @Autowired
-    public ProjectRestController(ProjectDAO projectDAO) {
+    public ProjectRestController(ProjectDAO projectDAO, CompanyDAO companyDAO) {
         this.projectDAO = projectDAO;
-
+        this.companyDAO = companyDAO;
     }
 
     public ProjectRestController() {
@@ -43,12 +46,13 @@ public class ProjectRestController extends AbstractRestController<Project> {
         return new ResponseEntity<>(project, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/search/end-customer/{customer}", method = RequestMethod.GET,
+    @RequestMapping(value = "/search/end-customer/{idCustomer:\\d+}", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Project> findByCustomer(@PathVariable("customer") String customer) {
-        if (customer == null) {
+    public ResponseEntity<Project> findByCustomer(@PathVariable("idCustomer") Long idCustomer) {
+        if (idCustomer == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        Company customer = companyDAO.findById(idCustomer);
         Project project = projectDAO.findByField("endCustomer", customer);
         if (project == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
