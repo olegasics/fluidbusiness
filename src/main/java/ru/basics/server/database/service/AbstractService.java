@@ -20,8 +20,6 @@ public abstract class AbstractService<T> implements Serializable {
         return (T) getDao().create(entity);
     }
 
-    public abstract Class getEntityClass();
-
 
     public T findByField(String field, Object key) {
         return (T) getDao().findByField(field, key);

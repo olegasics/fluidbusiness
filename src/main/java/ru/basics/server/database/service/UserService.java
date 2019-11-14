@@ -21,10 +21,5 @@ public class UserService extends AbstractService<User> {
         return userDAO;
     }
 
-    @Override
-    public Class getEntityClass() {
-        return User.class;
-    }
-
 
 }
