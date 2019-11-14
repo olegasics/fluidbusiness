@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.basics.server.database.dao.AbstractDAO;
 import ru.basics.server.database.dao.UserDAO;
 import ru.basics.server.database.entity.User;
+import ru.basics.server.database.service.UserService;
 import ru.basics.server.utils.AuthUtils;
 
 import java.util.ArrayList;
@@ -21,11 +22,13 @@ public class UserRestController extends AbstractRestController<User> {
 
     UserDAO userDAO;
     AuthUtils authUtils;
+    UserService userService;
 
     @Autowired
-    public UserRestController(UserDAO userDAO, AuthUtils authUtils) {
+    public UserRestController(UserDAO userDAO, AuthUtils authUtils, UserService userService) {
         this.userDAO = userDAO;
         this.authUtils = authUtils;
+        this.userService = userService;
     }
 
     public UserRestController() {
@@ -34,9 +37,15 @@ public class UserRestController extends AbstractRestController<User> {
     /**
      * Регистрация User
      *
-     * @param user
+     * @param
      * @return
      */
+
+    @RequestMapping(value = "/test", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public List<User> all() {
+        return (List<User>) userService.findAllField();
+    }
 
     @RequestMapping(value = "/deactivation/{id}", method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -45,6 +54,7 @@ public class UserRestController extends AbstractRestController<User> {
         if(user == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+
         user.setDeleted(true);
         userDAO.update(user);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
