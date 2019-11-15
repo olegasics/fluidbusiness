@@ -1,10 +1,10 @@
 package ru.basics.server.utils;
 
 import org.springframework.stereotype.Service;
-import ru.basics.server.database.dao.UserDAO;
-import ru.basics.server.database.entity.User;
-import ru.basics.server.database.exceptions.UserAlreadyExistsException;
-import ru.basics.server.database.exceptions.UserNotFoundException;
+import ru.basics.server.repository.dao.UserDAO;
+import ru.basics.server.entity.User;
+import ru.basics.server.repository.exceptions.UserAlreadyExistsException;
+import ru.basics.server.repository.exceptions.UserNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 

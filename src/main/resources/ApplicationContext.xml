@@ -8,16 +8,16 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
         <bean id="userDAO"
-              class="ru.basics.server.database.dao.UserDAO">
+              class="ru.basics.server.repository.dao.UserDAO">
         </bean>
     <context:component-scan base-package="ru.basics.server" />
 
     <bean id="waybill"
-          class="ru.basics.server.database.entity.Waybill">
+          class="ru.basics.server.entity.Waybill">
     </bean>
     <context:component-scan base-package="ru.basics.server"/>
     <bean id="waybillDocument"
-          class="ru.basics.server.database.entity.WaybillDocument">
+          class="ru.basics.server.entity.WaybillDocument">
     </bean>
     <context:component-scan base-package="ru.basics.server"/>
 

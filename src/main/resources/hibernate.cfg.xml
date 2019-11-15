@@ -10,16 +10,16 @@
         <property name="dialect">org.hibernate.dialect.PostgreSQL94Dialect</property>
         <property name="show_sql">true</property>
 
-        <mapping class="ru.basics.server.database.entity.Company"/>
-        <mapping class="ru.basics.server.database.entity.DriverData"/>
-        <mapping class="ru.basics.server.database.entity.Document"/>
-        <mapping class="ru.basics.server.database.entity.Project"/>
-        <mapping class="ru.basics.server.database.entity.User"/>
-        <mapping class="ru.basics.server.database.entity.Waybill"/>
-        <mapping class="ru.basics.server.database.entity.Position"/>
-        <mapping class="ru.basics.server.database.entity.WaybillDocument"/>
-        <mapping class="ru.basics.server.database.entity.Task"/>
-        <mapping class="ru.basics.server.database.entity.CargoMove"/>
+        <mapping class="ru.basics.server.entity.Company"/>
+        <mapping class="ru.basics.server.entity.DriverData"/>
+        <mapping class="ru.basics.server.entity.Document"/>
+        <mapping class="ru.basics.server.entity.Project"/>
+        <mapping class="ru.basics.server.entity.User"/>
+        <mapping class="ru.basics.server.entity.Waybill"/>
+        <mapping class="ru.basics.server.entity.Position"/>
+        <mapping class="ru.basics.server.entity.WaybillDocument"/>
+        <mapping class="ru.basics.server.entity.Task"/>
+        <mapping class="ru.basics.server.entity.CargoMove"/>
 
 
     </session-factory>
