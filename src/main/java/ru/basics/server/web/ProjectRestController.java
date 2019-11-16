@@ -51,22 +51,22 @@ public class ProjectRestController extends AbstractRestController<Project> {
 
     @RequestMapping(value = "/search/end-customer/{idCustomer:\\d+}", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Project> findByCustomer(@PathVariable("idCustomer") Long idCustomer) {
+    public ResponseEntity<List<Project>> findByCustomer(@PathVariable("idCustomer") Long idCustomer) {
         if (idCustomer == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         Company customer = companyService.findById(idCustomer);
-        Project project = projectService.findByField("endCustomer", customer);
-        if (project == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        List<Project> projectsForSerach = projectService.findAllField();
+        for(Project project : projectsForSerach) {
+            if(project.getEndCustomer().getId() == idCustomer ) {
+                projects.add(project);
+            }
         }
-        do {
-            projects.add(project);
-            project = projectService.findByField("endCustomer", customer);
+        if(projects.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-        } while (project != null);
-
-        return new ResponseEntity<>(project, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(projects, HttpStatus.OK);
     }
 
     @Override
