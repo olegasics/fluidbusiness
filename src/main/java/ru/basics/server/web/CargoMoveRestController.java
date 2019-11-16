@@ -100,7 +100,6 @@ public class CargoMoveRestController extends AbstractRestController<CargoMove> {
         return new ResponseEntity<>(cargoMoves, HttpStatus.OK);
     }
 
-
     @Override
     public AbstractService getService() {
         return cargoMoveService;

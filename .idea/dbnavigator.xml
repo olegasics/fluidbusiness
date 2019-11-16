@@ -25,13 +25,14 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="a9374061-e296-4f15-a2e8-7d0c1f5f9957">
-        <schema name="public" object-types="table, view" />
+        <schema name="pg_catalog" object-types="function" />
+        <schema name="public" object-types="table, sequence, function, column, dataset trigger, constraint, index, view" />
       </connection>
     </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="ea6c4251-24e1-4559-b70c-d1339f95ddcb">
-      <console name="Connection" type="STANDARD" schema="" session="Main">select * from cargo_move;</console>
+      <console name="Connection" type="STANDARD" schema="" session="Main"><![CDATA[select * from cargo_move;]]></console>
     </connection>
     <connection id="4a682503-375c-463a-9d89-541e1d6076d1">
       <console name="Connection 1" type="STANDARD" schema="information_schema" session="Main" />
@@ -41,7 +42,10 @@
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="a9374061-e296-4f15-a2e8-7d0c1f5f9957" object-ref="schemas/public/tables/waybill" />
+      <object connection-id="a9374061-e296-4f15-a2e8-7d0c1f5f9957" object-ref="schemas/public/tables/waybilldocument" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="ea6c4251-24e1-4559-b70c-d1339f95ddcb" />
@@ -65,7 +69,9 @@
     <filter-actions connection-id="ea6c4251-24e1-4559-b70c-d1339f95ddcb" dataset="public.person" active-filter-id="984cfe76-fdae-4256-b3c8-9fde1825e583">
       <filter id="984cfe76-fdae-4256-b3c8-9fde1825e583" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND" />
     </filter-actions>
+    <filter-actions connection-id="a9374061-e296-4f15-a2e8-7d0c1f5f9957" dataset="public.waybill" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="a9374061-e296-4f15-a2e8-7d0c1f5f9957" dataset="public.person" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="a9374061-e296-4f15-a2e8-7d0c1f5f9957" dataset="public.waybilldocument" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="4a682503-375c-463a-9d89-541e1d6076d1" dataset="public.driverdata" active-filter-id="" />
     <filter-actions connection-id="4a682503-375c-463a-9d89-541e1d6076d1" dataset="public.company" active-filter-id="" />
     <filter-actions connection-id="4a682503-375c-463a-9d89-541e1d6076d1" dataset="public.task" active-filter-id="EMPTY_FILTER" />
