@@ -25,14 +25,13 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="a9374061-e296-4f15-a2e8-7d0c1f5f9957">
-        <schema name="pg_catalog" object-types="function" />
-        <schema name="public" object-types="sequence, index, constraint, dataset trigger, column, view, table, function" />
+        <schema name="public" object-types="table, view" />
       </connection>
     </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="ea6c4251-24e1-4559-b70c-d1339f95ddcb">
-      <console name="Connection" type="STANDARD" schema="" session="Main"><![CDATA[select * from cargo_move;]]></console>
+      <console name="Connection" type="STANDARD" schema="" session="Main">select * from cargo_move;</console>
     </connection>
     <connection id="4a682503-375c-463a-9d89-541e1d6076d1">
       <console name="Connection 1" type="STANDARD" schema="information_schema" session="Main" />

@@ -6,23 +6,25 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.basics.server.repository.dao.AbstractDAO;
 import ru.basics.server.repository.dao.WayBillDAO;
 import ru.basics.server.entity.Waybill;
+import ru.basics.server.service.AbstractService;
+import ru.basics.server.service.WaybillService;
 
 @RestController
 @RequestMapping(value = "/waybills")
 public class WaybillRestController extends AbstractRestController<Waybill> {
 
-    WayBillDAO wayBillDAO;
+    WaybillService waybillService;
 
     @Autowired
-    public WaybillRestController(WayBillDAO wayBillDAO) {
-        this.wayBillDAO = wayBillDAO;
+    public WaybillRestController(WaybillService waybillService) {
+        this.waybillService = waybillService;
     }
 
     public WaybillRestController() {
     }
 
     @Override
-    public AbstractDAO getDao() {
-        return wayBillDAO;
+    public AbstractService<Waybill> getService() {
+        return waybillService;
     }
 }

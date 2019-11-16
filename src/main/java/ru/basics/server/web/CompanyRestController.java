@@ -11,25 +11,23 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.basics.server.repository.dao.AbstractDAO;
 import ru.basics.server.repository.dao.CompanyDAO;
 import ru.basics.server.entity.Company;
+import ru.basics.server.service.AbstractService;
+import ru.basics.server.service.CompanyService;
 
 @RestController
 @RequestMapping("/companies")
 public class CompanyRestController extends AbstractRestController<Company> {
 
-    CompanyDAO companyDAO;
+    CompanyService companyService;
 
     @Autowired
-    public CompanyRestController(CompanyDAO companyDAO) {
-        this.companyDAO = companyDAO;
+    public CompanyRestController(CompanyService companyService) {
+        this.companyService = companyService;
     }
 
     public CompanyRestController() {
     }
 
-    @Override
-    public AbstractDAO getDao() {
-        return companyDAO;
-    }
 
     @RequestMapping(value = "/search/address-legal/{address}", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -39,7 +37,7 @@ public class CompanyRestController extends AbstractRestController<Company> {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        Company company = companyDAO.findByField("adresslegal", address);
+        Company company = companyService.findByField("adresslegal", address);
         if (company == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -54,7 +52,7 @@ public class CompanyRestController extends AbstractRestController<Company> {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        Company company = companyDAO.findByField("adressdelivery", address);
+        Company company = companyService.findByField("adressdelivery", address);
         if (company == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -69,7 +67,7 @@ public class CompanyRestController extends AbstractRestController<Company> {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        Company company = companyDAO.findByField("adresssend", address);
+        Company company = companyService.findByField("adresssend", address);
         if (company == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -77,4 +75,8 @@ public class CompanyRestController extends AbstractRestController<Company> {
         return new ResponseEntity<>(company, HttpStatus.NO_CONTENT);
     }
 
+    @Override
+    public AbstractService getService() {
+        return companyService;
+    }
 }

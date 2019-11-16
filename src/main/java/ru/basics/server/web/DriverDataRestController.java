@@ -12,26 +12,23 @@ import ru.basics.server.repository.dao.AbstractDAO;
 import ru.basics.server.repository.dao.DriverDataDAO;
 import ru.basics.server.entity.Company;
 import ru.basics.server.entity.DriverData;
+import ru.basics.server.service.AbstractService;
+import ru.basics.server.service.DriverDataService;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/drivers")
 public class DriverDataRestController extends AbstractRestController<DriverData> {
-    DriverDataDAO driverDataDAO;
+    DriverDataService driverDataService;
     List<DriverData> driverDataList;
 
     @Autowired
-    public DriverDataRestController(DriverDataDAO driverDataDAO) {
-        this.driverDataDAO = driverDataDAO;
+    public DriverDataRestController(DriverDataService driverDataService) {
+        this.driverDataService = driverDataService;
     }
 
     public DriverDataRestController() {
-    }
-
-    @Override
-    public AbstractDAO getDao() {
-        return driverDataDAO;
     }
 
     @RequestMapping(value = "/search/{name}", method = RequestMethod.GET,
@@ -41,7 +38,7 @@ public class DriverDataRestController extends AbstractRestController<DriverData>
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        DriverData driverData = driverDataDAO.findByField("name", name);
+        DriverData driverData = driverDataService.findByField("name", name);
         if (driverData == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -56,7 +53,7 @@ public class DriverDataRestController extends AbstractRestController<DriverData>
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        DriverData driverData = driverDataDAO.findByField("modelcar", model);
+        DriverData driverData = driverDataService.findByField("modelcar", model);
         if (driverData == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -71,7 +68,7 @@ public class DriverDataRestController extends AbstractRestController<DriverData>
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        DriverData driverData = driverDataDAO.findByField("numberphone", number);
+        DriverData driverData = driverDataService.findByField("numberphone", number);
         if (driverData == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -85,18 +82,22 @@ public class DriverDataRestController extends AbstractRestController<DriverData>
         if (company == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        // TODO or findByObject?
-        DriverData driverData = driverDataDAO.findByField("company", company);
+        // TODO изменить поиск. Выгрузить всех водителей и проверять пренадлежат ли компании из запроса
+        DriverData driverData = driverDataService.findByField("company", company);
         if (driverData == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         do {
             driverDataList.add(driverData);
-            driverData = driverDataDAO.findByField("company", company);
+            driverData = driverDataService.findByField("company", company);
         } while (driverData != null);
 
         return new ResponseEntity<>(driverDataList, HttpStatus.OK);
     }
 
 
+    @Override
+    public AbstractService getService() {
+        return driverDataService;
+    }
 }

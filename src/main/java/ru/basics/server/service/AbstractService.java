@@ -30,15 +30,23 @@ public abstract class AbstractService<T> implements Serializable {
         return getDao().findAllField();
     }
 
-//    @Override
-//    public void update(Object entity) {
-//        super.update(entity);
-//    }
-//
-//    @Override
-//    public void delete(Object entity) {
-//        super.delete(entity);
-//    }
+    public boolean isExist(Object o) {
+        return getDao().isExist(o);
+    }
+
+    public T findById(Long id) {
+        return (T) getDao().findById(id);
+    }
+
+
+    public void update(Object entity) {
+         getDao().update(entity);
+    }
+
+
+    public void delete(Object entity) {
+        getDao().delete(entity);
+    }
 //
 //    @Override
 //    public boolean isExist(Object o) {

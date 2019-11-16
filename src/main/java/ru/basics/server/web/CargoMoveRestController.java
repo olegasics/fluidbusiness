@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import ru.basics.server.repository.dao.*;
 import ru.basics.server.entity.*;
+import ru.basics.server.service.AbstractService;
+import ru.basics.server.service.CargoMoveService;
+import ru.basics.server.service.DocumentService;
+import ru.basics.server.service.WaybillService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,15 +23,18 @@ import java.util.List;
 public class CargoMoveRestController extends AbstractRestController<CargoMove> {
 
     CargoMoveDAO cargoMoveDAO;
-    WayBillDAO wayBillDAO;
-    DocumentDAO documentDAO;
+    WaybillService waybillService;
+    DocumentService documentService;
     List<CargoMove> cargoMoves;
+    CargoMoveService cargoMoveService;
 
     @Autowired
-    public CargoMoveRestController(CargoMoveDAO cargoMoveDAO, WayBillDAO wayBillDAO, DocumentDAO documentDAO) {
+    public CargoMoveRestController(CargoMoveDAO cargoMoveDAO, WaybillService waybillService, DocumentService documentService,
+                                   CargoMoveService cargoMoveService) {
         this.cargoMoveDAO = cargoMoveDAO;
-        this.wayBillDAO = wayBillDAO;
-        this.documentDAO = documentDAO;
+        this.waybillService = waybillService;
+        this.documentService = documentService;
+        this.cargoMoveService = cargoMoveService;
 
     }
 
@@ -42,12 +49,12 @@ public class CargoMoveRestController extends AbstractRestController<CargoMove> {
         if(number == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        Waybill waybill = wayBillDAO.findByField("number", number);
+        Waybill waybill = waybillService.findByField("number", number);
         if(waybill == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        CargoMove cargoMove = cargoMoveDAO.findByField("waybill", waybill);
+        CargoMove cargoMove = cargoMoveService.findByField("waybill", waybill);
         if(cargoMove == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -60,18 +67,18 @@ public class CargoMoveRestController extends AbstractRestController<CargoMove> {
     @RequestMapping(value = "/search/invoice/{id}", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<CargoMove>> findByInvoice(@PathVariable("id") Integer documentNumber) {
-        Document document = documentDAO.findByField("name", documentNumber);
+        Document document = documentService.findByField("name", documentNumber);
         if(document == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        CargoMove cargoMove = cargoMoveDAO.findByField("waybillDocuments", document);
+        CargoMove cargoMove = cargoMoveService.findByField("waybillDocuments", document);
         if (cargoMove == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         do {
             cargoMoves.add(cargoMove);
-            cargoMove = cargoMoveDAO.findByField("waybillDocuments", document);
+            cargoMove = cargoMoveService.findByField("waybillDocuments", document);
         } while (cargoMove != null);
 
         return new ResponseEntity<>(cargoMoves, HttpStatus.NO_CONTENT);
@@ -84,7 +91,7 @@ public class CargoMoveRestController extends AbstractRestController<CargoMove> {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        CargoMove cargoMove = cargoMoveDAO.findByField("tracknumber", trackNumber);
+        CargoMove cargoMove = cargoMoveService.findByField("tracknumber", trackNumber);
         if(cargoMove == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -93,8 +100,9 @@ public class CargoMoveRestController extends AbstractRestController<CargoMove> {
         return new ResponseEntity<>(cargoMoves, HttpStatus.OK);
     }
 
+
     @Override
-    public AbstractDAO getDao() {
-        return cargoMoveDAO;
+    public AbstractService getService() {
+        return cargoMoveService;
     }
 }

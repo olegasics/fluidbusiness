@@ -8,13 +8,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.basics.server.entity.CargoMove;
 import ru.basics.server.repository.dao.AbstractDAO;
+import ru.basics.server.service.AbstractService;
+
 import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 public abstract class AbstractRestController<T> {
 
-    public abstract AbstractDAO getDao();
+    public abstract AbstractService getService();
+
 
     final static Logger logger = LoggerFactory.getLogger(UserRestController.class);
 
@@ -27,7 +30,7 @@ public abstract class AbstractRestController<T> {
 
         }
 
-        getDao().create(t);
+        getService().create(t);
         logger.info("OK: Entity added in DB in method /add " + t);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -36,12 +39,12 @@ public abstract class AbstractRestController<T> {
             method = RequestMethod.GET)
     public List<T> all() {
         logger.info("OK: Return all entity in method /all");
-        return (List<T>) getDao().findAllField();
+        return (List<T>) getService().findAllField();
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<T> getById(@PathVariable Long id) {
-        T t = (T) getDao().findById(id);
+        T t = (T) getService().findById(id);
         if (t == null) {
             logger.info("WARNING: entity with id {} dos't exist ", id);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -54,20 +57,20 @@ public abstract class AbstractRestController<T> {
         if (t == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        if (!getDao().isExist(t)) {
+        if (!getService().isExist(t)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        getDao().update(t);
+        getService().update(t);
         return new ResponseEntity<>(t, HttpStatus.OK);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<T> deleteById(@PathVariable Long id) {
-        T t = (T) getDao().findById(id);
+        T t = (T) getService().findById(id);
         if(t == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        getDao().delete(t);
+        getService().delete(t);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

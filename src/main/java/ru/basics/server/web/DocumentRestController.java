@@ -13,26 +13,23 @@ import ru.basics.server.repository.dao.DocumentDAO;
 import ru.basics.server.entity.Company;
 import ru.basics.server.entity.Document;
 import ru.basics.server.entity.Project;
+import ru.basics.server.service.AbstractService;
+import ru.basics.server.service.DocumentService;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/documents")
 public class DocumentRestController extends AbstractRestController<Document> {
-    DocumentDAO documentDAO;
+    DocumentService documentService;
     List<Document> documents;
 
     @Autowired
-    public DocumentRestController(DocumentDAO documentDAO) {
-        this.documentDAO = documentDAO;
+    public DocumentRestController(DocumentService documentService) {
+        this.documentService = documentService;
     }
 
     public DocumentRestController() {
-    }
-
-    @Override
-    public AbstractDAO getDao() {
-        return documentDAO;
     }
 
     @RequestMapping(value = "/search/project", method = RequestMethod.GET,
@@ -41,7 +38,7 @@ public class DocumentRestController extends AbstractRestController<Document> {
         if (project == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        Document document = documentDAO.findByField("numProject", project);
+        Document document = documentService.findByField("numProject", project);
         if (document == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -55,13 +52,13 @@ public class DocumentRestController extends AbstractRestController<Document> {
         if (company == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        Document document = documentDAO.findByField("company", company);
+        Document document = documentService.findByField("company", company);
         if (document == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         do {
             documents.add(document);
-            document = documentDAO.findByField("company", company);
+            document = documentService.findByField("company", company);
         } while (document != null);
 
         return new ResponseEntity<>(documents, HttpStatus.OK);
@@ -73,7 +70,7 @@ public class DocumentRestController extends AbstractRestController<Document> {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        Document document = documentDAO.findByField("name", name);
+        Document document = documentService.findByField("name", name);
         if (document == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -81,4 +78,8 @@ public class DocumentRestController extends AbstractRestController<Document> {
         return new ResponseEntity<>(document, HttpStatus.OK);
     }
 
+    @Override
+    public AbstractService getService() {
+        return documentService;
+    }
 }

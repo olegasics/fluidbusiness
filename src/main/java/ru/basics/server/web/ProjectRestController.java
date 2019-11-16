@@ -10,22 +10,25 @@ import ru.basics.server.repository.dao.CompanyDAO;
 import ru.basics.server.repository.dao.ProjectDAO;
 import ru.basics.server.entity.Company;
 import ru.basics.server.entity.Project;
+import ru.basics.server.service.AbstractService;
+import ru.basics.server.service.CompanyService;
+import ru.basics.server.service.ProjectService;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/projects")
 public class ProjectRestController extends AbstractRestController<Project> {
-    ProjectDAO projectDAO;
-    CompanyDAO companyDAO;
+    ProjectService projectService;
+    CompanyService companyService;
     CargoMoveRestController cargoMoveRestController;
     AbstractRestController abstractRestController;
     List<Project> projects;
 
     @Autowired
-    public ProjectRestController(ProjectDAO projectDAO, CompanyDAO companyDAO) {
-        this.projectDAO = projectDAO;
-        this.companyDAO = companyDAO;
+    public ProjectRestController(ProjectService projectService, CompanyService companyService) {
+        this.projectService = projectService;
+        this.companyService = companyService;
     }
 
     public ProjectRestController() {
@@ -38,7 +41,7 @@ public class ProjectRestController extends AbstractRestController<Project> {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        Project project = projectDAO.findByField("name", number);
+        Project project = projectService.findByField("name", number);
         if(project == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -52,24 +55,22 @@ public class ProjectRestController extends AbstractRestController<Project> {
         if (idCustomer == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        Company customer = companyDAO.findById(idCustomer);
-        Project project = projectDAO.findByField("endCustomer", customer);
+        Company customer = companyService.findById(idCustomer);
+        Project project = projectService.findByField("endCustomer", customer);
         if (project == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         do {
             projects.add(project);
-            project = projectDAO.findByField("endCustomer", customer);
+            project = projectService.findByField("endCustomer", customer);
 
         } while (project != null);
 
         return new ResponseEntity<>(project, HttpStatus.OK);
     }
 
-
-
     @Override
-    public AbstractDAO getDao() {
-        return projectDAO;
+    public AbstractService getService() {
+        return projectService;
     }
 }

@@ -6,23 +6,25 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.basics.server.repository.dao.AbstractDAO;
 import ru.basics.server.repository.dao.TaskDAO;
 import ru.basics.server.entity.Task;
+import ru.basics.server.service.AbstractService;
+import ru.basics.server.service.TaskService;
 
 @RestController
 @RequestMapping("/tasks")
 public class TaskRestController extends AbstractRestController<Task> {
 
-    TaskDAO taskDAO;
+    TaskService taskService;
 
     @Autowired
-    public TaskRestController(TaskDAO taskDAO) {
-        this.taskDAO = taskDAO;
+    public TaskRestController(TaskService taskService) {
+        this.taskService = taskService;
     }
 
     public TaskRestController() {
     }
 
     @Override
-    public AbstractDAO getDao() {
-        return taskDAO;
+    public AbstractService getService() {
+        return taskService;
     }
 }

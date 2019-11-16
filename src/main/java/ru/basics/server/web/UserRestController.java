@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.basics.server.repository.dao.AbstractDAO;
 import ru.basics.server.repository.dao.UserDAO;
 import ru.basics.server.entity.User;
+import ru.basics.server.service.AbstractService;
 import ru.basics.server.service.UserService;
 import ru.basics.server.utils.AuthUtils;
 
@@ -21,15 +22,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 public class UserRestController extends AbstractRestController<User> {
-
-    UserDAO userDAO;
     AuthUtils authUtils;
     UserService userService;
     final static Logger logger = LoggerFactory.getLogger(UserRestController.class);
 
     @Autowired
-    public UserRestController(UserDAO userDAO, AuthUtils authUtils, UserService userService) {
-        this.userDAO = userDAO;
+    public UserRestController(AuthUtils authUtils, UserService userService) {
         this.authUtils = authUtils;
         this.userService = userService;
     }
@@ -53,33 +51,32 @@ public class UserRestController extends AbstractRestController<User> {
     @RequestMapping(value = "/deactivation/{id}", method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<User> deActivation(@PathVariable("id") Long id) {
-        User user = userDAO.findById(id);
+        User user = userService.findById(id);
         if(user == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
         user.setDeleted(true);
-        userDAO.update(user);
+        userService.update(user);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @RequestMapping(value = "/getstatus", method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<User>> getStatus() {
-        List<User> users = userDAO.findAllField();
+        List<User> users = userService.findAllField();
         List<User> users2 = new ArrayList<>();
         for(User user : users) {
             user.setDeleted(false);
-            userDAO.update(user);
+            userService.update(user);
             users2.add(user);
         }
         logger.info("test");
         return new ResponseEntity<>(users2, HttpStatus.OK);
-
     }
 
     @Override
-    public AbstractDAO getDao() {
-        return userDAO;
+    public AbstractService getService() {
+        return userService;
     }
 }
