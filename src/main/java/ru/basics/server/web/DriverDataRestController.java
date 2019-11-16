@@ -83,18 +83,18 @@ public class DriverDataRestController extends AbstractRestController<DriverData>
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         // TODO изменить поиск. Выгрузить всех водителей и проверять пренадлежат ли компании из запроса
-        DriverData driverData = driverDataService.findByField("company", company);
-        if (driverData == null) {
+        List<DriverData> driverDatas = driverDataService.findAllField();
+        for(DriverData driverData : driverDatas) {
+            if(driverData.getCompany().getName() == company.getName()) {
+                driverDataList.add(driverData);
+            }
+        }
+        if(driverDataList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        do {
-            driverDataList.add(driverData);
-            driverData = driverDataService.findByField("company", company);
-        } while (driverData != null);
 
         return new ResponseEntity<>(driverDataList, HttpStatus.OK);
     }
-
 
     @Override
     public AbstractService getService() {
