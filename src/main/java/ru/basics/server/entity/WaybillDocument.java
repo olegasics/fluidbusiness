@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Entity
 @Table
 public class WaybillDocument implements Serializable {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1447507340516939792L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

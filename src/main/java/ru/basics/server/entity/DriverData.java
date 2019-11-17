@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Table
 public class DriverData implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1422948105056782250L;
 
 
     @Id

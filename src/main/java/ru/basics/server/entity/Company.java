@@ -14,7 +14,7 @@ import java.util.List;
 @Table
 public class Company implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -1410068238982387971L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

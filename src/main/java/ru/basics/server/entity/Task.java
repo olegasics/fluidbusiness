@@ -16,7 +16,7 @@ import java.util.Set;
 @Table
 public class Task implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -4255898092094283873L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

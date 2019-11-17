@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class PositinUser implements Serializable {
 
-    private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = -4190693986701147617L;
 
     private Position position;
 

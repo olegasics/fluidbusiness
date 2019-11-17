@@ -15,7 +15,7 @@ import java.util.*;
 @Table
 public class Waybill implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 3453193554620302391L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

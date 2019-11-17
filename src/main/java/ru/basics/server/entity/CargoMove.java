@@ -13,7 +13,7 @@ import java.util.List;
 @Table
 public class CargoMove implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 8598270295161514768L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

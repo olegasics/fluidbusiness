@@ -12,7 +12,7 @@ import java.util.List;
 @Table
 public class Document implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -4770364202581933875L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

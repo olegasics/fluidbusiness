@@ -20,11 +20,15 @@ public abstract class AbstractRestController<T> {
 
 
     final static Logger logger = LoggerFactory.getLogger(UserRestController.class);
+    protected Logger log() {
+        return LoggerFactory.getLogger(AbstractRestController.class);
+    }
 
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<T> add(@RequestBody @Valid T t) {
         if (t == null) {
+            log().info("WARNING: Entity is not added ... BAD_REQUEST in method /add {}", t);
             logger.info("WARNING: Entity is not added ... BAD_REQUEST in method /add {}", t);
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
@@ -38,6 +42,7 @@ public abstract class AbstractRestController<T> {
     @RequestMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             method = RequestMethod.GET)
     public List<T> all() {
+        log().info("test32323");
         logger.info("OK: Return all entity in method /all");
         return (List<T>) getService().findAllField();
     }
