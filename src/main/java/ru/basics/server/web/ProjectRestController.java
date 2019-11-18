@@ -1,5 +1,7 @@
 package ru.basics.server.web;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -32,6 +34,11 @@ public class ProjectRestController extends AbstractRestController<Project> {
     }
 
     public ProjectRestController() {
+    }
+
+    @Override
+    public Logger getLogger() {
+        return LoggerFactory.getLogger(ProjectRestController.class);
     }
 
     @RequestMapping(value = "/search/{number}", method = RequestMethod.GET,

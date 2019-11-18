@@ -49,6 +49,13 @@ public class CargoMove implements Serializable {
     public CargoMove() {
     }
 
+    public List<WaybillDocument> getWaybillDocuments() {
+        return waybillDocuments;
+    }
+
+    public void setWaybillDocuments(List<WaybillDocument> waybillDocuments) {
+        this.waybillDocuments = waybillDocuments;
+    }
 
     public Long getId() {
         return id;

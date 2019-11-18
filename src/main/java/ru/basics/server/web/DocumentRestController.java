@@ -1,5 +1,7 @@
 package ru.basics.server.web;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -8,8 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import ru.basics.server.repository.dao.AbstractDAO;
-import ru.basics.server.repository.dao.DocumentDAO;
 import ru.basics.server.entity.Company;
 import ru.basics.server.entity.Document;
 import ru.basics.server.entity.Project;
@@ -32,14 +32,21 @@ public class DocumentRestController extends AbstractRestController<Document> {
     public DocumentRestController() {
     }
 
+    @Override
+    public Logger getLogger() {
+        return LoggerFactory.getLogger(DocumentRestController.class);
+    }
+
     @RequestMapping(value = "/search/project", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Document> findByProject(Project project) {
         if (project == null) {
+            getLogger().warn("Bad request in method /findByProject");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         Document document = documentService.findByField("numProject", project);
         if (document == null) {
+            getLogger().warn("Document with project - {} not found, in method /findByProject", project);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
@@ -50,6 +57,7 @@ public class DocumentRestController extends AbstractRestController<Document> {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<Document>> findByCompany(Company company) {
         if (company == null) {
+            getLogger().warn("Bad request in method /findByCompany");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         Document document = documentService.findByField("company", company);

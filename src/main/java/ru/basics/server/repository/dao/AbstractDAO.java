@@ -2,6 +2,7 @@ package ru.basics.server.repository.dao;
 
 
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -32,8 +33,7 @@ public abstract class AbstractDAO<T> implements Serializable {
 
             return entity;
         }
-
-    }
+        }
 
     public T findById(Long id) {
         try (Session session = sessionFactory.openSession()) {

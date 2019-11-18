@@ -8,8 +8,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
-import ru.basics.server.repository.dao.AbstractDAO;
-import ru.basics.server.repository.dao.UserDAO;
 import ru.basics.server.entity.User;
 import ru.basics.server.service.AbstractService;
 import ru.basics.server.service.UserService;
@@ -24,7 +22,6 @@ import java.util.List;
 public class UserRestController extends AbstractRestController<User> {
     AuthUtils authUtils;
     UserService userService;
-    final static Logger logger = LoggerFactory.getLogger(UserRestController.class);
 
     @Autowired
     public UserRestController(AuthUtils authUtils, UserService userService) {
@@ -34,19 +31,6 @@ public class UserRestController extends AbstractRestController<User> {
 
     public UserRestController() {
     }
-
-    /**
-     * Регистрация User
-     *
-     * @param
-     * @return
-     */
-
-//    @RequestMapping(value = "/test", method = RequestMethod.GET,
-//            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-//    public List<User> all() {
-//        return (List<User>) userService.findAllField();
-//    }
 
     @RequestMapping(value = "/deactivation/{id}", method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -58,6 +42,7 @@ public class UserRestController extends AbstractRestController<User> {
 
         user.setDeleted(true);
         userService.update(user);
+        getLogger().info("user with id " + user.getId() + " successful deactivation");
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -71,12 +56,17 @@ public class UserRestController extends AbstractRestController<User> {
             userService.update(user);
             users2.add(user);
         }
-        logger.info("test");
+        getLogger().info("status for all users updated");
         return new ResponseEntity<>(users2, HttpStatus.OK);
     }
 
     @Override
     public AbstractService getService() {
         return userService;
+    }
+
+    @Override
+    public Logger getLogger() {
+        return LoggerFactory.getLogger(UserRestController.class);
     }
 }
