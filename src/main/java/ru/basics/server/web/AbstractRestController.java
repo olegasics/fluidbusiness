@@ -5,17 +5,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.basics.server.repository.exceptions.EntityNotFountException;
 import ru.basics.server.service.AbstractService;
+import ru.basics.server.service.exceptions.ServiceErrorAdvice;
 
 import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@jdk.nashorn.internal.runtime.logging.Logger
 public abstract class AbstractRestController<T> {
 
     public abstract AbstractService getService();
-
     public abstract Logger getLogger();
+
+    ServiceErrorAdvice serviceErrorAdvice;
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<T> add(@RequestBody @Valid T t) {
@@ -31,24 +35,28 @@ public abstract class AbstractRestController<T> {
 
     @RequestMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             method = RequestMethod.GET)
-    public void all() {
+    public List<T> all() {
         try {
-            //getLogger().info("Return all entity in method /all");
-            throw new Exception();
-            // return (List<T>) getService().findAllField();
-        } catch (Exception e) {
-            getLogger().info("Return all entity in method /all");
+            return getService().findAllField();
+        } catch (RuntimeException e) {
+            throw new EntityNotFountException(e.getMessage());
         }
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<T> getById(@PathVariable Long id) {
-        T t = (T) getService().findById(id);
-        if (t == null) {
-            getLogger().warn("Entity with id {} not found ", id);
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(t, HttpStatus.OK);
+        throw new RuntimeException("test");
+//        T t;
+//        try {
+//             t = (T) getService().findById(id);
+//        }  catch (Exception e) {
+//            throw new EntityNotFountException(id);
+//        }
+////        if (t == null) {
+////            getLogger().warn("Entity with id {} not found ", id);
+////            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+////        }
+//        return new ResponseEntity<>(t, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
