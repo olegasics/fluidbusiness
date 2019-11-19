@@ -18,8 +18,7 @@ public class ServiceErrorAdvice {
 
     Logger logger = Logger.getLogger("Тут должен быть класс");
 
-    @ResponseBody
-    //@ResponseStatus(HttpStatus.NOT_FOUND)
+
     @ExceptionHandler({EntityNotFountException.class})
     public ResponseEntity<String> handle(EntityNotFountException e) {
         logger.info("testing");
