@@ -45,7 +45,7 @@ public abstract class AbstractRestController<T> {
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<T> getById(@PathVariable Long id) {
-        throw new RuntimeException("test");
+        throw new EntityNotFountException(id);
 //        T t;
 //        try {
 //             t = (T) getService().findById(id);

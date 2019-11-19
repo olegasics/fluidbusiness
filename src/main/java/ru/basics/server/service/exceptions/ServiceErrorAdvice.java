@@ -16,13 +16,14 @@ import java.util.logging.Logger;
 @ControllerAdvice
 public class ServiceErrorAdvice {
 
-    Logger logger = Logger.getLogger("test12");
+    Logger logger = Logger.getLogger("Тут должен быть класс");
 
     @ResponseBody
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler({RuntimeException.class})
-    public void handle(String s) {
+    //@ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler({EntityNotFountException.class})
+    public ResponseEntity<String> handle(EntityNotFountException e) {
         logger.info("testing");
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
