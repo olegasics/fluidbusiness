@@ -14,8 +14,8 @@ public class BadRequestExceprion extends RuntimeException {
         super("Bad request with" + name);
     }
 
-    public BadRequestExceprion(Object o) {
+    public BadRequestExceprion() {
 
-        super("Bad request with" + o);
+        super("Неверный запрос");
     }
 }

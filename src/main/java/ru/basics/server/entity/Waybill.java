@@ -21,7 +21,7 @@ public class Waybill implements Serializable {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private int number;
+    private Long number;
 
     @Column
     private Date dateSend;
@@ -62,14 +62,14 @@ public class Waybill implements Serializable {
     public Waybill() {
     }
 
-    public Waybill(int number, int numSeats, double weight, double volume) {
+    public Waybill(Long number, int numSeats, double weight, double volume) {
         this.number = number;
         this.numSeats = numSeats;
         this.weight = weight;
         this.volume = volume;
     }
 
-    public Waybill(int number, Date dateSend, List<String> items, int numSeats,
+    public Waybill(Long number, Date dateSend, List<String> items, int numSeats,
                    double weight, double volume, Company forwarder, Company sendCompany, Company deliveryCompany) {
         this.number = number;
         this.dateSend = dateSend;
@@ -103,11 +103,11 @@ public class Waybill implements Serializable {
         this.id = id;
     }
 
-    public int getNumber() {
+    public Long getNumber() {
         return number;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(Long number) {
         this.number = number;
     }
 

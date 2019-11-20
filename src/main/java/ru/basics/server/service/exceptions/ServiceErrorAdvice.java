@@ -20,9 +20,9 @@ public class ServiceErrorAdvice {
 
 
     @ExceptionHandler({EntityNotFountException.class})
-    public ResponseEntity<String> handle(EntityNotFountException e) {
-        logger.info("testing");
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+    public ResponseEntity<EntityNotFountException> handle(EntityNotFountException e) {
+        logger.info("EntityNotFountException");
+        return new ResponseEntity<>(e, HttpStatus.NOT_FOUND);
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -30,8 +30,10 @@ public class ServiceErrorAdvice {
     public void handle(Exception e) {
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+
     @ExceptionHandler({BadRequestExceprion.class})
-    public void handle(HibernateException e) {
+    public ResponseEntity<BadRequestExceprion> handle(BadRequestExceprion e) {
+        logger.info("BadRequestExceprion");
+        return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
     }
 }

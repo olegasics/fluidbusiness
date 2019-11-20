@@ -1,5 +1,6 @@
 package ru.basics.server.web;
 
+import org.hibernate.HibernateException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import ru.basics.server.repository.dao.*;
 import ru.basics.server.entity.*;
+import ru.basics.server.repository.exceptions.BadRequestExceprion;
+import ru.basics.server.repository.exceptions.EntityNotFountException;
+import ru.basics.server.repository.exceptions.HibernateDBException;
 import ru.basics.server.service.AbstractService;
 import ru.basics.server.service.CargoMoveService;
 import ru.basics.server.service.DocumentService;
@@ -50,26 +54,29 @@ public class CargoMoveRestController extends AbstractRestController<CargoMove> {
 
     @RequestMapping(value = "/search/waybills/{id}", method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<CargoMove>> findByWaybill(@PathVariable("id") Integer number) {
+    public ResponseEntity<List<CargoMove>> findByWaybill(@PathVariable("id") Long number) {
         List<CargoMove> cargoMoves = new ArrayList<>();
         if(number == null) {
             getLogger().warn("Bad request in method /findByWaybill");
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            throw new BadRequestExceprion();
         }
         Waybill waybill = waybillService.findByField("number", number);
         if(waybill == null) {
             getLogger().warn("Waybill № {} not found, method /findByWaybill", number);
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new EntityNotFountException(number);
         }
 
         CargoMove cargoMove = cargoMoveService.findByField("waybill", waybill);
         if(cargoMove == null) {
             getLogger().warn("Cargo with WayBill_id - {} not found, method /findByWaybill", number);
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new EntityNotFountException(waybill.getId());
         }
-        cargoMoves.add(cargoMove);
-        return new ResponseEntity<>(cargoMoves, HttpStatus.OK);
-
+        try {
+            cargoMoves.add(cargoMove);
+            return new ResponseEntity<>(cargoMoves, HttpStatus.OK);
+        } catch (HibernateException e) {
+            throw new HibernateDBException(e.getMessage());
+        }
     }
 
     @RequestMapping(value = "/search/invoice/{id}", method = RequestMethod.GET,
@@ -77,18 +84,18 @@ public class CargoMoveRestController extends AbstractRestController<CargoMove> {
     public ResponseEntity<List<CargoMove>> findByInvoice(@PathVariable("id") String documentNumber) {
         if (documentNumber == null) {
             getLogger().warn("Bad request in method /findByInvoice");
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            throw new BadRequestExceprion("Неверный запрос. Передаваемый номер счета: " + documentNumber);
         }
         Document document = documentService.findByField("name", documentNumber);
         if(document == null) {
             getLogger().warn("Invoice № {} not found, method /findByInvoice", documentNumber);
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new EntityNotFountException(documentNumber);
         }
         List<CargoMove> cargoMovesForSearch = cargoMoveService.findAllField();
         for (CargoMove cargoMove : cargoMovesForSearch) {
             if (cargoMove.getWaybillDocuments().get(0).getDocument().getName() == documentNumber) {
                 cargoMoves.add(cargoMove);
-            }
+            } //TODO иначе вернуть исключение
         }
         if (cargoMoves.isEmpty()) {
             getLogger().warn("Invoice № {} not found, method /findByInvoice", documentNumber);

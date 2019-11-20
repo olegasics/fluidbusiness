@@ -1,11 +1,14 @@
 package ru.basics.server.web;
 
+import org.hibernate.HibernateException;
 import org.slf4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.basics.server.repository.exceptions.BadRequestExceprion;
 import ru.basics.server.repository.exceptions.EntityNotFountException;
+import ru.basics.server.repository.exceptions.HibernateDBException;
 import ru.basics.server.service.AbstractService;
 import ru.basics.server.service.exceptions.ServiceErrorAdvice;
 
@@ -19,56 +22,46 @@ public abstract class AbstractRestController<T> {
     public abstract AbstractService getService();
     public abstract Logger getLogger();
 
-    ServiceErrorAdvice serviceErrorAdvice;
-
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<T> add(@RequestBody @Valid T t) {
         if (t == null) {
             getLogger().warn("Entity is not added ... BAD_REQUEST in method /add");
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            throw new BadRequestExceprion();
         }
-
-        getService().create(t);
-        getLogger().info("Entity added in DB in method /add " + t);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        try {
+            getService().create(t);
+            getLogger().info("Entity added in DB in method /add " + t);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (HibernateException e) {
+            throw new HibernateDBException(e.getMessage());
+        }
     }
 
     @RequestMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             method = RequestMethod.GET)
     public List<T> all() {
-        try {
             return getService().findAllField();
-        } catch (RuntimeException e) {
-            throw new EntityNotFountException(e.getMessage());
-        }
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<T> getById(@PathVariable Long id) {
-        throw new EntityNotFountException(id);
-//        T t;
-//        try {
-//             t = (T) getService().findById(id);
-//        }  catch (Exception e) {
-//            throw new EntityNotFountException(id);
-//        }
-////        if (t == null) {
-////            getLogger().warn("Entity with id {} not found ", id);
-////            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-////        }
-//        return new ResponseEntity<>(t, HttpStatus.OK);
+        T t = (T) getService().findById(id);
+        if (t == null) {
+            getLogger().warn("Entity with id {} not found ", id);
+            throw new EntityNotFountException(id);
+        }
+
+        return new ResponseEntity<>(t, HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<T> update(@RequestBody @Valid T t) {
+    @RequestMapping(value = "{id}", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<T> update(@PathVariable Long id) {
+        T t = (T) getService().findById(id);
         if (t == null) {
-            getLogger().warn("Bad request in method /update");
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        if (!getService().isExist(t)) {
             getLogger().warn("Entity: {} not found in method /update", t);
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new EntityNotFountException(id);
         }
+
         getService().update(t);
         getLogger().info("Entity: {} successful updated", t);
         return new ResponseEntity<>(t, HttpStatus.OK);
@@ -79,7 +72,7 @@ public abstract class AbstractRestController<T> {
         T t = (T) getService().findById(id);
         if(t == null) {
             getLogger().warn("Entity is not deleted ... BAD_REQUEST in method /deleteById");
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new EntityNotFountException(id);
         }
         getService().delete(t);
         getLogger().info("Entity {} is deleted", t);
