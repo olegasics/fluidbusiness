@@ -17,7 +17,7 @@ public class User implements Serializable {
     private static final long serialVersionUID = -7227124202865754589L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
     private String name;
@@ -83,7 +83,6 @@ public class User implements Serializable {
         this.email = email;
         this.city = city;
         this.phoneNumber = phoneNumber;
-        this.projects = projects;
     }
 
     public User(String name, String login, String password,
