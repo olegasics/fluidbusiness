@@ -33,8 +33,9 @@ public abstract class AbstractRestController<T> {
             getLogger().info("Создана новая сущность в базе данных, метод /add " + t);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (HibernateException e) {
-            getLogger().error("Ошибка при создании сущности в базе данных. Создавая сущность: {}. Метод /add", t);
-            throw new HibernateDBException(e.getMessage());
+            System.out.println(e);
+//            getLogger().error("Ошибка при создании сущности в базе данных. Создавая сущность: {}. Метод /add", t);
+           throw new HibernateDBException(e.getMessage());
         }
     }
 

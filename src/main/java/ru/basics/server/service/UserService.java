@@ -12,8 +12,14 @@ import javax.transaction.Transactional;
 @Transactional
 public class UserService extends AbstractService<User> {
 
-    @Autowired
+
     UserDAO userDAO;
+
+    public UserService() {}
+    @Autowired
+    public UserService(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
 
     @Override
     public AbstractDAO getDao() {
