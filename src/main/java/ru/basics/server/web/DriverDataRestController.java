@@ -14,6 +14,8 @@ import ru.basics.server.repository.dao.AbstractDAO;
 import ru.basics.server.repository.dao.DriverDataDAO;
 import ru.basics.server.entity.Company;
 import ru.basics.server.entity.DriverData;
+import ru.basics.server.repository.exceptions.BadRequestException;
+import ru.basics.server.repository.exceptions.EntityNotFoundException;
 import ru.basics.server.service.AbstractService;
 import ru.basics.server.service.DriverDataService;
 
@@ -40,29 +42,29 @@ public class DriverDataRestController extends AbstractRestController<DriverData>
 
     @RequestMapping(value = "/search/{name}", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<DriverData> findByName(@PathVariable("name") String name) {
+    public ResponseEntity<DriverData> findByName(@PathVariable String name) {
         if (name == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            throw new BadRequestException("Неверный запрос. Водитель не может быть:" + name);
         }
 
         DriverData driverData = driverDataService.findByField("name", name);
         if (driverData == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new EntityNotFoundException("Водителя с именем: " + name + " не найдено в базе данных");
         }
 
         return new ResponseEntity<>(driverData, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/search/model-car/{modelcar}", method = RequestMethod.GET,
+    @RequestMapping(value = "/search/model-car/{model-car}", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<DriverData> findByModelCar(@PathVariable("modelcar") String model) {
+    public ResponseEntity<DriverData> findByModelCar(@PathVariable("model-car") String model) {
         if (model == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            throw new BadRequestException("Неверный запрос. Машина не может быть:" + model);
         }
 
         DriverData driverData = driverDataService.findByField("modelcar", model);
         if (driverData == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new EntityNotFoundException("Водителя с машиной: " + model + " не найдено в базе данных");
         }
 
         return new ResponseEntity<>(driverData, HttpStatus.OK);
@@ -72,32 +74,31 @@ public class DriverDataRestController extends AbstractRestController<DriverData>
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<DriverData> findByNumberPhone(@PathVariable("number") String number) {
         if (number == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            throw new BadRequestException("Неверный запрос. Номер телефона не может быть:" + number);
         }
 
         DriverData driverData = driverDataService.findByField("numberphone", number);
         if (driverData == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new EntityNotFoundException("Водителя с номером телефона: " + number + " не найдено в базе данных");
         }
 
         return new ResponseEntity<>(driverData, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/search/company", method = RequestMethod.GET,
+    @RequestMapping(value = "/search/company/{name}", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<DriverData>> findByCompany(Company company) {
-        if (company == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    public ResponseEntity<List<DriverData>> findByCompany(@PathVariable String name) {
+        if (name == null) {
+            throw new BadRequestException("Неверный запрос. Компания не может быть: " + name);
         }
-        // TODO изменить поиск. Выгрузить всех водителей и проверять пренадлежат ли компании из запроса
         List<DriverData> driverDatas = driverDataService.findAllField();
-        for(DriverData driverData : driverDatas) {
-            if(driverData.getCompany().getName() == company.getName()) {
+        for (DriverData driverData : driverDatas) {
+            if (driverData.getCompany().getName().equals(name)) {
                 driverDataList.add(driverData);
             }
         }
-        if(driverDataList.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (driverDataList.isEmpty()) {
+            throw new EntityNotFoundException("Водителя компании " + name + " не найдено в базе данных");
         }
 
         return new ResponseEntity<>(driverDataList, HttpStatus.OK);

@@ -1,5 +1,6 @@
 package ru.basics.server.web;
 
+import org.hibernate.HibernateException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.basics.server.repository.dao.AbstractDAO;
-import ru.basics.server.repository.dao.WaybillDocumentDAO;
 import ru.basics.server.entity.WaybillDocument;
+import ru.basics.server.repository.exceptions.BadRequestException;
+import ru.basics.server.repository.exceptions.EntityNotFoundException;
+import ru.basics.server.repository.exceptions.HibernateDBException;
 import ru.basics.server.service.AbstractService;
 import ru.basics.server.service.WaybillDocumentService;
 
@@ -39,20 +41,26 @@ public class WaybillDocumentRestController extends AbstractRestController<Waybil
     @RequestMapping(value = "/search/item/{item}")
     public ResponseEntity<List<WaybillDocument>> searchByItem(@PathVariable String item) {
         if(item == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            getLogger().warn("Неверный запрос в методе /searchByItem. Передаваемое значение не может быть {}", item);
+            throw new BadRequestException("Неверный запрос. ... не может быть: " + item);
         }
-        List<WaybillDocument> waybillDocuments = waybillDocumentService.findAllField();
+        List<WaybillDocument> waybillDocuments = null;
+        try {
+            waybillDocuments = waybillDocumentService.findAllField();
+        } catch (HibernateException e) {
+            throw new HibernateDBException(e.getMessage());
+        }
         if(!waybillDocuments.isEmpty()) {
             for(WaybillDocument waybillDocument : waybillDocuments) {
                 if(waybillDocument.getItem().equals(item)) {
                     waybillDocumentList.add(waybillDocument);
                 }
             }
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+
         if(waybillDocumentList.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            getLogger().warn("ТТН с позицией {} не найдена в базе данных, метод /searchByItem", item);
+            throw new EntityNotFoundException("ТТН с позицией: " + item + " не найдена в базе данных");
         }
 
         return new ResponseEntity<>(waybillDocumentList, HttpStatus.OK);

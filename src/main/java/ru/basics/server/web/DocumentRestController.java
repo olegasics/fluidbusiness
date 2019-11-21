@@ -13,8 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.basics.server.entity.Company;
 import ru.basics.server.entity.Document;
 import ru.basics.server.entity.Project;
+import ru.basics.server.repository.exceptions.BadRequestException;
+import ru.basics.server.repository.exceptions.EntityNotFoundException;
 import ru.basics.server.service.AbstractService;
+import ru.basics.server.service.CompanyService;
 import ru.basics.server.service.DocumentService;
+import ru.basics.server.service.ProjectService;
 
 import java.util.List;
 
@@ -23,10 +27,14 @@ import java.util.List;
 public class DocumentRestController extends AbstractRestController<Document> {
     DocumentService documentService;
     List<Document> documents;
+    ProjectService projectService;
+    CompanyService companyService;
 
     @Autowired
-    public DocumentRestController(DocumentService documentService) {
+    public DocumentRestController(DocumentService documentService, ProjectService projectService, CompanyService companyService ) {
         this.documentService = documentService;
+        this.projectService = projectService;
+        this.companyService = companyService;
     }
 
     public DocumentRestController() {
@@ -37,53 +45,43 @@ public class DocumentRestController extends AbstractRestController<Document> {
         return LoggerFactory.getLogger(DocumentRestController.class);
     }
 
-    @RequestMapping(value = "/search/project", method = RequestMethod.GET,
+    @RequestMapping(value = "/search/project{numProject}", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Document> findByProject(Project project) {
-        if (project == null) {
+    public ResponseEntity<Document> findByProject(@PathVariable String numProject) {
+        if (numProject == null) {
             getLogger().warn("Bad request in method /findByProject");
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            throw new BadRequestException("Неверный запрос. Проект не может быть: " + numProject);
         }
+        Project project = projectService.findByField("name", numProject);
         Document document = documentService.findByField("numProject", project);
         if (document == null) {
             getLogger().warn("Document with project - {} not found, in method /findByProject", project);
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new EntityNotFoundException("Документа с номером проекта: " + numProject + " не найдено в базе данных");
         }
 
         return new ResponseEntity<>(document, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/search/company", method = RequestMethod.GET,
+    @RequestMapping(value = "/search/company/{name}", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<Document>> findByCompany(Company company) {
-        if (company == null) {
+    public ResponseEntity<List<Document>> findByCompanyName(@PathVariable String name) {
+        if (name == null) {
             getLogger().warn("Bad request in method /findByCompany");
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            throw new BadRequestException("Неверный запрос. Компания не может быть: " + name);
+
         }
-        Document document = documentService.findByField("company", company);
-        if (document == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        Company company = companyService.findByField("name", name);
+        List<Document> documentsBySearch = documentService.findAllField();
+        for(Document document : documentsBySearch) {
+            if(document.getName() == name) {
+                documents.add(document);
+            }
         }
-        do {
-            documents.add(document);
-            document = documentService.findByField("company", company);
-        } while (document != null);
+        if (documents.isEmpty()) {
+            throw new EntityNotFoundException("Документа пренадлежащий компании: " + name + " не найдено в базе данных");
+        }
 
         return new ResponseEntity<>(documents, HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/search{name}")
-    public ResponseEntity<Document> findByCompany(@PathVariable("name") String name) {
-        if (name == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-
-        Document document = documentService.findByField("name", name);
-        if (document == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        return new ResponseEntity<>(document, HttpStatus.OK);
     }
 
     @Override

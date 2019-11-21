@@ -1,5 +1,6 @@
 package ru.basics.server.web;
 
+import org.hibernate.HibernateException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,9 @@ import ru.basics.server.repository.dao.CompanyDAO;
 import ru.basics.server.repository.dao.ProjectDAO;
 import ru.basics.server.entity.Company;
 import ru.basics.server.entity.Project;
+import ru.basics.server.repository.exceptions.BadRequestException;
+import ru.basics.server.repository.exceptions.EntityNotFoundException;
+import ru.basics.server.repository.exceptions.HibernateDBException;
 import ru.basics.server.service.AbstractService;
 import ru.basics.server.service.CompanyService;
 import ru.basics.server.service.ProjectService;
@@ -42,15 +46,22 @@ public class ProjectRestController extends AbstractRestController<Project> {
     }
 
     @RequestMapping(value = "/search/{number}", method = RequestMethod.GET,
-    produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Project> findByNumber(@PathVariable("number") String number) {
-        if(number == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if (number == null) {
+            getLogger().warn("Неверный запрос: {}. Метод /findByNumber", number);
+            throw new BadRequestException("Не верный запрос. Номер проекта не может быть " + number);
         }
-
-        Project project = projectService.findByField("name", number);
-        if(project == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        Project project;
+        try {
+            project = projectService.findByField("name", number);
+        } catch (HibernateException e) {
+            getLogger().error("Ошибка при поиске проекта по номеру. Неверный номер: {}. Метод /findByField", number);
+            throw new HibernateDBException(e.getMessage());
+        }
+        if (project == null) {
+            getLogger().warn("Не найден проект в базе данных: {}", number);
+            throw new EntityNotFoundException("Проекта с номером: " + number + " не найдено в базе данных");
         }
 
         return new ResponseEntity<>(project, HttpStatus.OK);
@@ -58,21 +69,29 @@ public class ProjectRestController extends AbstractRestController<Project> {
 
     @RequestMapping(value = "/search/end-customer/{idCustomer:\\d+}", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<Project>> findByCustomer(@PathVariable("idCustomer") Long idCustomer) {
+    public ResponseEntity<List<Project>> findByCustomer(@PathVariable Long idCustomer) {
         if (idCustomer == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            getLogger().warn("Неверный запрос: {}. Метод /findByCustomer", idCustomer);
+            throw new BadRequestException("Неверный запрос. Заказчик с id=" + idCustomer + " не найден в базе данных");
         }
-        Company customer = companyService.findById(idCustomer);
-        List<Project> projectsForSerach = projectService.findAllField();
-        for(Project project : projectsForSerach) {
-            if(project.getEndCustomer().getId() == idCustomer ) {
-                projects.add(project);
+        try {
+            Company customer = companyService.findById(idCustomer);
+            List<Project> projectsForSerach = projectService.findAllField();
+            for (Project project : projectsForSerach) {
+                if (project.getEndCustomer().getId() == idCustomer) {
+                    projects.add(project);
+                }
             }
+        } catch (HibernateException e) {
+            getLogger().error("Ошибка при поиске проекта по id заказчика. Неверный id: {}. Метод /findByCustomer", idCustomer);
+            throw new HibernateDBException(e.getMessage());
         }
-        if(projects.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
+        if (projects.isEmpty()) {
+            getLogger().warn("Не найдено проектов с указаным id закачика: {}", idCustomer);
+            throw new EntityNotFoundException("Проект с заказчиком: " + idCustomer + " не найден в базе данных");
         }
+
         return new ResponseEntity<>(projects, HttpStatus.OK);
     }
 

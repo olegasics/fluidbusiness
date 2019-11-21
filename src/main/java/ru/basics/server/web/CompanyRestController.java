@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import ru.basics.server.entity.Company;
+import ru.basics.server.repository.exceptions.BadRequestException;
+import ru.basics.server.repository.exceptions.EntityNotFoundException;
 import ru.basics.server.service.AbstractService;
 import ru.basics.server.service.CompanyService;
 
@@ -38,15 +40,14 @@ public class CompanyRestController extends AbstractRestController<Company> {
     public ResponseEntity<Company> findByAddressLegal(@PathVariable String address) {
         if (address == null) {
             getLogger().warn("Bad request in method /findByAddressLegal");
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            throw new BadRequestException("Неверный запрос. Адрес не может быть " + address);
         }
 
-        Company company = companyService.findByField("adresslegal", address);
+        Company company = companyService.findByField("adressLegal", address);
         if (company == null) {
             getLogger().warn("Company with address legal - {} not found, in method /findByAddressLegal", address);
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new EntityNotFoundException("Компания с юридическим адресом: " + address + " не найдена в базе данных");
         }
-
         return new ResponseEntity<>(company, HttpStatus.NO_CONTENT);
     }
 
@@ -55,13 +56,13 @@ public class CompanyRestController extends AbstractRestController<Company> {
     public ResponseEntity<Company> findByAddressDelivery(@PathVariable("address") String address) {
         if (address == null) {
             getLogger().warn("Bad request in method /findByAddressDelivery");
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            throw new BadRequestException("Неверный запрос. Адрес не может быть " + address);
         }
 
-        Company company = companyService.findByField("adressdelivery", address);
+        Company company = companyService.findByField("adressDelivery", address);
         if (company == null) {
             getLogger().warn("Company with address delivery - {} not found, in method /findByAddressDelivery", address);
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new EntityNotFoundException(address);
         }
 
         return new ResponseEntity<>(company, HttpStatus.NO_CONTENT);
@@ -72,13 +73,13 @@ public class CompanyRestController extends AbstractRestController<Company> {
     public ResponseEntity<Company> findByAddressSend(@PathVariable("address") String address) {
         if (address == null) {
             getLogger().warn("Bad request in method /findByAddressSend");
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            throw new BadRequestException("Неверный запрос. Адрес не может быть " + address);
         }
 
-        Company company = companyService.findByField("adresssend", address);
+        Company company = companyService.findByField("adressSend", address);
         if (company == null) {
             getLogger().warn("Company with address send - {} not found, in method /findByAddressSend", address);
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new EntityNotFoundException("Компания с адресом доставки: " + address + " не найдена в базе данных");
         }
 
         return new ResponseEntity<>(company, HttpStatus.NO_CONTENT);

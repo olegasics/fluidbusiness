@@ -1,5 +1,6 @@
 package ru.basics.server.web;
 
+import org.hibernate.HibernateException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 import ru.basics.server.entity.User;
+import ru.basics.server.repository.exceptions.EntityNotFoundException;
+import ru.basics.server.repository.exceptions.HibernateDBException;
 import ru.basics.server.service.AbstractService;
 import ru.basics.server.service.UserService;
 import ru.basics.server.utils.AuthUtils;
@@ -35,29 +38,25 @@ public class UserRestController extends AbstractRestController<User> {
     @RequestMapping(value = "/deactivation/{id}", method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<User> deActivation(@PathVariable("id") Long id) {
-        User user = userService.findById(id);
+        User user = null;
+        try {
+            user = userService.findById(id);
+        } catch (HibernateException e) {
+            getLogger().error("Ошибка при поиске пользователя с id={} в таблице Person. Метод /deActivation", id);
+            throw new HibernateDBException(e.getMessage());
+        }
         if(user == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            getLogger().warn("Пользователь с id {} не найден в таблице Person. Метод /deActivation", id);
+            throw new EntityNotFoundException("Пользователь с указаным id=" + id + " не найден в базе данных");
         }
-
         user.setDeleted(true);
-        userService.update(user);
-        getLogger().info("user with id " + user.getId() + " successful deactivation");
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-    @RequestMapping(value = "/getstatus", method = RequestMethod.GET,
-    produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<User>> getStatus() {
-        List<User> users = userService.findAllField();
-        List<User> users2 = new ArrayList<>();
-        for(User user : users) {
-            user.setDeleted(false);
+        try {
             userService.update(user);
-            users2.add(user);
+        } catch (HibernateException e) {
+            throw new HibernateDBException(e.getMessage());
         }
-        getLogger().info("status for all users updated");
-        return new ResponseEntity<>(users2, HttpStatus.OK);
+        getLogger().info("Пользователь с id={}  успешно деактивирован. Метод /deActivation", id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @Override

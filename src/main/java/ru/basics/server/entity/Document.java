@@ -48,9 +48,6 @@ public class Document implements Serializable {
     @JoinColumn(name = "project_id")
     private Project numProject;
 
-//    @ManyToMany(mappedBy = "invoices", fetch = FetchType.EAGER)
-//    private Set<Waybill> waybills = new HashSet<>();
-
     public void addItem(WaybillDocument waybillDocument) {
         waybillDocuments.add(waybillDocument);
     }

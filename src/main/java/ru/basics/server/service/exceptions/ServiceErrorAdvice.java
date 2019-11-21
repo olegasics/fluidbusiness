@@ -1,14 +1,12 @@
 package ru.basics.server.service.exceptions;
 
-import org.hibernate.HibernateException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import ru.basics.server.repository.exceptions.BadRequestExceprion;
-import ru.basics.server.repository.exceptions.EntityNotFountException;
+import ru.basics.server.repository.exceptions.BadRequestException;
+import ru.basics.server.repository.exceptions.EntityNotFoundException;
 
 import java.sql.SQLException;
 import java.util.logging.Logger;
@@ -19,8 +17,8 @@ public class ServiceErrorAdvice {
     Logger logger = Logger.getLogger("Тут должен быть класс");
 
 
-    @ExceptionHandler({EntityNotFountException.class})
-    public ResponseEntity<EntityNotFountException> handle(EntityNotFountException e) {
+    @ExceptionHandler({EntityNotFoundException.class})
+    public ResponseEntity<EntityNotFoundException> handle(EntityNotFoundException e) {
         logger.info("EntityNotFountException");
         return new ResponseEntity<>(e, HttpStatus.NOT_FOUND);
     }
@@ -31,8 +29,8 @@ public class ServiceErrorAdvice {
     }
 
 
-    @ExceptionHandler({BadRequestExceprion.class})
-    public ResponseEntity<BadRequestExceprion> handle(BadRequestExceprion e) {
+    @ExceptionHandler({BadRequestException.class})
+    public ResponseEntity<BadRequestException> handle(BadRequestException e) {
         logger.info("BadRequestExceprion");
         return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
     }

@@ -1,5 +1,6 @@
 package ru.basics.server.web;
 
+import org.hibernate.HibernateException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.basics.server.repository.dao.AbstractDAO;
 import ru.basics.server.repository.dao.WayBillDAO;
 import ru.basics.server.entity.Waybill;
+import ru.basics.server.repository.exceptions.EntityNotFoundException;
+import ru.basics.server.repository.exceptions.HibernateDBException;
 import ru.basics.server.service.AbstractService;
 import ru.basics.server.service.WaybillService;
 import sun.nio.cs.ext.MacCentralEurope;
@@ -44,9 +47,17 @@ public class WaybillRestController extends AbstractRestController<Waybill> {
     @RequestMapping(value = "/search/{number}",method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Waybill> searchByNumber(@PathVariable Integer number) {
-        Waybill waybill = waybillService.findByField("number", number);
+        Waybill waybill = null;
+        try {
+            waybill = waybillService.findByField("number", number);
+        } catch (HibernateException e) {
+            getLogger().error("Ошибка при поиске ТТН с номером {} в таблице Waybill, метод /searchByNumber. Стек: {}",
+                    number, e.getMessage());
+            throw new HibernateDBException(e.getMessage());
+        }
         if(waybill == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            getLogger().warn("Не найдена ТТН с номер {} в базе данных. Метод /searchByNumber", number);
+            throw new EntityNotFoundException("ТТН с номером " + number + " не найдена в базе данных");
         }
         return new ResponseEntity<>(waybill, HttpStatus.OK);
     }
