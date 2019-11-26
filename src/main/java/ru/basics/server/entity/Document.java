@@ -1,12 +1,10 @@
 package ru.basics.server.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-
 
 @Entity
 @Table
@@ -20,7 +18,7 @@ public class Document implements Serializable {
     @Column
     private String name;
 
-    @JsonIgnore
+
     @ManyToOne
     @JoinColumn(name = "company_id")
     private Company company;
@@ -38,12 +36,12 @@ public class Document implements Serializable {
             cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<WaybillDocument> waybillDocuments;
 
-    @JsonIgnore
+
     @ManyToOne
     @JoinColumn(name = "payer_company_id")
     private Company payer;
 
-    @JsonIgnore
+
     @ManyToOne
     @JoinColumn(name = "project_id")
     private Project numProject;
@@ -64,6 +62,10 @@ public class Document implements Serializable {
         this.name = name;
         this.company = company;
         this.date = date;
+    }
+
+    public Document(Long id) {
+        this.id = id;
     }
 
 //    public Set<Waybill> getWaybills() {

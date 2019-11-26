@@ -25,7 +25,6 @@ public class Project implements Serializable {
     @Column(unique = true, nullable = false)
     protected String name;
 
-
     @ManyToOne
     @JoinColumn(name = "endCustomer")
     protected Company endCustomer;
@@ -36,12 +35,13 @@ public class Project implements Serializable {
     @Fetch(FetchMode.SELECT)
     private List<Document> documents = new ArrayList<>();
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "projects")
     @LazyCollection(LazyCollectionOption.FALSE)
     @Fetch(FetchMode.SELECT)
     private List<Company> providers = new ArrayList<>();
 
-    @JsonIgnore
+
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "user_project",
             joinColumns = {@JoinColumn(name = "project_id", referencedColumnName = "id")},
@@ -51,6 +51,7 @@ public class Project implements Serializable {
     @Fetch(FetchMode.SELECT)
     private Set<User> team = new HashSet<User>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "project")
     @LazyCollection(LazyCollectionOption.FALSE)
     @Fetch(FetchMode.SELECT)
@@ -61,6 +62,14 @@ public class Project implements Serializable {
     }
 
     public Project() {
+    }
+
+    public Project(Set<User> team) {
+        this.team = team;
+    }
+
+    public Project(Long id) {
+        this.id = id;
     }
 
     public Project(String name, Company endCustomer) {

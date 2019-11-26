@@ -33,9 +33,8 @@ public abstract class AbstractRestController<T> {
             getLogger().info("Создана новая сущность в базе данных, метод /add " + t);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (HibernateException e) {
-            System.out.println(e);
-//            getLogger().error("Ошибка при создании сущности в базе данных. Создавая сущность: {}. Метод /add", t);
-           throw new HibernateDBException(e.getMessage());
+            getLogger().error("Ошибка при создании сущности в базе данных. Создавая сущность: {}. Метод /add", t);
+            throw new HibernateDBException(e.getMessage());
         }
     }
 
@@ -57,11 +56,15 @@ public abstract class AbstractRestController<T> {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<T> update(@PathVariable Long id) {
-        T t = (T) getService().findById(id);
-        if (t == null) {
+    public ResponseEntity<T> update(@PathVariable Long id, T t) {
+        T e = (T) getService().findById(id);
+        if (e == null) {
             getLogger().warn("Entity: {} not found in method /update", t);
             throw new EntityNotFoundException(id);
+        }
+        if(t == null) {
+            getLogger().warn("Entity is not updated. Bad request in method /update", t);
+            throw new BadRequestException(id);
         }
 
         getService().update(t);

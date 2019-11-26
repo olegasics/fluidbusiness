@@ -11,7 +11,6 @@ public class DriverData implements Serializable {
 
     private static final long serialVersionUID = 1422948105056782250L;
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -28,7 +27,7 @@ public class DriverData implements Serializable {
     @Column
     private String numberPhone;
 
-    @JsonIgnore
+
     @ManyToOne
     @JoinColumn(name = "company_id")
     private Company company;
@@ -42,6 +41,10 @@ public class DriverData implements Serializable {
         this.modelCar = modelCar;
         this.numberPhone = numberPhone;
         this.company = company;
+    }
+
+    public DriverData(Long id) {
+        this.id = id;
     }
 
     public Long getId() {

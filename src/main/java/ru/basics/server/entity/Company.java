@@ -42,16 +42,19 @@ public class Company implements Serializable {
     @Column
     private String adressDelivery;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "company")
     @LazyCollection(LazyCollectionOption.FALSE)
     @Fetch(FetchMode.SELECT)
     private List<DriverData> driverData = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "company")
     @LazyCollection(LazyCollectionOption.FALSE)
     @Fetch(FetchMode.SELECT)
     private List<Document> documents;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "payer")
     @LazyCollection(LazyCollectionOption.FALSE)
     @Fetch(FetchMode.SELECT)
@@ -63,6 +66,7 @@ public class Company implements Serializable {
     @Fetch(FetchMode.SELECT)
     private List<Project> companies = new ArrayList<>();
 
+    @JsonIgnore
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(name = "project_company",
     joinColumns = @JoinColumn(name = "company_id", referencedColumnName = "id"),
@@ -72,16 +76,19 @@ public class Company implements Serializable {
     @Fetch(FetchMode.SELECT)
     private List<Project> projects = new ArrayList<Project>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "forwarder")
     @LazyCollection(LazyCollectionOption.FALSE)
     @Fetch(FetchMode.SELECT)
     private List<Waybill> forwarderWaybills = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "sendCompany")
     @LazyCollection(LazyCollectionOption.FALSE)
     @Fetch(FetchMode.SELECT)
     private List<Waybill> sendCompanyWaybills;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "deliveryCompany")
     @LazyCollection(LazyCollectionOption.FALSE)
     @Fetch(FetchMode.SELECT)

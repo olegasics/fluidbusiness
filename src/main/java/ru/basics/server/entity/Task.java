@@ -36,7 +36,7 @@ public class Task implements Serializable {
     @Column
     private int status;
 
-    @JsonIgnore
+
     @ManyToOne()
     @JoinColumn(name = "project_id")
     private Project project;
@@ -51,6 +51,9 @@ public class Task implements Serializable {
     @Fetch(FetchMode.SELECT)
     private Set<User> users = new HashSet<>();
 
+    public Task(Long id) {
+        this.id = id;
+    }
 
     public void addUser(User user) {
         users.add(user);

@@ -25,7 +25,6 @@ public class WaybillDocument implements Serializable {
     @JoinColumn(name = "documents_id")
     private Document document;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "cargo_move_id")
     private CargoMove cargoMove;
@@ -42,6 +41,10 @@ public class WaybillDocument implements Serializable {
         this.item = item;
         this.volume = volume;
         this.weight = weight;
+    }
+
+    public WaybillDocument(Long id) {
+        this.id = id;
     }
 
     public WaybillDocument() {

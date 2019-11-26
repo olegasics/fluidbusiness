@@ -1,5 +1,6 @@
 package ru.basics.server.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyCollection;
@@ -40,6 +41,7 @@ public class User implements Serializable {
     @Column
     private Position position;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "team", fetch = FetchType.LAZY)
     @LazyCollection(LazyCollectionOption.FALSE)
     @Fetch(FetchMode.SELECT)
@@ -95,6 +97,10 @@ public class User implements Serializable {
         this.city = city;
         this.phoneNumber = phoneNumber;
         this.position = position;
+    }
+
+    public User(Long id) {
+        this.id = id;
     }
 
     public List<Task> getTasks() {

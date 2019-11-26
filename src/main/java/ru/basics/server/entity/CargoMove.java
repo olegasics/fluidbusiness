@@ -1,10 +1,10 @@
 package ru.basics.server.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -30,9 +30,11 @@ public class CargoMove implements Serializable {
     @Column
     private boolean upd;
 
+
     @OneToOne
     private Waybill waybill;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "cargoMove")
     @LazyCollection(LazyCollectionOption.FALSE)
     @Fetch(FetchMode.SELECT)
@@ -47,6 +49,10 @@ public class CargoMove implements Serializable {
     }
 
     public CargoMove() {
+    }
+
+    public CargoMove(Long id) {
+        this.id = id;
     }
 
     public List<WaybillDocument> getWaybillDocuments() {

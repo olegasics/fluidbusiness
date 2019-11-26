@@ -35,22 +35,20 @@ public class Waybill implements Serializable {
     @Column
     private double volume;
 
+
     @OneToMany(mappedBy = "waybill")
     @LazyCollection(LazyCollectionOption.FALSE)
     @Fetch(FetchMode.SELECT)
     private List<WaybillDocument> waybillDocuments;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "forwarder_id")
     private Company forwarder;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "send_company_id")
     private Company sendCompany;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "delivery_company_id")
     private Company deliveryCompany;
@@ -60,6 +58,10 @@ public class Waybill implements Serializable {
     }
 
     public Waybill() {
+    }
+
+    public Waybill(Long id) {
+        this.id = id;
     }
 
     public Waybill(Long number, int numSeats, double weight, double volume) {
