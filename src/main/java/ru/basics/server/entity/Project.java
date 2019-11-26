@@ -25,24 +25,6 @@ public class Project implements Serializable {
     @Column(unique = true, nullable = false)
     protected String name;
 
-
-    public String getName() {
-        return name;
-    }
-
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Task> getTask() {
-        return task;
-    }
-
-    public void setTask(List<Task> task) {
-        this.task = task;
-    }
-
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "endCustomer")
@@ -104,7 +86,22 @@ public class Project implements Serializable {
         this.team = team;
     }
 
+    public String getName() {
+        return name;
+    }
 
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Task> getTask() {
+        return task;
+    }
+
+    public void setTask(List<Task> task) {
+        this.task = task;
+    }
 
     public Company getEndCustomer() {
         return endCustomer;
