@@ -10,12 +10,10 @@ import ru.basics.server.repository.exceptions.BadRequestException;
 import ru.basics.server.repository.exceptions.EntityNotFoundException;
 import ru.basics.server.repository.exceptions.HibernateDBException;
 import ru.basics.server.service.AbstractService;
-
 import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@jdk.nashorn.internal.runtime.logging.Logger
 public abstract class AbstractRestController<T> {
 
     public abstract AbstractService getService();
@@ -56,7 +54,7 @@ public abstract class AbstractRestController<T> {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<T> update(@PathVariable Long id, T t) {
+    public ResponseEntity<T> update(@PathVariable Long id, @RequestBody T t) {
         T e = (T) getService().findById(id);
         if (e == null) {
             getLogger().warn("Entity: {} not found in method /update", t);
