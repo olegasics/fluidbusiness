@@ -25,7 +25,7 @@ public class Project implements Serializable {
     @Column(unique = true, nullable = false)
     protected String name;
 
-    @JsonIgnore
+
     @ManyToOne
     @JoinColumn(name = "endCustomer")
     protected Company endCustomer;

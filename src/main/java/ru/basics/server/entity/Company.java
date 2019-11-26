@@ -1,5 +1,6 @@
 package ru.basics.server.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyCollection;
@@ -56,7 +57,7 @@ public class Company implements Serializable {
     @Fetch(FetchMode.SELECT)
     private List<Document> documentsPayer = new ArrayList<>();
 
-
+    @JsonIgnore
     @OneToMany(mappedBy = "endCustomer")
     @LazyCollection(LazyCollectionOption.FALSE)
     @Fetch(FetchMode.SELECT)
@@ -87,6 +88,10 @@ public class Company implements Serializable {
     private List<Waybill> deliveryCompanyWaybills;
 
     public Company() {
+    }
+
+    public Company(Long id) {
+        this.id = id;
     }
 
     public Company(String name, String contactPersonName, String contactPersonPhone,
