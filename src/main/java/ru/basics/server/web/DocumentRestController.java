@@ -20,6 +20,7 @@ import ru.basics.server.service.CompanyService;
 import ru.basics.server.service.DocumentService;
 import ru.basics.server.service.ProjectService;
 
+import javax.print.Doc;
 import java.util.List;
 
 @RestController
@@ -43,6 +44,11 @@ public class DocumentRestController extends AbstractRestController<Document> {
     @Override
     public Logger getLogger() {
         return LoggerFactory.getLogger(DocumentRestController.class);
+    }
+
+    @Override
+    public Class<Document> getEntityClass() {
+        return Document.class;
     }
 
     @RequestMapping(value = "/search/project{numProject}", method = RequestMethod.GET,

@@ -16,6 +16,7 @@ import ru.basics.server.service.AbstractService;
 import ru.basics.server.service.UserService;
 import ru.basics.server.utils.AuthUtils;
 
+import javax.jws.soap.SOAPBinding;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,5 +68,10 @@ public class UserRestController extends AbstractRestController<User> {
     @Override
     public Logger getLogger() {
         return LoggerFactory.getLogger(UserRestController.class);
+    }
+
+    @Override
+    public Class<User> getEntityClass() {
+        return User.class;
     }
 }

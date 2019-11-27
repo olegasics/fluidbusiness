@@ -31,6 +31,11 @@ public class TaskRestController extends AbstractRestController<Task> {
     }
 
     @Override
+    public Class<Task> getEntityClass() {
+        return Task.class;
+    }
+
+    @Override
     public AbstractService getService() {
         return taskService;
     }

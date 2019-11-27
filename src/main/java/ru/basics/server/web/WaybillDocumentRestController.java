@@ -38,6 +38,11 @@ public class WaybillDocumentRestController extends AbstractRestController<Waybil
         return LoggerFactory.getLogger(WaybillDocumentRestController.class);
     }
 
+    @Override
+    public Class<WaybillDocument> getEntityClass() {
+        return WaybillDocument.class;
+    }
+
     @RequestMapping(value = "/search/item/{item}")
     public ResponseEntity<List<WaybillDocument>> searchByItem(@PathVariable String item) {
         if(item == null) {

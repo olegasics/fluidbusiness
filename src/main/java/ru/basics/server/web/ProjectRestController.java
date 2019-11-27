@@ -45,6 +45,11 @@ public class ProjectRestController extends AbstractRestController<Project> {
         return LoggerFactory.getLogger(ProjectRestController.class);
     }
 
+    @Override
+    public Class<Project> getEntityClass() {
+        return Project.class;
+    }
+
     @RequestMapping(value = "/search/{number}", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Project> findByNumber(@PathVariable("number") String number) {

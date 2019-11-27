@@ -40,6 +40,11 @@ public class WaybillRestController extends AbstractRestController<Waybill> {
     }
 
     @Override
+    public Class<Waybill> getEntityClass() {
+        return Waybill.class;
+    }
+
+    @Override
     public AbstractService<Waybill> getService() {
         return waybillService;
     }

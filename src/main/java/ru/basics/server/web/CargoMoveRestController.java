@@ -51,6 +51,11 @@ public class CargoMoveRestController extends AbstractRestController<CargoMove> {
         return LoggerFactory.getLogger(CargoMoveRestController.class);
     }
 
+    @Override
+    public Class<CargoMove> getEntityClass() {
+        return CargoMove.class;
+    }
+
 
     @RequestMapping(value = "/search/waybills/{id}", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

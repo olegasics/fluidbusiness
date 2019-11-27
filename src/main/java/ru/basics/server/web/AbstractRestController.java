@@ -5,20 +5,26 @@ import org.slf4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
+import ru.basics.server.entity.User;
 import ru.basics.server.repository.exceptions.BadRequestException;
 import ru.basics.server.repository.exceptions.EntityNotFoundException;
 import ru.basics.server.repository.exceptions.HibernateDBException;
 import ru.basics.server.service.AbstractService;
 import javax.validation.Valid;
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public abstract class AbstractRestController<T> {
 
     public abstract AbstractService getService();
-
     public abstract Logger getLogger();
+
+    public abstract Class<T> getEntityClass();
+
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<T> add(@RequestBody @Valid T t) {
@@ -54,20 +60,22 @@ public abstract class AbstractRestController<T> {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<T> update(@PathVariable Long id, @RequestBody T t) {
+    public ResponseEntity<T> update(@PathVariable Long id, @RequestBody Map<String, Object> entity) {
         T e = (T) getService().findById(id);
         if (e == null) {
-            getLogger().warn("Entity: {} not found in method /update", t);
+            getLogger().warn("Entity: {} not found in method /update", id);
             throw new EntityNotFoundException(id);
         }
-        if(t == null) {
-            getLogger().warn("Entity is not updated. Bad request in method /update", t);
-            throw new BadRequestException(id);
-        }
+        for ()
+            entity.forEach((k, v) -> {
+                Field field = ReflectionUtils.findField(getEntityClass(), k);
+                ReflectionUtils.setField(field, e, k);
 
-        getService().update(t);
-        getLogger().info("Entity: {} successful updated", t);
-        return new ResponseEntity<>(t, HttpStatus.OK);
+            });
+
+        getService().update(e);
+        getLogger().info("Entity: {} successful updated", e);
+        return new ResponseEntity<>(e, HttpStatus.OK);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

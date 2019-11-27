@@ -35,6 +35,11 @@ public class CompanyRestController extends AbstractRestController<Company> {
         return LoggerFactory.getLogger(CompanyRestController.class);
     }
 
+    @Override
+    public Class<Company> getEntityClass() {
+        return Company.class;
+    }
+
     @RequestMapping(value = "/search/address-legal/{address}", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Company> findByAddressLegal(@PathVariable String address) {

@@ -40,6 +40,11 @@ public class DriverDataRestController extends AbstractRestController<DriverData>
         return LoggerFactory.getLogger(DriverDataRestController.class);
     }
 
+    @Override
+    public Class<DriverData> getEntityClass() {
+        return DriverData.class;
+    }
+
     @RequestMapping(value = "/search/{name}", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<DriverData> findByName(@PathVariable String name) {
