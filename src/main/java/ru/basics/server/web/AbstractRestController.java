@@ -14,6 +14,7 @@ import ru.basics.server.repository.exceptions.HibernateDBException;
 import ru.basics.server.service.AbstractService;
 import javax.validation.Valid;
 import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -66,12 +67,18 @@ public abstract class AbstractRestController<T> {
             getLogger().warn("Entity: {} not found in method /update", id);
             throw new EntityNotFoundException(id);
         }
-        for ()
-            entity.forEach((k, v) -> {
-                Field field = ReflectionUtils.findField(getEntityClass(), k);
-                ReflectionUtils.setField(field, e, k);
+        for (Map.Entry<String, Object> map : entity.entrySet()) {
+            Field fielde = ReflectionUtils.findField(getEntityClass(), map.getKey());
+            fielde.setAccessible(true);
+            ReflectionUtils.setField(fielde, e,
+                    map.getValue());
+        }
 
-            });
+//            entity.forEach((k, v) -> {
+//                Field field = ReflectionUtils.findField(getEntityClass(), k);
+//                ReflectionUtils.setField(field, e, k);
+//
+//            });
 
         getService().update(e);
         getLogger().info("Entity: {} successful updated", e);

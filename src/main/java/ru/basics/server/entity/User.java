@@ -5,8 +5,11 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.jboss.logging.Field;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -45,7 +48,7 @@ public class User implements Serializable {
     @ManyToMany(mappedBy = "team", fetch = FetchType.LAZY)
     @LazyCollection(LazyCollectionOption.FALSE)
     @Fetch(FetchMode.SELECT)
-    private Set<Project> projects = new HashSet<>();
+    private List<Project> projects;
 
     @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -69,7 +72,7 @@ public class User implements Serializable {
         this.password = password;
         this.email = email;
         this.position = position;
-        this.projects = projects;
+        this.projects = project;
     }
 
     public User(String login, String password) {
@@ -138,14 +141,14 @@ public class User implements Serializable {
     public void setPosition(Position position) {
         this.position = position;
     }
-
-    public Set<Project> getProjects() {
-        return projects;
-    }
-
-    public void setProjects(Set<Project> projects) {
-        this.projects = projects;
-    }
+//
+//    public List<Project> getProjects() {
+//        return projects;
+//    }
+//
+//    public void setProjects(List<Project> projects) {
+//        this.projects = projects;
+//    }
 
     public String getName() {
         return name;
@@ -203,11 +206,11 @@ public class User implements Serializable {
         this.position = posotion;
     }
 
-    public Set<Project> getProject() {
+    public List<Project> getProject() {
         return projects;
     }
 
-    public void setProject(Set<Project> projects) {
+    public void setProject(List<Project> projects) {
         this.projects = projects;
     }
 
