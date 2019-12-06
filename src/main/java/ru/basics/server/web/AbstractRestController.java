@@ -23,7 +23,6 @@ public abstract class AbstractRestController<T> {
 
     public abstract AbstractService getService();
     public abstract Logger getLogger();
-
     public abstract Class<T> getEntityClass();
 
 
@@ -67,23 +66,18 @@ public abstract class AbstractRestController<T> {
             getLogger().warn("Entity: {} not found in method /update", id);
             throw new EntityNotFoundException(id);
         }
+
         for (Map.Entry<String, Object> map : entity.entrySet()) {
             Field fielde = ReflectionUtils.findField(getEntityClass(), map.getKey());
             fielde.setAccessible(true);
-            ReflectionUtils.setField(fielde, e,
-                    map.getValue());
+            ReflectionUtils.setField(fielde, e, map.getValue());
         }
-
-//            entity.forEach((k, v) -> {
-//                Field field = ReflectionUtils.findField(getEntityClass(), k);
-//                ReflectionUtils.setField(field, e, k);
-//
-//            });
 
         getService().update(e);
         getLogger().info("Entity: {} successful updated", e);
         return new ResponseEntity<>(e, HttpStatus.OK);
     }
+
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<T> deleteById(@PathVariable Long id) {

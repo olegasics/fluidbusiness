@@ -42,14 +42,14 @@ public class Project implements Serializable {
     private List<Company> providers = new ArrayList<>();
 
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(name = "user_project",
             joinColumns = {@JoinColumn(name = "project_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")}
     )
     @LazyCollection(LazyCollectionOption.FALSE)
     @Fetch(FetchMode.SELECT)
-    private Set<User> team = new HashSet<User>();
+    private List<User> team = new ArrayList<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "project")
@@ -64,7 +64,7 @@ public class Project implements Serializable {
     public Project() {
     }
 
-    public Project(Set<User> team) {
+    public Project(List<User> team) {
         this.team = team;
     }
 
@@ -85,13 +85,12 @@ public class Project implements Serializable {
         this.id = id;
     }
 
-    public Set<User> getTeam() {
+    public List<User> getTeam() {
         return team;
     }
 
 
-
-    public void setTeam(Set<User> team) {
+    public void setTeam(List<User> team) {
         this.team = team;
     }
 

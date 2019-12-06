@@ -23,6 +23,7 @@ import ru.basics.server.service.WaybillService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/cargo-moves")
@@ -56,6 +57,19 @@ public class CargoMoveRestController extends AbstractRestController<CargoMove> {
         return CargoMove.class;
     }
 
+    /*
+    public ResponseEntity<CargoMove> update(Long id, @PathVariable CargoMove cargoMove) {
+        CargoMove cargoMoveTemp = cargoMoveService.findById(id);
+        if(cargoMove == null) {
+            getLogger().warn("Entity: {} not found in method /update", id);
+            throw new EntityNotFoundException(id);
+        }
+        getService().update(cargoMove);
+        getLogger().info("Entity: {} successful updated", cargoMove);
+        return new ResponseEntity<>(cargoMove, HttpStatus.OK);
+    }
+
+     */
 
     @RequestMapping(value = "/search/waybills/{id}", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

@@ -66,7 +66,6 @@ public abstract class AbstractDAO<T> implements Serializable {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.update(entity);
-            session.persist(entity);
             session.getTransaction().commit();
         }
         //return entity;

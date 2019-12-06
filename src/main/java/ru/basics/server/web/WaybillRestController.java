@@ -18,7 +18,6 @@ import ru.basics.server.repository.exceptions.EntityNotFoundException;
 import ru.basics.server.repository.exceptions.HibernateDBException;
 import ru.basics.server.service.AbstractService;
 import ru.basics.server.service.WaybillService;
-import sun.nio.cs.ext.MacCentralEurope;
 
 @RestController
 @RequestMapping(value = "/waybills")
