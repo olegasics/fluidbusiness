@@ -60,22 +60,25 @@ public abstract class AbstractRestController<T> {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<T> update(@PathVariable Long id, @RequestBody Map<String, Object> entity) {
+    public ResponseEntity<T> update(@PathVariable Long id, @RequestBody T t) {
         T e = (T) getService().findById(id);
+
         if (e == null) {
             getLogger().warn("Entity: {} not found in method /update", id);
             throw new EntityNotFoundException(id);
         }
-
+        /*
         for (Map.Entry<String, Object> map : entity.entrySet()) {
             Field fielde = ReflectionUtils.findField(getEntityClass(), map.getKey());
             fielde.setAccessible(true);
             ReflectionUtils.setField(fielde, e, map.getValue());
         }
 
-        getService().update(e);
-        getLogger().info("Entity: {} successful updated", e);
-        return new ResponseEntity<>(e, HttpStatus.OK);
+         */
+
+        getService().update(t);
+        getLogger().info("Entity: {} successful updated", t);
+        return new ResponseEntity<>(t, HttpStatus.OK);
     }
 
 
